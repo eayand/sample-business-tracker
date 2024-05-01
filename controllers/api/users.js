@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
+const Workspace = require('../../models/workspace')
 const bcrypt = require('bcrypt');
 
 module.exports = {
     create,
     login,
     checkToken,
+    index,
+    addWorkspace
 }
 
 async function create(req, res) {
@@ -40,6 +43,26 @@ async function login(req, res) {
 function checkToken(req, res) {
     console.log('req.user', req.user)
     res.json(req.exp)
+}
+
+async function index(req, res) {
+    try {
+        const users = await User.find({}).sort('lastName').exec()
+        res.json(users)
+    } catch {
+        res.status(400).json('Could not find users.')
+    }
+}
+
+async function addWorkspace(req, res) {
+    const user = await User.findById(req.body.userId)
+    user.workspace.push(req.body.workspaceId)
+    try {
+       await user.save()
+       res.json(user)
+    } catch {
+        res.status(400).json('Could not add to workspace.')
+    }
 }
 
 

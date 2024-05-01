@@ -5,7 +5,16 @@ const bcrypt = require('bcrypt')
 const SALT_ROUNDS = 6
 
 const userSchema = new Schema({
-    name: {type: String, required: true},
+    firstName: {
+        type: String, 
+        trim: true,
+        required: true,
+    },
+    lastName: {
+        type: String, 
+        trim: true,
+        required: true
+    },
     email: {
         type: String,
         unique: true,
@@ -19,6 +28,15 @@ const userSchema = new Schema({
         minLength: 3,
         required: true
     }, 
+    workspace: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Workspace'
+    }],
+    role: {
+        type: String,
+        enum: ['admin', 'employee', 'broker'], 
+        default: 'employee'
+      },
 },
 {
     timestamps: true,
@@ -27,10 +45,15 @@ const userSchema = new Schema({
         transform: function(doc, ret) {
         delete ret.password;
         return ret;
-        }
+        },
+        virtuals: true
     }
 });
   
+
+userSchema.virtual('name').get(function () {
+    return this.firstName.concat(' ', this.lastName)
+})
 
 userSchema.pre('save', async function(next) {
     // 'this' is the user doc
@@ -39,5 +62,7 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
     return next();
   });
+
+
   
   module.exports = mongoose.model('User', userSchema);

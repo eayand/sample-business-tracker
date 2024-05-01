@@ -1,6 +1,5 @@
-// LoginForm.jsx
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as usersService from '../../utilities/users-service';
 
 export default function LoginForm({ setUser }) {
@@ -9,6 +8,7 @@ export default function LoginForm({ setUser }) {
     password: ''
   });
   const [error, setError] = useState('');
+  const navigate = useNavigate()
 
   function handleChange(evt) {
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
@@ -24,8 +24,9 @@ export default function LoginForm({ setUser }) {
       // payload of the JSON Web Token (JWT)
       const user = await usersService.login(credentials);
       setUser(user);
+
     } catch {
-      setError('Log In Failed - Try Again');
+      setError("Could Not Log In. Please Try Again or Sign Up.");
     }
   }
 
@@ -33,11 +34,11 @@ export default function LoginForm({ setUser }) {
     <div>
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
+          <label className="align-rt">Email</label>
           <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-          <label>Password</label>
+          <label className="align-rt">Password</label>
           <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-          <button type="submit">LOG IN</button>
+          <div></div><button type="submit">LOG IN</button>
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>

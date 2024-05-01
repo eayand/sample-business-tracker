@@ -12,3 +12,11 @@ export async function login(credentials) {
 export function checkToken() {
     return sendRequest(`${BASE_URL}/check-token`)
 }
+
+export async function listUsers() {
+    return sendRequest(BASE_URL, 'GET');
+  }
+
+export async function addWorkspace(form) {
+    return sendRequest(`${BASE_URL}/add-workspace`, 'POST', form)
+}

@@ -4,7 +4,8 @@ import { signUp } from "../../utilities/users-service";
 //class based ones accept props automatically, so we don't have to specifically pass down the setUser function, but we have to refer to it as this.props.setUser
 export default class signUpForm extends Component {
     state = {
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         confirm: '',
@@ -42,15 +43,17 @@ export default class signUpForm extends Component {
             <div>
                 <div className="form-container">
                     <form autoComplete="off" onSubmit={this.handleSubmit}>
-                        <label>Name</label>
-                        <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
-                        <label>Email</label>
+                        <label className="align-rt">First Name</label>
+                        <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} required />
+                        <label className="align-rt">Last Name</label>
+                        <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} required />
+                        <label className="align-rt">Email</label>
                         <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
-                        <label>Password</label>
+                        <label className="align-rt">Password</label>
                         <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
-                        <label>Confirm</label>
+                        <label className="align-rt">Confirm</label>
                         <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
-                        <button type="submit" disabled={disable}>SIGN UP</button>
+                        <div></div><button type="submit" disabled={disable}>SIGN UP</button>
                     </form>
                 </div>
                 <p className="error-message">&nbsp;{this.state.error}</p>

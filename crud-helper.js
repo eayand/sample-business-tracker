@@ -4,13 +4,14 @@ require('./config/database');
 
 // Require the Mongoose models
 const User = require('./models/user');
+const Workspace = require('./models/workspace')
 // const Item = require('./models/item');
 // const Category = require('./models/category');
 // const Order = require('./models/order');
 
 // Local variables will come in handy for holding retrieved documents
-let user, item, category, order;
-let users, items, categories, orders;
+let user, item, category, order, workspace;
+let users, items, categories, orders, workspaces;
 
 //uncomment the models above when needed and use the .load crud-helper.js command in the terminal to test models without having to enter all their info in the terminal
 //The models and variables will be different for other
