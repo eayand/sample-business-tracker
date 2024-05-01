@@ -5,6 +5,8 @@ import HomePage from '../HomePage/HomePage';
 import AdminPage from '../AdminPage/AdminPage';
 import WorkspaceDetailPage from '../WorkspaceDetailPage/WorkspaceDetailPage';
 import CustomerListPage from '../CustomerListPage/CustomerListPage';
+import CustomerCreatePage from "../../pages/CustomerCreatePage/CustomerCreatePage"
+import CustomerDetailPage from '../CustomerDetailPage/CustomerDetailPage';
 import BrokerListPage from '../BrokerListPage/BrokerListPage';
 import NavBar from '../../components/NavBar/NavBar';
 import { useState } from 'react';
@@ -22,8 +24,10 @@ export default function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/admin' element={<AdminPage/>}/>
         <Route path='/workspaces/:id' element={<WorkspaceDetailPage/>}/>
-        <Route path ='/brokers' element={<BrokerListPage/>} />
-        <Route path='/customers' element={<CustomerListPage/>}/>
+        <Route path ='/brokers' element={<BrokerListPage user={user}/>} />
+        <Route path='/customers' element={<CustomerListPage user={user}/>}/>
+        <Route path='/customers/new' element={<CustomerCreatePage user={user}/>} ></Route>
+        <Route path='/customers/:id' element={<CustomerDetailPage user={user}/>} ></Route>
       </Routes> </>
         : 
         < AuthPage setUser={setUser}/>}

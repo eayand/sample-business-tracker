@@ -41,7 +41,8 @@ const customerSchema = new Schema({
     }],
     workspace: {
         type: Schema.Types.ObjectId, 
-        ref: 'Workspace'
+        ref: 'Workspace',
+        required: true,
     }
 },
 {
