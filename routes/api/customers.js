@@ -11,5 +11,7 @@ router.post('/create', ensureLoggedIn, customersCtrl.create)
 
 router.put('/:id', ensureLoggedIn, customersCtrl.update)
 
+router.delete('/:id/delete', ensureLoggedIn, customersCtrl.delete)
+
 
 module.exports = router;

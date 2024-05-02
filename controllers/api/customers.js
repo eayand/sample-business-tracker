@@ -5,6 +5,7 @@ module.exports = {
     index, 
     show,
     update,
+    delete: deleteCustomer,
 }
 
 async function create(req, res) {
@@ -43,5 +44,16 @@ async function update(req, res) {
         res.json(customer)
     } catch {
         res.status(400).json('Could not update customer.')
+    }
+}
+
+async function deleteCustomer(req, res) {
+    const customer = await Customer.findById(req.params.id)
+    console.log('in delete function')
+    try {
+        await customer.deleteOne()
+        res.json('Deleted')
+    } catch {
+        res.status(400).json('Could not delete customer.')
     }
 }

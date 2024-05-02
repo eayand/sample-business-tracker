@@ -17,3 +17,7 @@ export async function customerDetail(id) {
 export async function updateCustomer(id, form) {
   return sendRequest(`${BASE_URL}/${id}`, 'PUT', form);
 }
+
+export async function deleteCustomer(id) {
+  return sendRequest(`${BASE_URL}/${id}/delete`, 'DELETE');
+}

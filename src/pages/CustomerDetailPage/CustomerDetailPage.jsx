@@ -1,14 +1,16 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import * as customersAPI from '../../utilities/customers-api'
 
 export default function CustomerDetailPage() {
 
+    const navigate = useNavigate()
     const {id} = useParams()
     const [customer, setCustomer] = useState({})
     const [edit, setEdit] = useState(false)
+    const [preDelete, setPreDelete] = useState(false)
 
-//////// only used in edit mode //////////
+//vvvvvvvvvvv only used in edit mode vvvvvvvvvv
     const [form, setForm] = useState({
         name: undefined,
         website: undefined,
@@ -22,7 +24,7 @@ export default function CustomerDetailPage() {
         accountManager: undefined,
         broker: undefined,
     })
-/////////////////////////////////
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
     useEffect(function() {
@@ -34,8 +36,8 @@ export default function CustomerDetailPage() {
         setEdit(!edit)
     }
 
-    
-/////// only used in edit mode ///////////////////
+
+//vvvvvvvvvvv only used in edit mode vvvvvvvvvv
     useEffect(function() {
         setForm(customer)
     }, [customer])
@@ -54,7 +56,16 @@ export default function CustomerDetailPage() {
         await customersAPI.updateCustomer(id, form)
         toggleEdit()
     }
-//////////////////////////////////////////////////
+
+    const togglePreDelete = () => {
+        setPreDelete(!preDelete)
+    }
+
+    async function handleDeleteCustomer() {
+        await customersAPI.deleteCustomer(id)
+        navigate('/customers')
+    }
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
     return (
@@ -105,6 +116,24 @@ export default function CustomerDetailPage() {
                 <input name="broker" value={form.broker} onChange={handleChange} />
     
             </form>
+
+             { 
+                preDelete ? 
+                    <>
+                        <div>
+                            <p>Are you sure you want to delete {customer.name}?</p>
+                            <button onClick={togglePreDelete}>Cancel</button>
+                            <button onClick={handleDeleteCustomer}>Delete</button>
+                        </div>
+                    </>
+                : 
+                    <>
+                        <div>
+                            <button onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
+                        </div>
+                    </>
+                }
+
         </>
 
 
@@ -119,7 +148,7 @@ export default function CustomerDetailPage() {
             <p>{customer.tax}</p>
             <p>{customer.address}</p>
             <p>{customer.joined}</p>
-            {/* <p>{customer.renewal}</p> */}
+            <p>{customer.renewal}</p>
             <h3>Financial</h3>
             <p>{customer.commission1}</p>
             <p>{customer.commission2}</p>
@@ -131,17 +160,3 @@ export default function CustomerDetailPage() {
         </>
     )
 }
-
-
-// { 
-//     edit ? 
-//         <>
-//             elements
-//             elements
-//         </>
-//     : 
-//         <>
-//             elements
-//             elements
-//         </>
-// }
