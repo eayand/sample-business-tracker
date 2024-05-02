@@ -49,7 +49,6 @@ async function update(req, res) {
 
 async function deleteCustomer(req, res) {
     const customer = await Customer.findById(req.params.id)
-    console.log('in delete function')
     try {
         await customer.deleteOne()
         res.json('Deleted')

@@ -5,6 +5,7 @@ module.exports = {
     index, 
     show,
     update,
+    delete: deleteBroker,
 }
 
 async function create(req, res) {
@@ -38,5 +39,15 @@ async function update(req, res) {
         res.json(customer)
     } catch {
         res.status(400).json('Could not update broker.')
+    }
+}
+
+async function deleteBroker(req, res) {
+    const broker = await Broker.findById(req.params.id)
+    try {
+        await broker.deleteOne()
+        res.json('Deleted')
+    } catch {
+        res.status(400).json('Could not delete broker.')
     }
 }

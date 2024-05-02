@@ -17,3 +17,7 @@ export async function brokerDetail(id) {
 export async function updateBroker(id, form) {
   return sendRequest(`${BASE_URL}/${id}`, 'PUT', form);
 }
+
+export async function deleteBroker(id) {
+  return sendRequest(`${BASE_URL}/${id}/delete`, 'DELETE');
+}
