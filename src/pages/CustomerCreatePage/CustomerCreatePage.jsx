@@ -27,9 +27,9 @@ export default function CustomerCreatePage({user}) {
         setForm(newFormData)
     }
 
-    async function handleSaveCustomer(event) {
+    async function handleCreateCustomer(event) {
         event.preventDefault()
-        await customersAPI.saveCustomer(form)
+        await customersAPI.createCustomer(form)
         navigate('/customers')
     }
 
@@ -73,7 +73,7 @@ export default function CustomerCreatePage({user}) {
             <input name="broker" value={form.broker} onChange={handleChange} />
      
         <div >
-            <button type="submit" onClick={handleSaveCustomer}>Create</button>
+            <button type="submit" onClick={handleCreateCustomer}>Create</button>
         </div>
     </form>
     )

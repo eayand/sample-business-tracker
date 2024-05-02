@@ -2,7 +2,7 @@ import sendRequest from "./send-request"
 
 const BASE_URL = '/api/customers';
 
-export async function saveCustomer(form) {
+export async function createCustomer(form) {
   return sendRequest(`${BASE_URL}/create`, 'POST', form)
 }
 
@@ -12,4 +12,8 @@ export async function listCustomers() {
 
 export async function customerDetail(id) {
   return sendRequest(`${BASE_URL}/${id}`, 'GET');
+}
+
+export async function updateCustomer(id, form) {
+  return sendRequest(`${BASE_URL}/${id}`, 'PUT', form);
 }

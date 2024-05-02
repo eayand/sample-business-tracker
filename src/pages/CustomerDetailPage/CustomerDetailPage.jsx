@@ -10,7 +10,6 @@ export default function CustomerDetailPage() {
 
 //////// only used in edit mode //////////
     const [form, setForm] = useState({
-        // workspace: user.workspace[0], MOVE THIS TO THE NAME ONLY FORM ON LIST PAGE
         name: undefined,
         website: undefined,
         phone: undefined,
@@ -48,9 +47,9 @@ export default function CustomerDetailPage() {
         setForm(newFormData)
     }
 
-    async function handleSaveCustomer(event) {
+    async function handleUpdateCustomer(event) {
         event.preventDefault()
-        await customersAPI.saveCustomer(form)
+        await customersAPI.updateCustomer(id, form)
         toggleEdit()
     }
 //////////////////////////////////////////////////
@@ -65,7 +64,7 @@ export default function CustomerDetailPage() {
 
             <div className="flex-j-end">
                 <button onClick={toggleEdit}>Cancel</button>
-                <button type="submit" onClick={handleSaveCustomer}>Save</button>
+                <button type="submit" onClick={handleUpdateCustomer}>Save</button>
             </div>
 
             <form className="big-form">
