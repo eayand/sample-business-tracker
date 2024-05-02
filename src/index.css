@@ -176,6 +176,7 @@ table td {
 }
 
 .flex-j-end {
+  display: flex;
   justify-content: flex-end;
 }
 
@@ -197,7 +198,4 @@ table td {
     margin-right: -10vw;
   }
 }
-
-
-
 

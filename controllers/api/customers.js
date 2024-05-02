@@ -11,7 +11,7 @@ async function create(req, res) {
         const customer = await Customer.create(req.body)
         res.json(customer)
     } catch {
-
+        res.status(400).json('Could not save customer.')
     }
 }
 
