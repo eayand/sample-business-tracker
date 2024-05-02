@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as customersAPI from '../../utilities/customers-api'
-import CustomerCreatePage from "../../pages/CustomerCreatePage/CustomerCreatePage"
 import CustomerList from "../../components/CustomerList/CustomerList";
 
 

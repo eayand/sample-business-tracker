@@ -9,5 +9,6 @@ router.get('/:id', ensureLoggedIn, brokersCtrl.show)
 
 router.post('/create', ensureLoggedIn, brokersCtrl.create)
 
+router.put('/:id', ensureLoggedIn, brokersCtrl.update)
 
 module.exports = router;

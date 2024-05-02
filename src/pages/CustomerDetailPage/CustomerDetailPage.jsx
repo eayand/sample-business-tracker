@@ -29,10 +29,12 @@ export default function CustomerDetailPage() {
         (async () => setCustomer(await customersAPI.customerDetail(id)))();
     }, [])
     
+
     const toggleEdit = () => {
         setEdit(!edit)
     }
 
+    
 /////// only used in edit mode ///////////////////
     useEffect(function() {
         setForm(customer)
