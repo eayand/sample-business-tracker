@@ -72,7 +72,7 @@ export default function CustomerDetailPage() {
         <>
             <div className="margin-b">
                 <h2>Brokers:</h2>
-                <BrokerCardContainer customer={customer} id={id}/>
+                <BrokerCardContainer customer={customer} id={id} handleChange={handleChange} />
             </div>
         <h1>{customer.name}</h1>
         { 

@@ -1,10 +1,12 @@
 const Customer = require('../../models/customer')
+const Broker = require('../../models/broker')
 
 module.exports = {
     create,
     index, 
     show,
     update,
+    associateBroker,
     delete: deleteCustomer,
 }
 
@@ -39,11 +41,24 @@ async function update(req, res) {
         customer.commission1 = req.body.commission1
         customer.commission2 = req.body.commission2
         customer.accountManager = req.body.accountManager
-        customer.broker = customer.broker.push(req.body.broker)
-        customer.save()
+        await customer.save()
         res.json(customer)
     } catch {
         res.status(400).json('Could not update customer.')
+    }
+}
+
+async function associateBroker(req, res) {
+    const customer = await Customer.findById(req.params.id)
+    const newbroker = await Broker.findById(req.body.broker)
+    console.log('newbroker: ', newbroker)
+    try {
+        customer.broker.push(newbroker)
+        await customer.save()
+        res.json(customer)
+    } catch(err) {
+        console.log(err)
+        res.status(400).json('Could not add broker to customer.')
     }
 }
 
