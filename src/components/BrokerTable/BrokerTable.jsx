@@ -1,7 +1,7 @@
-import CustomerRow from "../CustomerRow/CustomerRow"
+import BrokerRow from "../BrokerRow/BrokerRow"
 
-export default function CustomerList({customers}) {
-    const customerList = customers.map((customer) => <CustomerRow customer={customer} key={customer._id}/>)
+export default function BrokerTable({brokers}) {
+    const brokerTable = brokers.map((broker) => <BrokerRow broker={broker} key={broker._id}/>)
     return (
         <table>
             <thead>
@@ -11,7 +11,7 @@ export default function CustomerList({customers}) {
                     <th>Phone</th>
                 </tr>
             </thead>
-            <tbody>{customerList}</tbody>
+            <tbody>{brokerTable}</tbody>
         </table>
     )
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as brokersAPI from '../../utilities/brokers-api';
-import BrokerList from "../../components/BrokerList/BrokerList";
+import BrokerTable from "../../components/BrokerTable/BrokerTable";
 
 
 export default function BrokerListPage({user}) {
@@ -40,7 +40,7 @@ export default function BrokerListPage({user}) {
         </h1>
         
         <div className="chart-container">
-            <BrokerList brokers={brokers}/>
+            <BrokerTable brokers={brokers}/>
         </div>
    
         </>

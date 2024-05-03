@@ -148,7 +148,6 @@ table td {
 
 
 
-
 .align-ctr {
   text-align: center;
 }
@@ -191,6 +190,9 @@ table td {
   text-align: center;
 }
 
+.margin-b {
+  margin-bottom: 2vh;
+}
 
 @media (min-width: 900px) {
   .chart-container {

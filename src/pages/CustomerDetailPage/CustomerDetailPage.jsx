@@ -1,12 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import * as customersAPI from '../../utilities/customers-api'
+import BrokerCardContainer from "../../components/BrokerCardContainer/BrokerCardContainer"
 
 export default function CustomerDetailPage() {
 
     const navigate = useNavigate()
     const {id} = useParams()
-    const [customer, setCustomer] = useState({})
+    const [customer, setCustomer] = useState(null)
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
 
@@ -22,7 +23,6 @@ export default function CustomerDetailPage() {
         commission1: undefined,
         commission2: undefined,
         accountManager: undefined,
-        broker: undefined,
     })
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -67,9 +67,13 @@ export default function CustomerDetailPage() {
     }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
-    return (
+//question mark after customer means only load if it's truthy; this is why customer's initial state needs to be null and not an empty object; it will wait to load this page until customer is available, which allows all the child components to work
+    return customer ? (
         <>
+            <div className="margin-b">
+                <h2>Brokers:</h2>
+                <BrokerCardContainer customer={customer} id={id}/>
+            </div>
         <h1>{customer.name}</h1>
         { 
         edit ? 
@@ -111,9 +115,6 @@ export default function CustomerDetailPage() {
 
                 <label>Account Manager</label>
                 <input name="accountManager" value={form.accountManager} onChange={handleChange} />
-
-                <label>Broker</label>
-                <input name="broker" value={form.broker} onChange={handleChange} />
     
             </form>
 
@@ -153,10 +154,10 @@ export default function CustomerDetailPage() {
             <p>{customer.commission1}</p>
             <p>{customer.commission2}</p>
             <p>{customer.accountManager}</p>
-            <p>{customer.broker}</p>
             <h3>Benefit Plans</h3>
         </>  
         }
         </>
-    )
-}
+    ) : null
+    // : null is the option if the customer isn't available yet. It makes the page stay blank until then. You could have a loading screen here instead.
+}  

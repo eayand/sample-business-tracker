@@ -23,7 +23,7 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-    const customer = await Customer.findById(req.params.id)
+    const customer = await Customer.findById(req.params.id).populate('broker')
     res.json(customer)
 }
 
@@ -39,7 +39,7 @@ async function update(req, res) {
         customer.commission1 = req.body.commission1
         customer.commission2 = req.body.commission2
         customer.accountManager = req.body.accountManager
-        customer.broker = req.body.broker
+        customer.broker = customer.broker.push(req.body.broker)
         customer.save()
         res.json(customer)
     } catch {

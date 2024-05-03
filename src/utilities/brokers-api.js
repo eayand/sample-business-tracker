@@ -10,6 +10,10 @@ export async function listBrokers() {
   return sendRequest(BASE_URL, 'GET');
 }
 
+export async function notAssocBrokers(id) {
+  return sendRequest(`${BASE_URL}/no-ref/${id}`, 'GET');
+}
+
 export async function brokerDetail(id) {
   return sendRequest(`${BASE_URL}/${id}`, 'GET');
 }

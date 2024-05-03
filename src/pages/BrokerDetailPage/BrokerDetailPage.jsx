@@ -62,7 +62,7 @@ export default function BrokerDetailPage() {
 
 //////////////////////////////////////////////////
 
-    return (
+    return broker ? (
         <>
         <h1>{broker.name}</h1>
         { 
@@ -126,5 +126,5 @@ export default function BrokerDetailPage() {
         </>  
         }
         </>
-    )
+    ) : null
 }

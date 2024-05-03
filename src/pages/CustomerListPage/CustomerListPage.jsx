@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as customersAPI from '../../utilities/customers-api'
-import CustomerList from "../../components/CustomerList/CustomerList";
+import CustomerTable from "../../components/CustomerTable/CustomerTable";
 
 
 export default function CustomerListPage({user}) {
@@ -39,7 +39,7 @@ export default function CustomerListPage({user}) {
         </h1>
         
         <div className="chart-container">
-            <CustomerList customers={customers}/>
+            <CustomerTable customers={customers}/>
         </div>
    
         </>

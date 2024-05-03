@@ -1,8 +1,10 @@
 const Broker = require('../../models/broker')
+const Customer = require('../../models/customer')
 
 module.exports = {
     create,
     index, 
+    getNotAssociated,
     show,
     update,
     delete: deleteBroker,
@@ -22,21 +24,27 @@ async function index(req, res) {
     res.json(brokers);
 }
 
-
 async function show(req, res) {
     const broker = await Broker.findById(req.params.id);
     res.json(broker);
 }
 
+async function getNotAssociated(req, res) {
+    const customer = await Customer.findById(req.params.id)
+    const brokers = await Broker.find({ workspace: customer.workspace, _id: {$nin: customer.broker}}).sort('name')
+    res.json(brokers)
+}
+
 async function update(req, res) {
     const broker = await Broker.findById(req.params.id)
     try {
+        broker.name = req.body.name
         broker.website = req.body.website
         broker.phone = req.body.phone
         broker.tax = req.body.tax
         broker.address = req.body.address
-        broker.save()
-        res.json(customer)
+        await broker.save()
+        res.json(broker)
     } catch {
         res.status(400).json('Could not update broker.')
     }
