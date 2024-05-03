@@ -7,6 +7,7 @@ module.exports = {
     show,
     update,
     associateBroker,
+    removeBroker,
     delete: deleteCustomer,
 }
 
@@ -50,15 +51,26 @@ async function update(req, res) {
 
 async function associateBroker(req, res) {
     const customer = await Customer.findById(req.params.id)
-    const newbroker = await Broker.findById(req.body.broker)
-    console.log('newbroker: ', newbroker)
+    const broker = await Broker.findById(req.body.broker)
     try {
-        customer.broker.push(newbroker)
+        customer.broker.push(broker)
         await customer.save()
         res.json(customer)
-    } catch(err) {
-        console.log(err)
+    } catch(error) {
+        console.log(error)
         res.status(400).json('Could not add broker to customer.')
+    }
+}
+
+async function removeBroker(req, res) {
+    const customer = await Customer.findById(req.params.id)
+    const broker = await Broker.findById(req.body.broker)
+    const brokerRef = customer.broker.indexOf(broker)
+    try {
+        customer.broker.splice(brokerRef, 1)
+        await customer.save()
+    } catch {
+        res.status(400).json('Could not remove broker from customer.')
     }
 }
 

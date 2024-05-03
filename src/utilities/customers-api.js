@@ -15,13 +15,15 @@ export async function customerDetail(id) {
 }
 
 export async function updateCustomer(id, form) {
-  console.log('id, form ', id, form)
   return sendRequest(`${BASE_URL}/${id}`, 'PUT', form);
 }
 
-export async function associateBroker(id, form) {
-  console.log('id, form ', id, form)
-  return sendRequest(`${BASE_URL}/assoc/${id}`, 'PUT', form);
+export async function associateBroker(id, broker) {
+  return sendRequest(`${BASE_URL}/assoc/${id}`, 'PUT', broker);
+}
+
+export async function removeBroker(id, broker) {
+  return sendRequest(`${BASE_URL}/remove/${id}`, 'PUT', broker);
 }
 
 export async function deleteCustomer(id) {

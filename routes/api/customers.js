@@ -11,6 +11,7 @@ router.post('/create', ensureLoggedIn, customersCtrl.create)
 
 router.put('/:id', ensureLoggedIn, customersCtrl.update)
 router.put('/assoc/:id', ensureLoggedIn, customersCtrl.associateBroker)
+router.put('/remove/:id', ensureLoggedIn, customersCtrl.removeBroker)
 
 router.delete('/:id/delete', ensureLoggedIn, customersCtrl.delete)
 

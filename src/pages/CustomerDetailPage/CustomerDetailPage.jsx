@@ -130,7 +130,7 @@ export default function CustomerDetailPage() {
                 : 
                     <>
                         <div>
-                            <button onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
+                            <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
                         </div>
                     </>
                 }

@@ -32,6 +32,7 @@ export default function BrokerSelect({customer, id, handleChange}) {
         <>
         <form className="margin-b">
             <select name={"broker"} value={form.broker} onChange={handleChange}>
+                <option value=""></option>
                 {dropdown}
             </select>
             <button onClick={handleAssociateBroker}>Add Broker</button>

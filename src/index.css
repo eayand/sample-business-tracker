@@ -146,6 +146,17 @@ table td {
   text-align: right; */
 }
 
+.pre-delete {
+  background-color: white;
+  color: #953b3b;
+  border-color: #953b3b;
+}
+
+.card {
+  border: 1px solid var(--text-dark);
+  display: flex;
+  padding: .5vmin;
+}
 
 
 .align-ctr {
