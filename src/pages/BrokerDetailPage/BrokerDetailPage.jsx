@@ -1,12 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import * as brokersAPI from '../../utilities/brokers-api'
+import CustomerCardContainer from "../../components/CustomerCardContainer/CustomerCardContainer"
 
 export default function BrokerDetailPage() {
 
     const navigate = useNavigate()
     const {id} = useParams()
-    const [broker, setBroker] = useState({})
+    const [broker, setBroker] = useState(null)
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
 
@@ -65,6 +66,12 @@ export default function BrokerDetailPage() {
     return broker ? (
         <>
         <h1>{broker.name}</h1>
+
+        <div className="margin-b">
+                <h2>Customers:</h2>
+                <CustomerCardContainer broker={broker} id={id} handleChange={handleChange} />
+            </div>
+            
         { 
         edit ? 
         <>
@@ -105,7 +112,7 @@ export default function BrokerDetailPage() {
                 : 
                     <>
                         <div>
-                            <button onClick={togglePreDelete}>DELETE THIS BROKER</button>
+                            <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS BROKER</button>
                         </div>
                     </>
                 }

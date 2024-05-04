@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Broker = require('../../models/broker')
 const Customer = require('../../models/customer')
 
@@ -8,6 +9,7 @@ module.exports = {
     show,
     update,
     delete: deleteBroker,
+    getCustomers,
 }
 
 async function create(req, res) {
@@ -58,4 +60,10 @@ async function deleteBroker(req, res) {
     } catch {
         res.status(400).json('Could not delete broker.')
     }
+}
+
+async function getCustomers(req, res) {
+    const customers = await Customer.find({broker: new mongoose.Types.ObjectId(req.params.id)})
+    console.log('CONTROLLER GETCUSTOMERS !!!!!!!!!!', customers)
+    res.json(customers)
 }

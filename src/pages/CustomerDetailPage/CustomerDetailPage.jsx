@@ -70,11 +70,13 @@ export default function CustomerDetailPage() {
 //question mark after customer means only load if it's truthy; this is why customer's initial state needs to be null and not an empty object; it will wait to load this page until customer is available, which allows all the child components to work
     return customer ? (
         <>
+        <h1>{customer.name}</h1>
+
             <div className="margin-b">
                 <h2>Brokers:</h2>
                 <BrokerCardContainer customer={customer} id={id} handleChange={handleChange} />
             </div>
-        <h1>{customer.name}</h1>
+            
         { 
         edit ? 
         <>

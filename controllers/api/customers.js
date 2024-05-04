@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Customer = require('../../models/customer')
 const Broker = require('../../models/broker')
 
@@ -5,9 +6,11 @@ module.exports = {
     create,
     index, 
     show,
+    getNotAssociated,
     update,
     associateBroker,
     removeBroker,
+    removeFromBroker,
     delete: deleteCustomer,
 }
 
@@ -28,6 +31,12 @@ async function index(req, res) {
 async function show(req, res) {
     const customer = await Customer.findById(req.params.id).populate('broker')
     res.json(customer)
+}
+
+async function getNotAssociated(req, res) {
+    const id = req.params.id
+    const customers = await Customer.find( { broker: { $ne: id }  } )
+    res.json(customers)
 }
 
 async function update(req, res) {
@@ -71,6 +80,18 @@ async function removeBroker(req, res) {
         await customer.save()
     } catch {
         res.status(400).json('Could not remove broker from customer.')
+    }
+}
+
+async function removeFromBroker(req, res) {
+    const customer = await Customer.findById(req.body.customer)
+    const broker = await Broker.findById(req.params.id)
+    const brokerRef = customer.broker.indexOf(broker)
+    try {
+        customer.broker.splice(brokerRef, 1)
+        await customer.save()
+    } catch {
+        res.status(400).json('Could not remove customer from broker.')
     }
 }
 
