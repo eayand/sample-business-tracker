@@ -42,7 +42,7 @@ export default class signUpForm extends Component {
         return (
             <div>
                 <div className="form-container">
-                    <form autoComplete="off" onSubmit={this.handleSubmit}>
+                    <form autoComplete="off" onSubmit={this.handleSubmit} className='grid-form'>
                         <label className="align-rt">First Name</label>
                         <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} required />
                         <label className="align-rt">Last Name</label>

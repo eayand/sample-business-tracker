@@ -34,7 +34,7 @@ export default function CustomerSelect({broker, id, customers}) {
                 <option value=""></option>
                 {dropdown}
             </select>
-            <button onClick={handleAssociateCustomer}>Add Broker</button>
+            <button onClick={handleAssociateCustomer}>Add Customer</button>
         </form>
         </>
     )

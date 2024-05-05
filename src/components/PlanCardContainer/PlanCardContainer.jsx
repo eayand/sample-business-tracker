@@ -55,13 +55,9 @@ export default function PlanCardContainer({customer, id}) {
             </select>
             <button type="submit" onClick={direct}>Create Plan</button>
         </form>
-        <div>
+        <div className="flex-even">
             {planACards}
         </div>
         </>
     )
 }
-
-
-
-

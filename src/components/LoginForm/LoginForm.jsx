@@ -33,7 +33,7 @@ export default function LoginForm({ setUser }) {
   return (
     <div>
       <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={handleSubmit} className='grid-form'>
           <label className="align-rt">Email</label>
           <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
           <label className="align-rt">Password</label>

@@ -70,7 +70,7 @@ export default function CustomerDetailPage() {
 
 //question mark after customer means only load if it's truthy; this is why customer's initial state needs to be null and not an empty object; it will wait to load this page until customer is available, which allows all the child components to work
     return customer ? (
-        <>
+        <div className="detail-body">
         <h1>{customer.name}</h1>
 
 
@@ -78,12 +78,6 @@ export default function CustomerDetailPage() {
         { 
         edit ? 
         <>
-
-            <div className="flex-j-end">
-                <button onClick={toggleEdit}>Cancel</button>
-                <button type="submit" onClick={handleUpdateCustomer}>Save</button>
-            </div>
-
             <form className="big-form">
 
                 <label>Name of Company</label>
@@ -132,59 +126,84 @@ export default function CustomerDetailPage() {
     
             </form>
 
-             { 
-                preDelete ? 
+            <div className="edit-controls">
+                <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
+                <button onClick={toggleEdit}>CANCEL</button>
+                { 
+                    preDelete ? 
                     <>
-                        <div>
-                            <p>Are you sure you want to delete {customer.name}?</p>
-                            <button onClick={togglePreDelete}>Cancel</button>
-                            <button onClick={handleDeleteCustomer}>Delete</button>
-                        </div>
+                                <p>Are you sure you want to delete {customer.name}?</p>
+                                <button onClick={togglePreDelete}>Cancel</button>
+                                <button onClick={handleDeleteCustomer}>Delete</button>
                     </>
                 : 
                     <>
-                        <div>
+                            
                             <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
-                        </div>
                     </>
                 }
+            </div>
 
         </>
 
 
         : 
         <>
-            <div className="flex-j-end">
-                <button onClick={toggleEdit}>Edit Mode</button>
+            <div className="flex-j-end full-width relative">
+                <button onClick={toggleEdit} className="detail-edit-button">Edit Mode</button>
             </div>      
 
-            <div className="margin-b outline">
-                <h2>Brokers:</h2>
-                <BrokerCardContainer customer={customer} id={id} />
+
+            <div className="detail-section db-left">
+                <div className="title-3">
+                    <h3>Basic Info</h3>
+                </div>
+                <label>Account Manager</label>
+                <p>{customer.accountManager}</p>
+                <label>Website</label>
+                <p>{customer.website}</p>
+                <label>Primary Phone Number</label>
+                <p>{customer.phone}</p>
+                <label>Tax ID</label>
+                <p>{customer.tax}</p>
+                <label>Address</label>
+                <p>{customer.address}</p>
+                <label>Joined</label>
+                <p>{customer.joined}</p>
+                <label>Renewal</label>
+                <p>{customer.renewal}</p>
             </div>
 
-            <div className="margin-b outline">
-                <h2>Plans:</h2>
+
+            <div className="db-right">
+                <div className="detail-section full-width">
+                    <div className="title-3">
+                        <h3>Financial</h3>
+                    </div>
+                    <label>Commission 1</label>
+                    <p>{customer.commission1}</p>
+                    <label>Commission 2</label>
+                    <p>{customer.commission2}</p>
+                </div>
+
+                <div className="detail-section">
+                    <div className="title-3">
+                        <h3>Brokers</h3>
+                    </div>
+                    <BrokerCardContainer customer={customer} id={id} />
+                </div>
+            </div>
+
+            <div className="detail-section db-bottom">
+                <div className="title-3">
+                    <h3>Benefit Plans</h3>
+                </div>
                 <PlanCardContainer customer={customer} id={id} handleChange={handleChange} />
             </div>
 
-
-
-            <h3>Contact</h3>
-            <p>{customer.website}</p>
-            <p>{customer.phone}</p>
-            <p>{customer.tax}</p>
-            <p>{customer.address}</p>
-            <p>{customer.joined}</p>
-            <p>{customer.renewal}</p>
-            <h3>Financial</h3>
-            <p>{customer.commission1}</p>
-            <p>{customer.commission2}</p>
-            <p>{customer.accountManager}</p>
-            <h3>Benefit Plans</h3>
         </>  
         }
-        </>
+        </div>
     ) : null
     // : null is the option if the customer isn't available yet. It makes the page stay blank until then. You could have a loading screen here instead.
 }  

@@ -9,6 +9,7 @@ module.exports = {
     getNotAssociated,
     update,
     associateBroker,
+    associateWithBroker,
     removeBroker,
     removeFromBroker,
     delete: deleteCustomer,
@@ -68,6 +69,19 @@ async function associateBroker(req, res) {
     } catch(error) {
         console.log(error)
         res.status(400).json('Could not add broker to customer.')
+    }
+}
+
+async function associateWithBroker(req, res) {
+    const customer = await Customer.findById(req.body.customer)
+    const broker = await Broker.findById(req.params.id)
+    try {
+        customer.broker.push(broker)
+        await customer.save()
+        res.json(customer)
+    } catch(error) {
+        console.log(error)
+        res.status(400).json('Could not add customer to broker.')
     }
 }
 
