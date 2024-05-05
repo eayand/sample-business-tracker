@@ -9,6 +9,7 @@ const planASchema = new Schema({
     },
     amount: Number,
     system: {
+        type: String,
         enum: ['', 'Legacy', 'Millenium']
     },
     benefitCategories: {
@@ -35,6 +36,10 @@ const planASchema = new Schema({
         virtuals: true
     }
 });
+
+planASchema.virtual('type').get(function () {
+    return 'Type A'
+})
 
 
 module.exports = mongoose.model('PlanA', planASchema);

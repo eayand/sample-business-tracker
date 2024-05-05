@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import * as customersAPI from '../../utilities/customers-api'
 
 export default function CustomerCard({id, customer}) {
@@ -8,7 +9,7 @@ export default function CustomerCard({id, customer}) {
 
     return (
         <div className="card">
-            <p>{customer.name}</p>
+            <Link to={`/customers/${customer._id}`}><p>{customer.name}</p></Link>
             <form>
                 <input type="hidden"  name="customer" value={customer._id}/>
             <button className="pre-delete" onClick={handleRemoveCustomer}>Remove</button>

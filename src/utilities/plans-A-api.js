@@ -9,3 +9,11 @@ export async function createPlanA(id, form) {
 export async function getPlans(id) {
   return sendRequest(`${BASE_URL}/${id}`, 'GET')
 }
+
+export async function updatePlan(plan, form) {
+  return sendRequest(`${BASE_URL}/update/${plan}`, 'PUT', form)
+}
+
+export async function deletePlanA(plan) {
+  return sendRequest(`${BASE_URL}/delete/${plan}`, 'DELETE')
+}
