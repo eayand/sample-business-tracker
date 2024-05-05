@@ -24,8 +24,14 @@ body {
   height: 100vh;
 }
 
-#root {
+/* #root {
   height: 100%;
+} */
+/* id root is a div in index.html -- but why is it there? what does it do? I turned off this setting that came with it because */
+
+footer {
+  height: 10vh;
+  margin: 0;
 }
 
 a, Link {
@@ -201,9 +207,23 @@ table td {
   text-align: center;
 }
 
+
+
+
+
+
 .margin-b {
   margin-bottom: 2vh;
 }
+
+.outline {
+  border: 1px solid var(--text-dark);
+}
+
+
+
+
+
 
 @media (min-width: 900px) {
   .chart-container {

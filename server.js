@@ -28,6 +28,7 @@ app.use('/api/users', require('./routes/api/users'))
 app.use('/api/workspaces', require('./routes/api/workspaces'))
 app.use('/api/customers', require('./routes/api/customers'))
 app.use('/api/brokers', require('./routes/api/brokers'))
+app.use('/api/plan-a', require('./routes/api/planA'))
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX/API requests

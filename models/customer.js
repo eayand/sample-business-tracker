@@ -28,7 +28,7 @@ const customerSchema = new Schema({
     joined: Date,
     renewal: {
         type: String,
-        enum: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        enum: ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     },
     commission1: Number,
     commission2: Number,

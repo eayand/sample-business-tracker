@@ -6,7 +6,7 @@ export default function BrokerCardContainer({ customer, id }) {
 
     return (
         <div>
-             {brokerCards}
+            {brokerCards}
 
             <p>Add a Broker</p>
 

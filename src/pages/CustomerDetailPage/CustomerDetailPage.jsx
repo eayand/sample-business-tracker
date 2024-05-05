@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import * as customersAPI from '../../utilities/customers-api'
 import BrokerCardContainer from "../../components/BrokerCardContainer/BrokerCardContainer"
+import PlanCardContainer from "../../components/PlanCardContainer/PlanCardContainer"
 
 export default function CustomerDetailPage() {
 
@@ -72,10 +73,7 @@ export default function CustomerDetailPage() {
         <>
         <h1>{customer.name}</h1>
 
-            <div className="margin-b">
-                <h2>Brokers:</h2>
-                <BrokerCardContainer customer={customer} id={id} handleChange={handleChange} />
-            </div>
+
             
         { 
         edit ? 
@@ -107,7 +105,21 @@ export default function CustomerDetailPage() {
                 <input type="date" name="joined" value={form.joined} onChange={handleChange} />
 
                 <label>Renewal</label>
-                <input name="renewal" value={form.renewal} onChange={handleChange} />
+                <select name="renewal" value={form.renewal} onChange={handleChange}>
+                    <option value="" selected></option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>                
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select><br />
 
                 <label>Broker Commission 1</label>
                 <input type="number" name="commission1" value={form.commission1} onChange={handleChange} />
@@ -145,6 +157,19 @@ export default function CustomerDetailPage() {
             <div className="flex-j-end">
                 <button onClick={toggleEdit}>Edit Mode</button>
             </div>      
+
+            <div className="margin-b outline">
+                <h2>Brokers:</h2>
+                <BrokerCardContainer customer={customer} id={id} />
+            </div>
+
+            <div className="margin-b outline">
+                <h2>Plans:</h2>
+                <PlanCardContainer customer={customer} id={id} handleChange={handleChange} />
+            </div>
+
+
+
             <h3>Contact</h3>
             <p>{customer.website}</p>
             <p>{customer.phone}</p>

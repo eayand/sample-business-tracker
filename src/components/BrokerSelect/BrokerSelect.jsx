@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import * as brokersAPI from '../../utilities/brokers-api'
 import { associateBroker } from "../../utilities/customers-api";
 
-export default function BrokerSelect({customer, id, handleChange}) {
+export default function BrokerSelect({customer, id}) {
     const [availableBrokers, setAvailableBrokers] = useState([])
     const [form, setForm] = useState({
         broker: undefined,
@@ -21,6 +21,7 @@ export default function BrokerSelect({customer, id, handleChange}) {
     }
 
     async function handleAssociateBroker(event) {
+        console.log(event)
         event.preventDefault()
         await associateBroker(id, form)
     }
@@ -31,7 +32,7 @@ export default function BrokerSelect({customer, id, handleChange}) {
     return (
         <>
         <form className="margin-b">
-            <select name={"broker"} value={form.broker} onChange={handleChange}>
+            <select name="broker" value={form.broker} onChange={handleChange}>
                 <option value=""></option>
                 {dropdown}
             </select>

@@ -9,13 +9,15 @@ const planASchema = new Schema({
     },
     amount: Number,
     system: {
-        enum: ['Legacy', 'Millenium']
+        enum: ['', 'Legacy', 'Millenium']
     },
     benefitCategories: {
-        enum: ['commuter', 'fitness', 'leisure', 'medical']
+        type: [String],
+        enum: ['', 'commuter', 'fitness', 'leisure', 'medical']
     },
     reminders: {
-        enum: ['email', 'paper', 'none']
+        type: [String],
+        enum: ['', 'email', 'paper', 'none']
     },
     expert: {
         type: Schema.Types.ObjectId,
@@ -23,7 +25,8 @@ const planASchema = new Schema({
     },
     customer: {
         type: Schema.Types.ObjectId, 
-        ref: 'Customer'
+        ref: 'Customer', 
+        required: true,
     }
 },
 {
@@ -33,5 +36,5 @@ const planASchema = new Schema({
     }
 });
 
-  
-  module.exports = mongoose.model('PlanA', planASchema);
+
+module.exports = mongoose.model('PlanA', planASchema);
