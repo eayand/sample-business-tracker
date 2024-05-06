@@ -37,7 +37,7 @@ const brokerSchema = new Schema({
         virtuals: true
     }
 });
-  
+
 
 // brokerSchema.virtual('phoneNumber').get(function () {
 //     const numeric = this.phone.replace(/\D/g,'')
@@ -45,5 +45,9 @@ const brokerSchema = new Schema({
 //     return phoneNumber
 // })
 
-  
-  module.exports = mongoose.model('Broker', brokerSchema);
+brokerSchema.pre('deleteOne', function(next) {
+    this.model('Customer').remove({ broker: this._id }, next);
+});
+
+
+module.exports = mongoose.model('Broker', brokerSchema);

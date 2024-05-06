@@ -64,74 +64,92 @@ export default function BrokerDetailPage() {
 //////////////////////////////////////////////////
 
     return broker ? (
-        <>
-        <h1>{broker.name}</h1>
+        <div className="detail-body-broker">
 
-        <div className="margin-b">
-                <h2>Customers:</h2>
-                <CustomerCardContainer broker={broker} id={id} handleChange={handleChange} />
-            </div>
-            
-        { 
-        edit ? 
-        <>
+            <h1>{broker.name}</h1>
 
-            <div className="flex-j-end">
-                <button onClick={toggleEdit}>Cancel</button>
-                <button type="submit" onClick={handleUpdateBroker}>Save</button>
-            </div>
-
-            <form className="big-form">
-
-                <label>Name of Company</label>
-                <input name="name" value={form.name} onChange={handleChange} />
-        
-                <label>Website</label>
-                <input name="website" value={form.website} onChange={handleChange} />
-
-                <label>Primary Phone Number</label>
-                <input type="tel" name="phone" value={form.phone} onChange={handleChange} />
-
-                <label>Tax ID</label>
-                <input name="tax" value={form.tax} onChange={handleChange} />
-
-                <label>Address</label>
-                <textarea name="address" value={form.address} onChange={handleChange} />
-    
-            </form>
-
+                
             { 
-                preDelete ? 
-                    <>
-                        <div>
-                            <p>Are you sure you want to delete {broker.name}?</p>
-                            <button onClick={togglePreDelete}>Cancel</button>
-                            <button onClick={handleDeleteBroker}>Delete</button>
-                        </div>
-                    </>
-                : 
-                    <>
-                        <div>
-                            <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS BROKER</button>
-                        </div>
-                    </>
-                }
+            edit ? 
+            <>
 
-        </>
+                <div className="flex-j-end">
+                    <button onClick={toggleEdit}>Cancel</button>
+                    <button type="submit" onClick={handleUpdateBroker}>Save</button>
+                </div>
+
+                <form className="big-form">
+
+                    <label>Name of Company</label>
+                    <input name="name" value={form.name} onChange={handleChange} />
+            
+                    <label>Website</label>
+                    <input name="website" value={form.website} onChange={handleChange} />
+
+                    <label>Primary Phone Number</label>
+                    <input type="tel" name="phone" value={form.phone} onChange={handleChange} />
+
+                    <label>Tax ID</label>
+                    <input name="tax" value={form.tax} onChange={handleChange} />
+
+                    <label>Address</label>
+                    <textarea name="address" value={form.address} onChange={handleChange} />
+        
+                </form>
+
+                { 
+                    preDelete ? 
+                        <>
+                            <div>
+                                <p>Are you sure you want to delete {broker.name}?</p>
+                                <button onClick={togglePreDelete}>Cancel</button>
+                                <button onClick={handleDeleteBroker}>Delete</button>
+                            </div>
+                        </>
+                    : 
+                        <>
+                            <div>
+                                <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS BROKER</button>
+                            </div>
+                        </>
+                    }
+
+            </>
 
 
-        : 
-        <>
-            <div className="flex-j-end">
-                <button onClick={toggleEdit}>Edit Mode</button>
-            </div>      
-            <h3>Contact</h3>
-            <p>{broker.website}</p>
-            <p>{broker.phone}</p>
-            <p>{broker.tax}</p>
-            <p>{broker.address}</p>
-        </>  
-        }
-        </>
+            : 
+            <>
+                <div className="flex-j-end full-width relative">
+                    <button onClick={toggleEdit} className="detail-edit-button">Edit Mode</button>
+                </div>      
+
+                <div className=" detail-section db-left">
+
+                    <div className="title-3">
+                        <h3>Basic Info</h3>
+                    </div>
+                    
+                    <label id="test">Website</label>
+                    <p>{broker.website}</p>
+                    <label>Primary Phone Number</label>
+                    <p>{broker.phone}</p>
+                    <label>Tax ID</label>
+                    <p>{broker.tax}</p>
+                    <label>Address</label>
+                    <p>{broker.address}</p>
+                </div>
+
+            <div className="detail-section">
+                
+                <div className="title-3">
+                    <h3>Customers:</h3>
+                </div>
+
+                    <CustomerCardContainer broker={broker} id={id} handleChange={handleChange} />
+
+            </div>
+            </>  
+            }
+        </div>
     ) : null
 }

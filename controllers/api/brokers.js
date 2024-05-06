@@ -64,6 +64,5 @@ async function deleteBroker(req, res) {
 
 async function getCustomers(req, res) {
     const customers = await Customer.find({broker: new mongoose.Types.ObjectId(req.params.id)})
-    console.log('CONTROLLER GETCUSTOMERS !!!!!!!!!!', customers)
     res.json(customers)
 }

@@ -14,15 +14,16 @@ export default function AdminPage() {
 
     return(
         <>
-        <div>
+        <h1>Admin Home</h1>
+        <div className="flex">
             <WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} />
-            <div className='admin-form'>
+            
                 { workspaces.length ? 
                     <WorkspaceList workspaces={workspaces} />
                 : 
                     <p>Create a workspace to start adding users.</p>
                 }
-            </div>
+            
         </div>
         </>
     )

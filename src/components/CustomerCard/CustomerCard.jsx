@@ -8,12 +8,14 @@ export default function CustomerCard({id, customer}) {
     }
 
     return (
-        <div className="card">
-            <Link to={`/customers/${customer._id}`}><p>{customer.name}</p></Link>
+    
+        <div className="card flex-between">
+            <Link to={`/customers/${customer._id}`}><div>{customer.name}</div></Link>
             <form>
                 <input type="hidden"  name="customer" value={customer._id}/>
-            <button className="pre-delete" onClick={handleRemoveCustomer}>Remove</button>
+            <button className="pre-delete raise" onClick={handleRemoveCustomer}>Remove</button>
             </form>
         </div>
+    
     )
 }

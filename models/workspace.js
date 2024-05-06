@@ -7,6 +7,10 @@ const workspaceSchema = new Schema({
         trim: true,
         required: true,
     },
+    customURL: {
+        type: String,
+        trim:true,
+    },
     description: {
         type: String, 
         trim: true,

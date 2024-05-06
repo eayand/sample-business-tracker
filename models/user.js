@@ -36,7 +36,7 @@ const userSchema = new Schema({
         type: String,
         enum: ['admin', 'employee', 'broker'], 
         default: 'employee'
-      },
+    },
 },
 {
     timestamps: true,
@@ -49,7 +49,7 @@ const userSchema = new Schema({
         virtuals: true
     }
 });
-  
+
 
 userSchema.virtual('name').get(function () {
     return this.firstName.concat(' ', this.lastName)

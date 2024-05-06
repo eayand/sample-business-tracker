@@ -71,138 +71,143 @@ export default function CustomerDetailPage() {
 //question mark after customer means only load if it's truthy; this is why customer's initial state needs to be null and not an empty object; it will wait to load this page until customer is available, which allows all the child components to work
     return customer ? (
         <div className="detail-body">
-        <h1>{customer.name}</h1>
 
+            <h1>{customer.name}</h1>
 
+            { 
+            edit ? 
+            <>
+                <form className="big-form">
+
+                    <label>Name of Company</label>
+                    <input name="name" value={form.name} onChange={handleChange} />
             
-        { 
-        edit ? 
-        <>
-            <form className="big-form">
+                    <label>Website</label>
+                    <input name="website" value={form.website} onChange={handleChange} />
 
-                <label>Name of Company</label>
-                <input name="name" value={form.name} onChange={handleChange} />
+                    <label>Primary Phone Number</label>
+                    <input type="tel" name="phone" value={form.phone} onChange={handleChange} />
+
+                    <label>Tax ID</label>
+                    <input name="tax" value={form.tax} onChange={handleChange} />
+
+                    <label>Address</label>
+                    <textarea name="address" value={form.address} onChange={handleChange} />
+
+                    <label>Joined</label>
+                    <input type="date" name="joined" value={form.joined} onChange={handleChange} />
+
+                    <label>Renewal</label>
+                    <select name="renewal" value={form.renewal} onChange={handleChange}>
+                        <option value="" selected></option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>                
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select><br />
+
+                    <label>Broker Commission 1</label>
+                    <input type="number" name="commission1" value={form.commission1} onChange={handleChange} />
+
+                    <label>Broker Commission 2</label>
+                    <input type="number" name="commission2" value={form.commission2} onChange={handleChange} />
+
+                    <label>Account Manager</label>
+                    <input name="accountManager" value={form.accountManager} onChange={handleChange} />
         
-                <label>Website</label>
-                <input name="website" value={form.website} onChange={handleChange} />
+                </form>
 
-                <label>Primary Phone Number</label>
-                <input type="tel" name="phone" value={form.phone} onChange={handleChange} />
-
-                <label>Tax ID</label>
-                <input name="tax" value={form.tax} onChange={handleChange} />
-
-                <label>Address</label>
-                <textarea name="address" value={form.address} onChange={handleChange} />
-
-                <label>Joined</label>
-                <input type="date" name="joined" value={form.joined} onChange={handleChange} />
-
-                <label>Renewal</label>
-                <select name="renewal" value={form.renewal} onChange={handleChange}>
-                    <option value="" selected></option>
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>                
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                </select><br />
-
-                <label>Broker Commission 1</label>
-                <input type="number" name="commission1" value={form.commission1} onChange={handleChange} />
-
-                <label>Broker Commission 2</label>
-                <input type="number" name="commission2" value={form.commission2} onChange={handleChange} />
-
-                <label>Account Manager</label>
-                <input name="accountManager" value={form.accountManager} onChange={handleChange} />
-    
-            </form>
-
-            <div className="edit-controls">
-                <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
-                <button onClick={toggleEdit}>CANCEL</button>
-                { 
-                    preDelete ? 
-                    <>
-                                <p>Are you sure you want to delete {customer.name}?</p>
-                                <button onClick={togglePreDelete}>Cancel</button>
-                                <button onClick={handleDeleteCustomer}>Delete</button>
-                    </>
-                : 
-                    <>
-                            
-                            <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
-                    </>
-                }
-            </div>
-
-        </>
-
-
-        : 
-        <>
-            <div className="flex-j-end full-width relative">
-                <button onClick={toggleEdit} className="detail-edit-button">Edit Mode</button>
-            </div>      
-
-
-            <div className="detail-section db-left">
-                <div className="title-3">
-                    <h3>Basic Info</h3>
+                <div className="edit-controls">
+                    <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
+                    <button onClick={toggleEdit}>CANCEL</button>
+                    { 
+                        preDelete ? 
+                        <>
+                                    <p>Are you sure you want to delete {customer.name}?</p>
+                                    <button onClick={togglePreDelete}>Cancel</button>
+                                    <button onClick={handleDeleteCustomer}>Delete</button>
+                        </>
+                    : 
+                        <>
+                                
+                                <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
+                        </>
+                    }
                 </div>
-                <label>Account Manager</label>
-                <p>{customer.accountManager}</p>
-                <label>Website</label>
-                <p>{customer.website}</p>
-                <label>Primary Phone Number</label>
-                <p>{customer.phone}</p>
-                <label>Tax ID</label>
-                <p>{customer.tax}</p>
-                <label>Address</label>
-                <p>{customer.address}</p>
-                <label>Joined</label>
-                <p>{customer.joined}</p>
-                <label>Renewal</label>
-                <p>{customer.renewal}</p>
-            </div>
+
+            </>
 
 
-            <div className="db-right">
-                <div className="detail-section full-width">
+            : 
+            <>
+                <div className="flex-j-end full-width relative">
+                    <button onClick={toggleEdit} className="detail-edit-button">Edit Mode</button>
+                </div>      
+
+
+                <div className="detail-section db-left">
+
                     <div className="title-3">
-                        <h3>Financial</h3>
+                        <h3>Basic Info</h3>
                     </div>
-                    <label>Commission 1</label>
-                    <p>{customer.commission1}</p>
-                    <label>Commission 2</label>
-                    <p>{customer.commission2}</p>
+
+                    <label>Account Manager</label>
+                    <p>{customer.accountManager}</p>
+                    <label>Website</label>
+                    <p>{customer.website}</p>
+                    <label>Primary Phone Number</label>
+                    <p>{customer.phone}</p>
+                    <label>Tax ID</label>
+                    <p>{customer.tax}</p>
+                    <label>Address</label>
+                    <p>{customer.address}</p>
+                    <label>Joined</label>
+                    <p>{customer.joined}</p>
+                    <label>Renewal</label>
+                    <p>{customer.renewal}</p>
+
                 </div>
 
-                <div className="detail-section">
+
+                <div className="db-right">
+                    <div className="detail-section full-width">
+                        <div className="title-3">
+                            <h3>Financial</h3>
+                        </div>
+                        <label>Commission 1</label>
+                        <p>{customer.commission1}</p>
+                        <label>Commission 2</label>
+                        <p>{customer.commission2}</p>
+                    </div>
+
+                    <div className="detail-section">
+                        <div className="title-3">
+                            <h3>Brokers</h3>
+                        </div>
+                            <BrokerCardContainer customer={customer} customerId={id} />
+                        </div>
+                    </div>
+
+                <div className="detail-section db-bottom">
+
                     <div className="title-3">
-                        <h3>Brokers</h3>
+                        <h3>Benefit Plans</h3>
                     </div>
-                    <BrokerCardContainer customer={customer} id={id} />
-                </div>
-            </div>
 
-            <div className="detail-section db-bottom">
-                <div className="title-3">
-                    <h3>Benefit Plans</h3>
-                </div>
-                <PlanCardContainer customer={customer} id={id} handleChange={handleChange} />
-            </div>
+                    <PlanCardContainer customer={customer} id={id} handleChange={handleChange} />
 
-        </>  
-        }
+                </div>
+
+            </>  
+            }
         </div>
     ) : null
     // : null is the option if the customer isn't available yet. It makes the page stay blank until then. You could have a loading screen here instead.

@@ -30,8 +30,8 @@ export async function associateBroker(id, broker) {
   return sendRequest(`${BASE_URL}/assoc/${id}`, 'PUT', broker);
 }
 
-export async function removeBroker(id, broker) {
-  return sendRequest(`${BASE_URL}/remove/${id}`, 'PUT', broker);
+export async function removeBroker(customerId, broker) {
+  return sendRequest(`${BASE_URL}/remove/${customerId}`, 'PUT', broker);
 }
 
 export async function associateWithBroker(id, customer) {

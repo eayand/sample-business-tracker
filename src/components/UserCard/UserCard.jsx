@@ -1,19 +1,18 @@
 import * as usersAPI from "../../utilities/users-api"
 
-export default function UserCard({user, workspaceId}) {
+export default function UserCard({user, id}) {
 
-    async function handleAddWorkspace(event) {
+    async function handleRemoveWorkspace(event) {
         event.preventDefault()
-        await usersAPI.addWorkspace({workspaceId, userId: user._id})
+        await usersAPI.removeWorkspace(id, {userId: user._id})
     }
+
     return (
-        <div>
+        <div className="outline">
             <p>{user.name}</p>
-            <p>{workspaceId}</p>
             <form action="">
-                <input type="hidden" name="workspace" value={workspaceId} />
-                <input type="hidden" name="userId" value={user._id} />
-                <button type="submit" onClick={handleAddWorkspace}>Add to This Workspace</button>
+                <input type="hidden" name="user" value={user._id} />
+                <button className="pre-delete"  type="submit" onClick={handleRemoveWorkspace}>Remove from This Workspace</button>
             </form>
         </div>
     )

@@ -22,9 +22,12 @@ export default function App() {
         <>
           <NavBar user={user} setUser={setUser}/>
           <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/admin' element={<AdminPage/>}/>
-            <Route path='/workspaces/:id' element={<WorkspaceDetailPage/>}/>
+            { user.role === 'admin' ? 
+            <Route path='/admin' element={<AdminPage user={user}/>}/>
+            : 
+            <Route path='/' element={<HomePage user={user}/>} />
+            }
+            <Route path='/workspaces/:id' element={<WorkspaceDetailPage user={user}/>}/>
             <Route path ='/brokers' element={<BrokerListPage user={user}/>} />
             <Route path ='/brokers/:id' element={<BrokerDetailPage user={user}/>} />
             <Route path='/customers' element={<CustomerListPage user={user}/>}/>

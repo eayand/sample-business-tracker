@@ -8,22 +8,24 @@ module.exports = {
     login,
     checkToken,
     index,
-    addWorkspace
+    indexAvailable,
+    addWorkspace,
+    removeWorkspace
 }
 
 async function create(req, res) {
     try {
       // Add the user to the database
-      const user = await User.create(req.body);
+        const user = await User.create(req.body);
       // token will be a string
-      const token = createJWT(user);
+        const token = createJWT(user);
       // Yes, we can use res.json to send back just a string
       // The client code needs to take this into consideration
-      res.json(token);
+        res.json(token);
     } catch (err) {
       // Client will check for non-2xx status code 
       // 400 = Bad Request
-      res.status(400).json(err);
+        res.status(400).json(err);
     }
 }
 
@@ -47,7 +49,17 @@ function checkToken(req, res) {
 
 async function index(req, res) {
     try {
-        const users = await User.find({}).sort('lastName').exec()
+        const users = await User.find({workspace: req.params.workspace}).sort('lastName').exec()
+        res.json(users)
+    } catch {
+        res.status(400).json('Could not find users.')
+    }
+}
+
+async function indexAvailable(req, res) {
+    const id = req.params.workspace
+    try {
+        const users = await User.find( { workspace: { $ne: id }  } )
         res.json(users)
     } catch {
         res.status(400).json('Could not find users.')
@@ -56,12 +68,27 @@ async function index(req, res) {
 
 async function addWorkspace(req, res) {
     const user = await User.findById(req.body.userId)
-    user.workspace.push(req.body.workspaceId)
+    const newWorkspace = await Workspace.findById(req.body.id)
+    user.workspace.push(newWorkspace)
     try {
-       await user.save()
-       res.json(user)
+        await user.save()
+        res.json(user)
     } catch {
         res.status(400).json('Could not add to workspace.')
+    }
+}
+
+async function removeWorkspace(req, res) {
+    const user = await User.findById(req.body.userId)
+    const workspace = await Workspace.findById(req.params.id)
+    const workspaceRef = user.workspace.indexOf(workspace._id)
+    console.log(user,'\n', workspace, '\n', workspaceRef)
+    try {
+        user.workspace.splice(workspaceRef, 1)
+        await user.save()
+        res.json(user)
+    } catch {
+        res.status(400).json('Could not remove from workspace.')
     }
 }
 
