@@ -1,15 +1,15 @@
 import * as usersAPI from "../../utilities/users-api"
 
-export default function UserCard({user, id, workspaceId}) {
+export default function UserCard({user, id, workspaceId, setAvailableUsers, availableUsers, users, setUsers}) {
 
-    // async function handleRemoveWorkspace(event) {
-    //     event.preventDefault()
-    //     await usersAPI.removeWorkspace({workspaceId, userId: user._id})
-    // }
 
     async function handleAddWorkspace(event) {
         event.preventDefault()
-        await usersAPI.addWorkspace({id, workspaceId, userId: user._id})
+        const addedUser = await usersAPI.addWorkspace({id, workspaceId, userId: user._id})
+        const userId = addedUser._id
+        const index = availableUsers.findIndex((obj) => obj._id === userId)
+        setAvailableUsers(availableUsers.toSpliced(index, 1))
+        setUsers([...users, addedUser])
     }
 
     return (

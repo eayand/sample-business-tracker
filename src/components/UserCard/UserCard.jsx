@@ -1,10 +1,14 @@
 import * as usersAPI from "../../utilities/users-api"
 
-export default function UserCard({user, id}) {
+export default function UserCard({user, id, setUsers, users, availableUsers, setAvailableUsers}) {
 
     async function handleRemoveWorkspace(event) {
         event.preventDefault()
-        await usersAPI.removeWorkspace(id, {userId: user._id})
+        const removedUser = await usersAPI.removeWorkspace(id, {userId: user._id}) 
+        const userId = removedUser._id
+        const index = users.findIndex((obj) => obj._id === userId)
+        setUsers(users.toSpliced(index, 1))
+        setAvailableUsers([...availableUsers, removedUser])
     }
 
     return (

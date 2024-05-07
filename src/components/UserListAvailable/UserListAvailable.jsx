@@ -1,10 +1,10 @@
 import UserCardAvailable from "../UserCardAvailable/UserCardAvailable";
 
-export default function UserListAvailable({availableUsers, id}) {
+export default function UserListAvailable({availableUsers, id, setAvailableUsers, users, setUsers}) {
 
     // console.log('LIST: ', users)
 
-    const userList = availableUsers.map((user) => <UserCardAvailable user={user} id={id} key={user._id}/>)
+    const userList = availableUsers.map((user) => <UserCardAvailable user={user} id={id} key={user._id} setAvailableUsers={setAvailableUsers} availableUsers={availableUsers} users={users} setUsers={setUsers} />)
     return (
         <div className="flex">{userList}</div>
     )

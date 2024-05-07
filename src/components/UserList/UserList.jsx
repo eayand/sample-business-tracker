@@ -1,7 +1,7 @@
 import UserCard from "../UserCard/UserCard";
 
-export default function UserList({users, id}) {
-    const userList = users.map((user) => <UserCard user={user} id={id} key={user._id}/>)
+export default function UserList({users, id, setUsers, availableUsers, setAvailableUsers}) {
+    const userList = users.map((user) => <UserCard user={user} id={id} key={user._id} setUsers={setUsers} users={users} availableUsers={availableUsers} setAvailableUsers={setAvailableUsers} />)
     return (
         <div className="flex">{userList}</div>
     )

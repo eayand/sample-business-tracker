@@ -81,7 +81,7 @@ export default function WorkspaceDetailPage() {
         {
             users ?
             <>
-        <UserList users={users} id={id}/>
+        <UserList users={users} id={id} setUsers={setUsers} availableUsers={availableUsers} setAvailableUsers={setAvailableUsers} />
         <br /><br />
         </>
         : null
@@ -90,7 +90,7 @@ export default function WorkspaceDetailPage() {
         <h3>Other Users:</h3>
         {
             availableUsers ?
-            <UserListAvailable availableUsers={availableUsers} id={id} />
+            <UserListAvailable availableUsers={availableUsers} id={id} setAvailableUsers={setAvailableUsers} users={users} setUsers={setUsers} />
             : null
         }
 

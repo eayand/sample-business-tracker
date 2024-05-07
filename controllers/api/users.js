@@ -82,7 +82,6 @@ async function removeWorkspace(req, res) {
     const user = await User.findById(req.body.userId)
     const workspace = await Workspace.findById(req.params.id)
     const workspaceRef = user.workspace.indexOf(workspace._id)
-    console.log(user,'\n', workspace, '\n', workspaceRef)
     try {
         user.workspace.splice(workspaceRef, 1)
         await user.save()
