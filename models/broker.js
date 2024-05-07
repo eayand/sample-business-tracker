@@ -43,10 +43,12 @@ brokerSchema.pre('deleteOne', function(next) {
 });
 
 brokerSchema.virtual('formatPhone').get(function () {
-    const area = this.phone.slice(0, 3)
-    const three = this.phone.slice(3, 6)
-    const four = this.phone.slice(6)
-    return `+1 (${area}) ${three}-${four}`
+    if (this.phone) {
+        const area = this.phone.slice(0, 3)
+        const three = this.phone.slice(3, 6)
+        const four = this.phone.slice(6)
+        return `+1 (${area}) ${three}-${four}`
+    } else {return}
 })
 
 module.exports = mongoose.model('Broker', brokerSchema);
