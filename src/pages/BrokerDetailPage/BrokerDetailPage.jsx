@@ -132,7 +132,7 @@ export default function BrokerDetailPage() {
                     <label id="test">Website</label>
                     <p>{broker.website}</p>
                     <label>Primary Phone Number</label>
-                    <p>{broker.phone}</p>
+                    <p>{broker.formatPhone}</p>
                     <label>Tax ID</label>
                     <p>{broker.tax}</p>
                     <label>Address</label>

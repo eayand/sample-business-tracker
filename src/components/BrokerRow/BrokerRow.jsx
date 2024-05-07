@@ -5,7 +5,7 @@ export default function BrokerRow({broker}) {
         <tr>
             <td className="first-column"> <Link to={`/brokers/${broker._id}`}>{broker.name}</Link></td>
             <td>{broker.website}</td>
-            <td>{broker.phone}</td>
+            <td>{broker.formatPhone}</td>
             <td>{broker.tax}</td>
             <td>{broker.address}</td>
         </tr>

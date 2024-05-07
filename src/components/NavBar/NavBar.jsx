@@ -16,7 +16,7 @@ export default function NavBar({user, setUser}) {
         <>
         <nav className="navigation">
             <div className='fullNav'>
-                <div className="loggedInUser">{user.name} <Link onClick={handleLogOut}>Log Out</Link></div>
+                <div className="loggedInUser">{user.name}<Link onClick={handleLogOut}>Log Out</Link></div>
                 <div><Link to="/brokers">Brokers</Link></div>
                 <div><Link to="/customers">Customers</Link></div>
             </div>

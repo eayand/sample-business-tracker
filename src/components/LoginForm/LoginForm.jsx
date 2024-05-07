@@ -24,11 +24,7 @@ export default function LoginForm({ setUser }) {
       // payload of the JSON Web Token (JWT)
       const user = await usersService.login(credentials);
       setUser(user);
-      if (user.role === 'admin') {
-        navigate('/admin')
-      } else {
-        navigate('/')
-      }
+      navigate('/')
 
     } catch {
       setError("Could Not Log In. Please Try Again or Sign Up.");

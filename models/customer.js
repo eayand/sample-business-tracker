@@ -53,5 +53,27 @@ const customerSchema = new Schema({
     }
 });
 
-  
-  module.exports = mongoose.model('Customer', customerSchema);
+customerSchema.virtual('formatPhone').get(function () {
+    if (this.phone) {
+        const area = this.phone.slice(0, 3)
+        const three = this.phone.slice(3, 6)
+        const four = this.phone.slice(6)
+        return `+1 (${area}) ${three}-${four}`
+    } else {return}
+})
+
+customerSchema.virtual('fCommission1').get(function () {
+    if (this.commission1) {
+    const number = this.commission1.toFixed(2)
+    return `$${number}`
+    } else {return}
+})
+
+customerSchema.virtual('fCommission2').get(function () {
+    if (this.commission2) {
+    const number = this.commission2.toFixed(2)
+    return `$${number}`
+    } else {return}
+})
+
+module.exports = mongoose.model('Customer', customerSchema);

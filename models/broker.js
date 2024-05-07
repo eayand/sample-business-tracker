@@ -38,16 +38,15 @@ const brokerSchema = new Schema({
     }
 });
 
-
-// brokerSchema.virtual('phoneNumber').get(function () {
-//     const numeric = this.phone.replace(/\D/g,'')
-//     const phoneNumber = numeric
-//     return phoneNumber
-// })
-
 brokerSchema.pre('deleteOne', function(next) {
     this.model('Customer').remove({ broker: this._id }, next);
 });
 
+brokerSchema.virtual('formatPhone').get(function () {
+    const area = this.phone.slice(0, 3)
+    const three = this.phone.slice(3, 6)
+    const four = this.phone.slice(6)
+    return `+1 (${area}) ${three}-${four}`
+})
 
 module.exports = mongoose.model('Broker', brokerSchema);

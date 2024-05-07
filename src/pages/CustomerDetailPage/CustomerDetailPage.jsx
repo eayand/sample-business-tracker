@@ -164,7 +164,7 @@ export default function CustomerDetailPage() {
                     <label>Website</label>
                     <p>{customer.website}</p>
                     <label>Primary Phone Number</label>
-                    <p>{customer.phone}</p>
+                    <p>{customer.formatPhone}</p>
                     <label>Tax ID</label>
                     <p>{customer.tax}</p>
                     <label>Address</label>
@@ -183,9 +183,9 @@ export default function CustomerDetailPage() {
                             <h3>Financial</h3>
                         </div>
                         <label>Commission 1</label>
-                        <p>{customer.commission1}</p>
+                        <p>{customer.fCommission1}</p>
                         <label>Commission 2</label>
-                        <p>{customer.commission2}</p>
+                        <p>{customer.fCommission2}</p>
                     </div>
 
                     <div className="detail-section">

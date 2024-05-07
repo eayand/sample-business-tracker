@@ -8,14 +8,20 @@ export default function HomePage({user}) {
 
     useEffect(function() {
         (async () => setWorkspaces(await workspacesAPI.userWorkspaces(user)))()
-    }, [])
+    }, [user])
 
 
-    return (
+    return workspaces[0] ? (
         <>
         <h1>Home</h1>
         <WorkspaceListUser workspaces={workspaces}/>
         
         </>
+    ) : (
+        <>
+        <h1>Home</h1>
+        <h3>Your admin must assign you to a workspace before you can start.</h3>
+        </>
+
     )
 }
