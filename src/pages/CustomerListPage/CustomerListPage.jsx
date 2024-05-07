@@ -5,6 +5,8 @@ import CustomerTable from "../../components/CustomerTable/CustomerTable";
 
 
 export default function CustomerListPage({user}) {
+    
+    const navigate = useNavigate()
     const [customers, setCustomers] = useState([])
     const [form, setForm] = useState({
         workspace: user.workspace[0],
@@ -26,8 +28,9 @@ export default function CustomerListPage({user}) {
 
     async function handleCreateCustomer(event) {
         event.preventDefault()
-        await customersAPI.createCustomer(form)
-        //add redirect to newly created customer's detail page
+        const customer = await customersAPI.createCustomer(form)
+        const customerId = customer._id
+        navigate(`/customers/${customerId}`)
     }
 
     return (

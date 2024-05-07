@@ -48,7 +48,8 @@ export default function BrokerDetailPage() {
 
     async function handleUpdateBroker(event) {
         event.preventDefault()
-        await brokersAPI.updateBroker(id, form)
+        const broker = await brokersAPI.updateBroker(id, form)
+        setBroker(broker)
         toggleEdit()
     }
 
@@ -99,7 +100,7 @@ export default function BrokerDetailPage() {
                 { 
                     preDelete ? 
                         <>
-                            <div>
+                            <div className="large-alert">
                                 <p>Are you sure you want to delete {broker.name}?</p>
                                 <button onClick={togglePreDelete}>Cancel</button>
                                 <button onClick={handleDeleteBroker}>Delete</button>

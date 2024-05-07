@@ -280,10 +280,40 @@ table td {
   font-size: 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
-  padding: 0 5rem 5rem 0;
+  padding: 10rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.large-alert button {
+  font-size: 1rem;
+  max-width: 10rem;
+  margin: auto;
 }
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+
+/* .edit-controls {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  position: fixed;
+  right: 5vw;
+  top: 30vh;
+}
+
+.edit-controls button {
+  margin: 0;
+  width: 100%;
+} */
 
 
 
