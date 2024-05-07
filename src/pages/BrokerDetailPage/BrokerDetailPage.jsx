@@ -24,7 +24,7 @@ export default function BrokerDetailPage() {
     
     useEffect(function() {
         (async () => setBroker(await brokersAPI.brokerDetail(id)))();
-    }, [id])
+    }, [])
 
 
     const toggleEdit = () => {

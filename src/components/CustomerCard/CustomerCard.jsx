@@ -9,10 +9,12 @@ export default function CustomerCard({id, customer}) {
 
     return (
     
-        <div className="card flex-between">
-            <Link to={`/customers/${customer._id}`}><div>{customer.name}</div></Link>
+        <div className="card-special flex-between cu-bg">
+            <Link className="card-special-link" to={`/customers/${customer._id}`}><div className="flex-col">
+                <h4>{customer.name}</h4>
+                <div>{customer.phone}</div>
+            </div></Link>
             <form>
-                <input type="hidden"  name="customer" value={customer._id}/>
             <button className="pre-delete raise" onClick={handleRemoveCustomer}>Remove</button>
             </form>
         </div>

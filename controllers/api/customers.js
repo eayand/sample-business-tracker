@@ -36,7 +36,9 @@ async function show(req, res) {
 
 async function getNotAssociated(req, res) {
     const id = req.params.id
-    const customers = await Customer.find( { broker: { $ne: id }  } )
+    const broker = await Broker.findById(id)
+    console.log('!!!!!!log broker!!!!!', broker)
+    const customers = await Customer.find( { broker: { $ne: id }, workspace: broker.workspace  } )
     res.json(customers)
 }
 
@@ -98,9 +100,8 @@ async function removeBroker(req, res) {
 }
 
 async function removeFromBroker(req, res) {
-    const customer = await Customer.findById(req.body.customer)
-    const broker = await Broker.findById(req.params.id)
-    const brokerRef = customer.broker.indexOf(broker)
+    const customer = await Customer.findById(req.body._id)
+    const brokerRef = customer.broker.indexOf(req.params.id)
     try {
         customer.broker.splice(brokerRef, 1)
         await customer.save()

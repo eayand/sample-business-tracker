@@ -9,8 +9,11 @@ export default function BrokerCard({customerId, broker}) {
 
     return (
 
-        <div className="card flex-between">
-            <Link to={`/brokers/${broker._id}`}><p>{broker.name}</p></Link>
+        <div className="card-special flex-between brok-bg">
+            <Link className="card-special-link" to={`/brokers/${broker._id}`}><div className="flex-col">
+                <h4>{broker.name}</h4>
+                <div>{broker.phone}</div>
+                </div></Link>
             <form>
             <button className="pre-delete raise" onClick={handleRemoveBroker}>Remove</button>
             </form>

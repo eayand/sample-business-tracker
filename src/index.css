@@ -116,6 +116,33 @@ table td {
   right: 80vw;
   text-align: right; */
 }
+
+.card-special{
+  border: 1px solid var(--text-dark);
+  display: flex;
+  padding: .5rem;
+}
+
+.card-special h4 {
+  margin: .2rem;
+}
+
+.card-special-link {
+  background: none;
+}
+
+.brok-bg {
+  background-color: var(--theme-broker);
+}
+
+.cu-bg {
+  background-color: var(--theme-customer);
+}
+
+.card-special:hover {
+  background-color: var(--hover);
+}
+
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 
@@ -213,7 +240,7 @@ table td {
 .card {
   border: 1px solid var(--text-dark);
   display: flex;
-  padding: .5vmin;
+  padding: .5rem;
 }
 
 .big-form {
