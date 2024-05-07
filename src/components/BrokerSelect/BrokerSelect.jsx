@@ -21,7 +21,6 @@ export default function BrokerSelect({customer, id}) {
     }
 
     async function handleAssociateBroker(event) {
-        console.log(event)
         event.preventDefault()
         await associateBroker(id, form)
     }

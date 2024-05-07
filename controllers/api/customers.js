@@ -37,7 +37,6 @@ async function show(req, res) {
 async function getNotAssociated(req, res) {
     const id = req.params.id
     const broker = await Broker.findById(id)
-    console.log('!!!!!!log broker!!!!!', broker)
     const customers = await Customer.find( { broker: { $ne: id }, workspace: broker.workspace  } )
     res.json(customers)
 }

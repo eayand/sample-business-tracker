@@ -5,12 +5,13 @@ import BrokerTable from "../../components/BrokerTable/BrokerTable";
 
 
 export default function BrokerListPage({user}) {
+    
+    const navigate = useNavigate()
     const [brokers, setBrokers] = useState([])
     const [form, setForm] = useState({
         workspace: user.workspace[0],
         name: undefined,
     })
-    // const [goTo, setGoTo] = useState('')
 
     useEffect(function() {
         (async () => setBrokers(await brokersAPI.listBrokers()))()
@@ -26,8 +27,9 @@ export default function BrokerListPage({user}) {
 
     async function handleCreateBroker(event) {
         event.preventDefault()
-        await brokersAPI.createBroker(form)
-        //add redirect to newly created customer's detail page
+        const broker = await brokersAPI.createBroker(form)
+        const brokerId = broker._id
+        navigate(`/brokers/${brokerId}`)
     }
 
 

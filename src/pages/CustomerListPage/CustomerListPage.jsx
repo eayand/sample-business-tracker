@@ -12,7 +12,6 @@ export default function CustomerListPage({user}) {
         workspace: user.workspace[0],
         name: undefined,
     })
-    // const [goTo, setGoTo] = useState('')
 
     useEffect(function() {
         (async () => setCustomers(await customersAPI.listCustomers()))()
