@@ -32,16 +32,19 @@ export default function CustomerListPage({user}) {
 
     return (
         <>
-        <h1 className="align-left">Customers <span>
-            <input type="hidden" name="workspace" value={user.workspace[0]} />
-            <input name="name" value={form.name} onChange={handleChange} />
-            <button type="submit" onClick={handleCreateCustomer}>Create New Customer</button></span>
-        </h1>
-        
+        <div className="flex-between">
+            <h1>Customers </h1>
+            <form className="flex-ctr-ctr">
+                <input type="hidden" name="workspace" value={user.workspace[0]} required/>
+                <input name="name" value={form.name} onChange={handleChange} required className="inline-input"/>
+                <button type="submit" onClick={handleCreateCustomer}>Create New Customer</button>
+            </form>
+        </div>
+
         <div className="chart-container">
             <CustomerTable customers={customers}/>
         </div>
-   
+
         </>
         
     )

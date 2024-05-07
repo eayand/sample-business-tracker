@@ -131,9 +131,11 @@ export default function CustomerDetailPage() {
                     { 
                         preDelete ? 
                         <>
-                                    <p>Are you sure you want to delete {customer.name}?</p>
-                                    <button onClick={togglePreDelete}>Cancel</button>
-                                    <button onClick={handleDeleteCustomer}>Delete</button>
+                            <div className="large-alert">
+                                <p>Are you sure you want to delete {customer.name}?</p>
+                                <button onClick={togglePreDelete}>Cancel</button>
+                                <button onClick={handleDeleteCustomer}>Delete</button>
+                            </div>
                         </>
                     : 
                         <>

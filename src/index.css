@@ -263,6 +263,26 @@ table td {
   display: block;
   text-align: left;
 }
+
+.inline-input {
+  font-size: 1.2rem;
+  margin-right: .5rem;
+}
+
+.ii-small {
+  font-size: 1rem;
+}
+
+.large-alert {
+  background-color: #fff;
+  z-index: 5;
+  margin: auto;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 5rem 5rem 0;
+}
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 

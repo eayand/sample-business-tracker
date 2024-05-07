@@ -29,12 +29,12 @@ export default function CustomerSelect({broker, id, customers}) {
 
     return (
         <>
-        <form className="margin-b">
-            <select name={"customer"} value={form.customer} onChange={handleChange}>
+        <form className="flex-ctr-ctr">
+            <select name={"customer"} value={form.customer} onChange={handleChange} required className="inline-input ii-small">
                 <option value=""></option>
                 {dropdown}
             </select>
-            <button onClick={handleAssociateCustomer}>Add Customer</button>
+            <button type="submit" onClick={handleAssociateCustomer}>Add Customer</button>
         </form>
         </>
     )

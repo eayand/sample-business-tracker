@@ -31,12 +31,12 @@ export default function BrokerSelect({customer, id}) {
 
     return (
         <>
-        <form className="margin-b">
-            <select name="broker" value={form.broker} onChange={handleChange}>
+        <form className="flex-ctr-ctr">
+            <select name="broker" value={form.broker} onChange={handleChange} required className="inline-input ii-small">
                 <option value=""></option>
                 {dropdown}
             </select>
-            <button onClick={handleAssociateBroker}>Add Broker</button>
+            <button type="submit" onClick={handleAssociateBroker}>Add Broker</button>
         </form>
         </>
     )

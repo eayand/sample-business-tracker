@@ -16,12 +16,10 @@ export default function CustomerCardContainer({ broker, id }) {
     return (
 
         <div className="flex-col">
+            
+        <CustomerSelect broker={broker} id={id} customers={customers} />
 
-            {customerCards}
-
-            <p>Add a Customer</p>
-
-            <CustomerSelect broker={broker} id={id} customers={customers} />
+        {customerCards}
             
         </div>
         

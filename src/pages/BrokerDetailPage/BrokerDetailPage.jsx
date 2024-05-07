@@ -73,11 +73,6 @@ export default function BrokerDetailPage() {
             edit ? 
             <>
 
-                <div className="flex-j-end">
-                    <button onClick={toggleEdit}>Cancel</button>
-                    <button type="submit" onClick={handleUpdateBroker}>Save</button>
-                </div>
-
                 <form className="big-form">
 
                     <label>Name of Company</label>
@@ -97,6 +92,10 @@ export default function BrokerDetailPage() {
         
                 </form>
 
+                <div className="edit-controls">
+                    <button type="submit" onClick={handleUpdateBroker}>SAVE</button>
+                    <button onClick={toggleEdit}>CANCEL</button>
+
                 { 
                     preDelete ? 
                         <>
@@ -108,11 +107,10 @@ export default function BrokerDetailPage() {
                         </>
                     : 
                         <>
-                            <div>
-                                <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS BROKER</button>
-                            </div>
+                            <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS BROKER</button>
                         </>
                     }
+                </div>
 
             </>
 

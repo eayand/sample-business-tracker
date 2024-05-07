@@ -33,16 +33,19 @@ export default function BrokerListPage({user}) {
 
     return (
         <>
-        <h1 className="align-left">Brokers <span>
-            <input type="hidden" name="workspace" value={user.workspace[0]} />
-            <input name="name" value={form.name} onChange={handleChange} />
-            <button type="submit" onClick={handleCreateBroker}>Create New Broker</button></span>
-        </h1>
-        
+        <div className="flex-between">
+            <h1>Brokers </h1>
+            <form className="flex-ctr-ctr">
+                <input type="hidden" name="workspace" value={user.workspace[0]} required />
+                <input name="name" value={form.name} onChange={handleChange} required className="inline-input"/>
+                <button type="submit" onClick={handleCreateBroker}>Create New Broker</button>
+            </form>
+        </div>
+
         <div className="chart-container">
             <BrokerTable brokers={brokers}/>
         </div>
-   
+
         </>
         
     )
