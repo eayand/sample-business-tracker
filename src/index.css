@@ -143,6 +143,51 @@ table td {
   background-color: var(--hover);
 }
 
+.pre-delete {
+  background-color: white;
+  color: #953b3b;
+  border-color: #953b3b;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+.detail-edit-button {
+  margin: 0;
+  position: absolute;
+  top: -2.5rem;
+}
+
+.margin-b {
+  margin-bottom: 2vh;
+}
+
+.outline {
+  border: 1px solid var(--text-dark);
+}
+
+.edit-controls {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  position: fixed;
+  right: 5vw;
+  top: 30vh;
+}
+
+.edit-controls button {
+  margin: 0;
+  width: 100%;
+}
+
+
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 
@@ -305,23 +350,6 @@ table td {
 }
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
-/* .edit-controls {
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2rem;
-  position: fixed;
-  right: 5vw;
-  top: 30vh;
-}
-
-.edit-controls button {
-  margin: 0;
-  width: 100%;
-} */
-
 
 
 
@@ -444,91 +472,6 @@ table td {
 
 /************* MEDIA QUERIES **************************************/
 
-
-
-/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-.pre-delete {
-  background-color: white;
-  color: #953b3b;
-  border-color: #953b3b;
-}
-
-
-
-
-
-
-
-
-.section-heading {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-}
-
-
-
-
-.detail-edit-button {
-  margin: 0;
-  position: absolute;
-  top: -2.5rem;
-}
-
-
-
-.margin-b {
-  margin-bottom: 2vh;
-}
-
-.outline {
-  border: 1px solid var(--text-dark);
-}
-
-
-
-
-
-
-
-.edit-controls {
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2rem;
-  position: fixed;
-  right: 5vw;
-  top: 30vh;
-}
-
-.edit-controls button {
-  margin: 0;
-  width: 100%;
-}
-
-
-
-
-
-
-
-
 @media (min-width: 900px) {
   .chart-container {
     margin-left: -10vw;
@@ -536,3 +479,5 @@ table td {
   }
 }
 
+
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
