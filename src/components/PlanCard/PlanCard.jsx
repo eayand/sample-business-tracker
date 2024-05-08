@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import * as plansAAPI from '../../utilities/plans-A-api'
 
-export default function PlanCard({plan}) {
+export default function PlanCard({plan, updatePlansA}) {
 
     const id = plan._id
 
@@ -40,7 +40,8 @@ export default function PlanCard({plan}) {
 
     async function handleUpdatePlan(event) {
         event.preventDefault()
-        await plansAAPI.updatePlan(id, form)
+        const updatedPlan = await plansAAPI.updatePlan(id, form)
+        updatePlansA(updatedPlan)
         toggleEdit()
     }
 
@@ -120,7 +121,7 @@ export default function PlanCard({plan}) {
                         <label>Expert</label>
                         <p>{plan.expert}</p>
                         <label>Amount</label>
-                        <p>{plan.amount}</p>
+                        <p>{plan.fAmount}</p>
                         <label>System</label>
                         <p>{plan.system}</p>
                         <label>Benefit Categories</label>

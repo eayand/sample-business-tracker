@@ -173,7 +173,7 @@ export default function CustomerDetailPage() {
                     <label>Address</label>
                     <p>{customer.address}</p>
                     <label>Joined</label>
-                    <p>{customer.joined}</p>
+                    <p>{new Date(customer.joined).toLocaleDateString()}</p>
                     <label>Renewal</label>
                     <p>{customer.renewal}</p>
 
@@ -195,7 +195,7 @@ export default function CustomerDetailPage() {
                         <div className="title-3">
                             <h3>Brokers</h3>
                         </div>
-                            <BrokerCardContainer customer={customer} customerId={id} />
+                            <BrokerCardContainer customer={customer} customerId={id} setCustomer={setCustomer} />
                         </div>
                     </div>
 

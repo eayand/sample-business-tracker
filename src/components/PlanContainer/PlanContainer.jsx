@@ -40,10 +40,16 @@ export default function PlanContainer({customer, customerId}) {
         }
     }
 
+    function updatePlansA(planA) {
+        const newPlanList = [...plansA]
+        const planIndex = newPlanList.findIndex((plan) => plan._id === planA._id)
+        newPlanList[planIndex] = planA
+        setPlansA(newPlanList)
+    }
 
 
 
-    const planCards = plansA.map((plan) => <PlanCard plan={plan} key={plan._id} customerId={customerId} /> )
+    const planCards = plansA.map((plan) => <PlanCard plan={plan} key={plan._id} customerId={customerId} updatePlansA={updatePlansA} /> )
 
 
     return (
@@ -58,7 +64,7 @@ export default function PlanContainer({customer, customerId}) {
                 <button type="submit" onClick={direct}>Create Plan</button>
             </form>
         </div>
-        <div className="flex-even">
+        <div className="flex-cen">
             {planCards}
         </div>
         </>

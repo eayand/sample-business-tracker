@@ -66,6 +66,7 @@ async function associateBroker(req, res) {
     try {
         customer.broker.push(broker)
         await customer.save()
+        await customer.populate('broker')
         res.json(customer)
     } catch(error) {
         console.log(error)

@@ -197,6 +197,13 @@ table td {
   gap: 1rem;
 }
 
+.flex-cen {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .flex-ctr-ctr {
   display: flex;
   justify-content: center;
