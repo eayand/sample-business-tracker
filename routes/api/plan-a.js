@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const planACtrl = require('../../controllers/api/planA');
+const planACtrl = require('../../controllers/api/plan-a');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-router.get('/:id', ensureLoggedIn, planACtrl.getPlans)
+router.get('/:customerId', ensureLoggedIn, planACtrl.index)
 
-router.post('/:id/create', ensureLoggedIn, planACtrl.create)
+router.post('/create', ensureLoggedIn, planACtrl.create)
 
 router.put('/update/:id', ensureLoggedIn, planACtrl.update)
 

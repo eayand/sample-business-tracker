@@ -8,12 +8,11 @@ export default function CustomerRow({customer}) {
             <td>{customer.formatPhone}</td>
             <td>{customer.tax}</td>
             <td>{customer.address}</td>
-            <td>{customer.joined}</td>
+            <td>{new Date(customer.fJoined).toLocaleDateString()}</td>
             <td>{customer.renewal}</td>
             <td>{customer.fCommission1}</td>
             <td>{customer.fCommission2}</td>
             <td>{customer.accountManager}</td>
-            <td>{customer.broker}</td>
         </tr>
     )
 }

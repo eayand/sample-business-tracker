@@ -3,23 +3,23 @@ const Customer = require('../../models/customer')
 
 module.exports = {
     create,
-    getPlans,
+    index,
     update,
     delete: deletePlan,
 }
 
 async function create(req, res) {
     try {
-        const planA = await PlanA.create(req.body)
-        res.json(planA)
+        const plan = await PlanA.create(req.body)
+        res.json(plan)
     } catch {
         res.status(400).json('Could not create plan.')
     }
 }
 
-async function getPlans(req, res) {
-    const plansA = await PlanA.find({customer: req.params.id })
-    res.json(plansA)
+async function index(req, res) {
+    const plans = await PlanA.find({customer: req.params.customerId })
+    res.json(plans)
 }
 
 async function update(req, res) {

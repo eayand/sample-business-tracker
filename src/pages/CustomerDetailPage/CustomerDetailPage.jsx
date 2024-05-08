@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import * as customersAPI from '../../utilities/customers-api'
 import BrokerCardContainer from "../../components/BrokerCardContainer/BrokerCardContainer"
-import PlanCardContainer from "../../components/PlanCardContainer/PlanCardContainer"
+import PlanContainer from "../../components/PlanContainer/PlanContainer"
 
 export default function CustomerDetailPage() {
 
@@ -54,7 +54,8 @@ export default function CustomerDetailPage() {
 
     async function handleUpdateCustomer(event) {
         event.preventDefault()
-        await customersAPI.updateCustomer(id, form)
+        const customer = await customersAPI.updateCustomer(id, form)
+        setCustomer(customer)
         toggleEdit()
     }
 
@@ -204,7 +205,7 @@ export default function CustomerDetailPage() {
                         <h3>Benefit Plans</h3>
                     </div>
 
-                    <PlanCardContainer customer={customer} id={id} handleChange={handleChange} />
+                    <PlanContainer customer={customer} customerId={id} />
 
                 </div>
 

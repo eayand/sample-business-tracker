@@ -57,7 +57,8 @@ async function deleteBroker(req, res) {
     try {
         await broker.deleteOne()
         res.json('Deleted')
-    } catch {
+    } catch(err) {
+        console.error(err)
         res.status(400).json('Could not delete broker.')
     }
 }

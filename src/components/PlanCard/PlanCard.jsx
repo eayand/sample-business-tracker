@@ -3,7 +3,7 @@ import * as plansAAPI from '../../utilities/plans-A-api'
 
 export default function PlanCard({plan}) {
 
-    const id = plan.id
+    const id = plan._id
 
     // const [thisPlan, setThisPlan] = useState(null)
     // useEffect(function() {
@@ -112,11 +112,13 @@ export default function PlanCard({plan}) {
                 </>
             : 
             <>
-                    <div className="flex full-width">
-                        <div><label>{plan.type} </label>{plan.name} </div>
-                        <div><label>Expert: </label>{plan.expert}</div>
-                    </div>
+                    <div className="flex-even full-width plan-card-title">
+                        <div><label>{plan.type} </label></div>
+                        <div>{plan.name}</div>
+                    </div><br />
                     <div className="flex-col full-width">
+                        <label>Expert</label>
+                        <p>{plan.expert}</p>
                         <label>Amount</label>
                         <p>{plan.amount}</p>
                         <label>System</label>

@@ -58,7 +58,6 @@ export default function BrokerDetailPage() {
     }
 
     async function handleDeleteBroker() {
-        console.log('id: ', id)
         await brokersAPI.deleteBroker(id)
         navigate('/brokers')
     }
