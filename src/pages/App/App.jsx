@@ -9,6 +9,7 @@ import BrokerDetailPage from '../BrokerDetailPage/BrokerDetailPage';
 import CustomerListPage from '../CustomerListPage/CustomerListPage';
 import CustomerDetailPage from '../CustomerDetailPage/CustomerDetailPage';
 import NavBar from '../../components/NavBar/NavBar';
+import UserActions from '../../components/UserActions/UserActions';
 import { useState } from 'react';
 import { getUser } from '../../utilities/users-service';
 import './App.css';
@@ -21,6 +22,7 @@ export default function App() {
         user ? 
         <>
           <NavBar user={user} setUser={setUser}/>
+          <UserActions user={user} setUser={setUser}/>
           <Routes>
             { user.role === 'admin' ? 
               <>
@@ -28,8 +30,8 @@ export default function App() {
               <Route path='/workspaces/:id' element={<WorkspaceDetailPage user={user}/>}/>
               </>
             : 
-              <Route path='/' element={<HomePage user={user}/>} />
-            }
+            <Route path='/' element={<HomePage user={user}/>} />
+          }
             { user.workspace.length > 0 ? 
             <>
             <Route path ='/brokers' element={<BrokerListPage user={user}/>} />

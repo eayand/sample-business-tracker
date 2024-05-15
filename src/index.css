@@ -1,32 +1,70 @@
-/************* ELEMENTS ON EVERY PAGE & THEIR CLASSES **************************************/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --backdrop: #ffffff;
-  --shape-big: #3370ff;
+  --theme: #0f183f;
   --theme-customer: #c1d3ff;
   --theme-broker: #fff8ba;
   --text-customer: #8ab6e9;
   --text-broker: #e7cb7e;
-  --text-dark: #0f183f;
   --interactable: #d6f2ff;
   --hover: #d1ffd7;
+  --shape-big: #3370ff;
   --accent: #00bc19;
   --error: #ff0000;
 }
 
 *, *:before, *:after {
   box-sizing: border-box;
-  color: var(--text-dark);
+  color: var(--theme);
   font-family: Tahoma, Verdana, sans-serif;
 }
 
 body {
   margin: 0 auto;
-  max-width: 800px;
-  padding: 3vmin;
   height: 100vh;
+  font-size: 1.2rem;
 }
 
-footer {
+button {
+  box-shadow: 1px 1px 2px 1px #606980;
+  padding: .2rem .5rem;
+}
+
+input, textarea {
+  padding: .2rem .5rem;
+  border: solid var(--theme)
+}
+
+.css-lg {
+  font-size: 2rem;
+}
+
+/* re-apply the usual h3 styling to the Box title */
+.h3 {
+
+  display: block;
+  font-size: 1.17em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  unicode-bidi: isolate;
+}
+
+
+
+
+
+
+
+
+
+
+/* footer {
   height: 10vh;
   margin: 0;
 }
@@ -47,14 +85,14 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} */
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 
 
 
 /************* ELEMENTS ON MULTIPLE PAGES & THEIR CLASSES **************************************/
-a, Link {
+/* a, Link {
   text-decoration: none;
   background-color: var(--interactable);
 }
@@ -64,7 +102,7 @@ a:hover, Link:hover {
 }
 
 button, a.button {
-  /* font-weight: bold; */
+  font-weight: bold;
   text-decoration: none;
   text-align: center;
   width: fit-content;
@@ -110,11 +148,11 @@ table td {
 }
 
 .first-column {
-  /* position: absolute; */
-  /* border: .1vmin solid var(--accent);
+  position: absolute;
+  border: .1vmin solid var(--accent);
   position: absolute;
   right: 80vw;
-  text-align: right; */
+  text-align: right;
 }
 
 .card-special{
@@ -185,7 +223,7 @@ table td {
 .edit-controls button {
   margin: 0;
   width: 100%;
-}
+} */
 
 
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
@@ -195,7 +233,7 @@ table td {
 
 
 /************* LIBRARY-STYLE CLASSES **************************************/
-.theme-broker {
+/* .theme-broker {
   background-color: var(--theme-broker)
 }
 
@@ -347,7 +385,7 @@ table td {
   font-size: 1rem;
   max-width: 10rem;
   margin: auto;
-}
+} */
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 
@@ -355,7 +393,7 @@ table td {
 
 
 /************* FULL-PAGE CLASSES **************************************/
-.detail-body, .detail-body-broker {
+/* .detail-body, .detail-body-broker {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -378,7 +416,7 @@ table td {
 }
 
 .detail-body label {
-  /* font-weight: bold; */
+  font-weight: bold;
   color: var(--text-customer);
   font-size: .9rem;
 }
@@ -406,13 +444,13 @@ table td {
 
 .detail-body h3, .detail-body-broker h3 {
   position: absolute;
-  /* width: fit-content; */
+  width: fit-content;
   margin: auto;
   padding-bottom: .3rem;
   background-color: #ffffff;
   z-index: 2;
   top: -2.8rem;
-}
+} */
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 
@@ -420,7 +458,7 @@ table td {
 
 
 /************* EVERYTHING WITHIN AN INDIVIDUAL PAGE **************************************/
-.admin-form {
+/* .admin-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -463,7 +501,7 @@ table td {
 
 .workspace-form button {
   margin: 1rem;
-}
+} */
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 
@@ -472,12 +510,12 @@ table td {
 
 /************* MEDIA QUERIES **************************************/
 
-@media (min-width: 900px) {
+/* @media (min-width: 900px) {
   .chart-container {
     margin-left: -10vw;
     margin-right: -10vw;
   }
-}
+} */
 
 
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */

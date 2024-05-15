@@ -32,16 +32,33 @@ export default function LoginForm({ setUser }) {
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit} className='grid-form'>
-          <label className="align-rt">Email</label>
-          <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-          <label className="align-rt">Password</label>
-          <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-          <div></div><button type="submit">LOG IN</button>
-        </form>
-      </div>
+    <div className="px-4">
+
+      <h1 className="text-left font-bold">Log In</h1>
+
+      <form autoComplete="off" onSubmit={handleSubmit} 
+      className="" >
+
+        <label 
+        className="block sm:inline-block sm:text-right sm:w-1/5">
+          Email
+        </label>
+        <input type="text" name="email" value={credentials.email} onChange={handleChange} required 
+        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5"/>
+        <br />
+
+        <label 
+        className="block sm:inline-block sm:text-right sm:w-1/5">
+          Password
+        </label>
+        <input type="password" name="password" value={credentials.password} onChange={handleChange} required 
+        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5"/>
+        <br />
+
+        <button type="submit" className="mt-4" >LOG IN</button>
+
+      </form>
+
       <p className="error-message">&nbsp;{error}</p>
     </div>
   );

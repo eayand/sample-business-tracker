@@ -3,6 +3,7 @@ import * as workspacesAPI from '../../utilities/workspaces-api'
 import WorkspaceForm from '../../components/WorkspaceForm/WorkspaceForm'
 import WorkspaceList from '../../components/WorkspaceList/WorkspaceList'
 import { getUser } from '../../utilities/users-service'
+import Box from '../../components/Box/Box'
 
 export default function AdminPage() {
     const user = getUser()
@@ -14,17 +15,25 @@ export default function AdminPage() {
 
     return(
         <>
-        <h1>Admin Home</h1>
-        <div className="flex">
-            <WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} />
-            
-                { workspaces.length ? 
+        <h1
+        className="css-lg w-full text-left px-10 py-3" >
+            Admin Home
+        </h1>
+
+        <div className="flex flex-wrap px-10">
+
+            <Box title="Create a Workspace" contents={<WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} />}/>
+
+            <Box title="Your Workspaces" 
+                contents={ workspaces.length ? 
                     <WorkspaceList workspaces={workspaces} />
                 : 
                     <p>Create a workspace to start adding users.</p>
                 }
+            />
             
         </div>
+
         </>
     )
 }

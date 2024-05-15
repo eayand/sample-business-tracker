@@ -28,21 +28,24 @@ export default function WorkspaceForm({workspaces, setWorkspaces}) {
     }
 
     return(
-    <form className="admin-form">
-        <h4>Create a Workspace</h4>
+    <form
+    className="text-center" >
         <div >
             <label>Workspace Name</label>
-            <input name="name" value={form.name} onChange={handleChange} />
+            <input name="name" value={form.name} onChange={handleChange} 
+            className="w-4/5" />
         </div>
         <br />
         <div >
             <label>Custom URL</label>
-            <input name="customURL" value={form.customURL} onChange={handleChange} />
+            <input name="customURL" value={form.customURL} onChange={handleChange} 
+            className="w-4/5" />
         </div>
         <br />
         <div >
             <label>Workspace Description</label>
-            <textarea name="description" value={form.description} onChange={handleChange} />
+            <textarea name="description" value={form.description} onChange={handleChange} 
+            className="w-4/5" />
         </div>
         <br />
         <div >
