@@ -8,6 +8,7 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn')
 // GET api/users/check-token
 router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken)
 
+router.get('/admin-page', usersCtrl.indexAll)
 router.get('/:workspace', usersCtrl.index)
 router.get('/no-ref/:workspace', usersCtrl.indexAvailable)
 

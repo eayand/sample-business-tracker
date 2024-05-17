@@ -20,3 +20,46 @@ let users, items, categories, orders, workspaces;
 // Welcome to Node.js v18.11.0.
 // Type ".help" for more information.
 // > .load crud-helper.js
+
+
+{ 
+    variable ? 
+    <>
+    </>
+: 
+    <>
+    </>
+}
+
+{ 
+    variable ? 
+    <>
+    </>
+: 
+    null
+}
+
+
+{ 
+    user.workspace.length > 0 ? 
+
+    <>
+        stuff
+    </>
+
+: 
+
+    undefined 
+}
+
+
+
+{ user.role === 'admin' ? 
+    <>
+    stuff
+    </>
+: 
+    <>
+    other stuff
+    </>
+}

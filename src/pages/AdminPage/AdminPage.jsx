@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react'
+import Box from '../../components/Box/Box'
 import * as workspacesAPI from '../../utilities/workspaces-api'
 import WorkspaceForm from '../../components/WorkspaceForm/WorkspaceForm'
 import WorkspaceList from '../../components/WorkspaceList/WorkspaceList'
-import { getUser } from '../../utilities/users-service'
-import Box from '../../components/Box/Box'
+import * as usersAPI from '../../utilities/users-api'
+import UserTable from '../../components/UserTable/UserTable'
 
 export default function AdminPage() {
-    const user = getUser()
     const [workspaces, setWorkspaces] = useState([])
     const [users, setUsers] = useState([])
 
     useEffect(function() {
-        (async () => setWorkspaces(await workspacesAPI.listWorkspaces(user)))()
+        (async () => setWorkspaces(await workspacesAPI.listWorkspaces()))()
     }, [])
 
-    
+    useEffect(function() {
+        (async () => setUsers(await usersAPI.listAllUsers()))()
+    }, [])
 
 
     return(
@@ -38,7 +40,12 @@ export default function AdminPage() {
             <Box title="Create a Workspace" 
             contents={<WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} />}/>
 
-            <Box title="All Users"  />
+            <Box title="All Users"  
+                contents={users.length ? 
+                    <UserTable users={users} />
+                    : 
+                    null}
+            />
 
         </div>
 

@@ -21,6 +21,10 @@ export async function listAvailableUsers(workspace) {
     return sendRequest(`${BASE_URL}/no-ref/${workspace}`, 'GET');
 }
 
+export async function listAllUsers() {
+    return sendRequest(`${BASE_URL}/admin-page`, 'GET')
+}
+
 export async function addWorkspace(form) {
     return sendRequest(`${BASE_URL}/add-workspace`, 'POST', form)
 }

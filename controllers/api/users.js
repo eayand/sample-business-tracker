@@ -9,6 +9,7 @@ module.exports = {
     checkToken,
     index,
     indexAvailable,
+    indexAll,
     addWorkspace,
     removeWorkspace
 }
@@ -65,6 +66,25 @@ async function indexAvailable(req, res) {
         res.status(400).json('Could not find users.')
     }
 }
+
+async function indexAll(req, res) {
+    try {
+        const user = await User.findById(req.user.id)
+        const users = await User.find( { workspace: { $in: user.workspace } } )
+        const userSet = new Set()
+        users.forEach((user) => userSet.add(user))
+        const adminPageUsers = Array.from(userSet)
+        res.json(adminPageUsers)     
+    } catch {
+        res.status(400).json('Could not find all users for your workspaces.')
+    }
+}
+
+// async function index(req, res) {
+//     const user = await User.findById(req.user._id)
+//     const workspaces = await Workspace.find( { _id: { $in: user.workspace }} ).sort('createdAt').exec();
+//     res.json(workspaces);
+// }
 
 async function addWorkspace(req, res) {
     const user = await User.findById(req.body.userId)
