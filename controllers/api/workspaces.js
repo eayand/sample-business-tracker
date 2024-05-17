@@ -13,14 +13,18 @@ async function create(req, res) {
     req.body.createdBy = req.user._id
     try {
         const workspace = await Workspace.create(req.body)
+        const user = await User.findById(req.user._id)
+        user.workspace.push(workspace)
+        await user.save()
         res.json(workspace)
     } catch {
-        res.status(400).json('Could not create workspace. Please check: (1) Custom URL contains only letters and numbers. (2) Name and URL are 50 characters max. Description is 100 characters max.')
+        res.status(400).json('Could not create workspace. Please check: (1) Custom URL contains only letters and numbers. (2) Name and URL are 50 characters max; description is 100 characters max.')
     }
 }
 
 async function index(req, res) {
-    const workspaces = await Workspace.find({'createdBy': req.user._id }).sort('name').exec();
+    const user = await User.findById(req.user._id)
+    const workspaces = await Workspace.find( { _id: { $in: user.workspace }} ).sort('createdAt').exec();
     res.json(workspaces);
 }
 
