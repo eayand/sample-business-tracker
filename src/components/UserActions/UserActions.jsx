@@ -41,6 +41,7 @@ export default function UserActions({user, setUser}) {
                     flex-direction: column;
                     justify-content: space-evenly;
                     background-color: #fff;
+                    z-index: 10;
                 }
         `}</style>
         </>

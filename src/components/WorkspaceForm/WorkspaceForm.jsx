@@ -8,6 +8,8 @@ export default function WorkspaceForm({workspaces, setWorkspaces}) {
         description: ""
     })
 
+    const [error, setError] = useState(null)
+
     function handleChange(event) {
         const newFormData = {
             ...form,
@@ -32,22 +34,23 @@ export default function WorkspaceForm({workspaces, setWorkspaces}) {
     className="text-center" >
         <div >
             <label>Workspace Name</label>
-            <input name="name" value={form.name} onChange={handleChange} 
+            <input name="name" value={form.name} onChange={handleChange} maxLength="50"
             className="w-4/5" />
         </div>
         <br />
         <div >
-            <label>Custom URL</label>
-            <input name="customURL" value={form.customURL} onChange={handleChange} 
+            <label>Custom URL <span className="text-sm">letters and numbers only</span></label>
+            <input name="customURL" value={form.customURL} onChange={handleChange} maxLength="50" pattern="[A-Za-z0-9]+"
             className="w-4/5" />
         </div>
         <br />
         <div >
             <label>Workspace Description</label>
-            <textarea name="description" value={form.description} onChange={handleChange} 
+            <textarea name="description" value={form.description} onChange={handleChange} maxLength="100"
             className="w-4/5" />
         </div>
         <br />
+        <p>{error}</p>
         <div >
             <button type="submit" onClick={handleSaveWorkspace}>Create</button>
         </div>

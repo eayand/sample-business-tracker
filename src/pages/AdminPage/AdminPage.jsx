@@ -8,10 +8,14 @@ import Box from '../../components/Box/Box'
 export default function AdminPage() {
     const user = getUser()
     const [workspaces, setWorkspaces] = useState([])
+    const [users, setUsers] = useState([])
 
     useEffect(function() {
         (async () => setWorkspaces(await workspacesAPI.listWorkspaces(user)))()
     }, [])
+
+    
+
 
     return(
         <>
@@ -22,16 +26,20 @@ export default function AdminPage() {
 
         <div className="flex flex-wrap px-10">
 
-            <Box title="Create a Workspace" contents={<WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} />}/>
 
             <Box title="Your Workspaces" 
                 contents={ workspaces.length ? 
                     <WorkspaceList workspaces={workspaces} />
-                : 
+                    : 
                     <p>Create a workspace to start adding users.</p>
                 }
             />
             
+            <Box title="Create a Workspace" 
+            contents={<WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} />}/>
+
+            <Box title="All Users"  />
+
         </div>
 
         </>

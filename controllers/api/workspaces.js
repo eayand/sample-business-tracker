@@ -15,7 +15,7 @@ async function create(req, res) {
         const workspace = await Workspace.create(req.body)
         res.json(workspace)
     } catch {
-        res.status(400).json('Could not create workspace.')
+        res.status(400).json('Could not create workspace. Please check: (1) Custom URL contains only letters and numbers. (2) Name and URL are 50 characters max. Description is 100 characters max.')
     }
 }
 

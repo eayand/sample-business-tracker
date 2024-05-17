@@ -36,8 +36,9 @@ const userSchema = new Schema({
     }],
     role: {
         type: String,
-        enum: ['admin', 'employee', 'broker'], 
-        default: 'employee'
+        enum: ['admin', 'employee', 'broker', 'readonly-employee', 'readonly-broker'], 
+        default: 'readonly-employee',
+        required: true,
     },
 },
 {
