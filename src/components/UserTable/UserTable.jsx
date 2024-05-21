@@ -4,7 +4,7 @@ export default function UserTable({users}) {
     const userTable = users.map((user) => <UserRow user={user} key={user._id}/>)
     return (
         <table>
-            <thead>
+            <thead >
                 <tr>
                     <th className="first-column">Name</th>
                     <th>Email</th>

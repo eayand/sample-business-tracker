@@ -44,7 +44,6 @@ input, textarea {
 
 /* re-apply the usual h3 styling to the Box title */
 .h3 {
-
   display: block;
   font-size: 1.17em;
   margin-block-start: 1em;
@@ -54,10 +53,6 @@ input, textarea {
   font-weight: bold;
   unicode-bidi: isolate;
 }
-
-
-
-
 
 
 

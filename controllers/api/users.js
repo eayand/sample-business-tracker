@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
 const Workspace = require('../../models/workspace')
 const bcrypt = require('bcrypt');
+const workspace = require('../../models/workspace');
 
 module.exports = {
     create,
@@ -70,7 +71,7 @@ async function indexAvailable(req, res) {
 async function indexAll(req, res) {
     try {
         const user = await User.findById(req.user.id)
-        const users = await User.find( { workspace: { $in: user.workspace } } )
+        const users = await User.find( { workspace: { $in: user.workspace } } ).populate('workspace').exec()
         const userSet = new Set()
         users.forEach((user) => userSet.add(user))
         const adminPageUsers = Array.from(userSet)
