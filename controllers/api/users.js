@@ -73,6 +73,7 @@ async function indexAll(req, res) {
         const user = await User.findById(req.user.id)
         const users = await User.find( { workspace: { $in: user.workspace } } ).populate('workspace').exec()
         const userSet = new Set()
+        userSet.add(user)
         users.forEach((user) => userSet.add(user))
         const adminPageUsers = Array.from(userSet)
         res.json(adminPageUsers)     

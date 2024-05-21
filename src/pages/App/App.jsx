@@ -32,14 +32,10 @@ export default function App() {
             : 
             <Route path='/' element={<HomePage user={user}/>} />
           }
-            { user.workspace.length > 0 ? 
-            <>
             <Route path ='/brokers' element={<BrokerListPage user={user}/>} />
             <Route path ='/brokers/:id' element={<BrokerDetailPage user={user}/>} />
             <Route path='/customers' element={<CustomerListPage user={user}/>}/>
             <Route path='/customers/:id' element={<CustomerDetailPage user={user}/>} />
-            </>
-            : undefined }
           </Routes> 
         </>
         : 

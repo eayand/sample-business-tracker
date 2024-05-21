@@ -26,7 +26,7 @@ export default function AdminPage() {
             Admin Home
         </h1>
 
-        <div className="flex flex-wrap px-10">
+        <div className="flex flex-wrap px-10 justify-center">
 
 
             <Box title="Your Workspaces" 

@@ -35,6 +35,8 @@ export default function BrokerListPage({user}) {
 
     return (
         <>
+        { user.workspace.length > 0 ? 
+        <>
         <div className="flex-between">
             <h1>Brokers </h1>
             <form className="flex-ctr-ctr">
@@ -47,6 +49,10 @@ export default function BrokerListPage({user}) {
         <div className="chart-container">
             <BrokerTable brokers={brokers}/>
         </div>
+        </>
+        : 
+        <div className="h-96 flex flex-col justify-center text-center text-3xl">Start by creating a workspace on your homepage.</div>
+        }
 
         </>
         
