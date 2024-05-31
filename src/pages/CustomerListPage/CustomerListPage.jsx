@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as customersAPI from '../../utilities/customers-api'
 import CustomerTable from "../../components/CustomerTable/CustomerTable";
 
@@ -7,14 +7,15 @@ import CustomerTable from "../../components/CustomerTable/CustomerTable";
 export default function CustomerListPage({user}) {
     
     const navigate = useNavigate()
+    const {wsurl} = useParams()
     const [customers, setCustomers] = useState([])
     const [form, setForm] = useState({
-        workspace: user.workspace[0],
+        workspace: undefined,
         name: undefined,
     })
 
     useEffect(function() {
-        (async () => setCustomers(await customersAPI.listCustomers()))()
+        (async () => setCustomers(await customersAPI.listCustomers(wsurl)))()
     }, [] )
 
     function handleChange(event) {
@@ -27,9 +28,9 @@ export default function CustomerListPage({user}) {
 
     async function handleCreateCustomer(event) {
         event.preventDefault()
-        const customer = await customersAPI.createCustomer(form)
+        const customer = await customersAPI.createCustomer(wsurl, form)
         const customerId = customer._id
-        navigate(`/customers/${customerId}`)
+        navigate(`/customers/${wsurl}/${customerId}`)
     }
 
     return (

@@ -32,10 +32,10 @@ export default function App() {
             : 
             <Route path='/' element={<HomePage user={user}/>} />
           }
-            <Route path ='/brokers' element={<BrokerListPage user={user}/>} />
-            <Route path ='/brokers/:id' element={<BrokerDetailPage user={user}/>} />
-            <Route path='/customers' element={<CustomerListPage user={user}/>}/>
-            <Route path='/customers/:id' element={<CustomerDetailPage user={user}/>} />
+            <Route path ='/brokers/:wsurl' element={<BrokerListPage user={user}/>} />
+            <Route path ='/brokers/:wsurl/:id' element={<BrokerDetailPage user={user}/>} />
+            <Route path='/customers/:wsurl' element={<CustomerListPage user={user}/>}/>
+            <Route path='/customers/:wsurl/:id' element={<CustomerDetailPage user={user}/>} />
           </Routes> 
         </>
         : 

@@ -71,12 +71,15 @@ async function indexAvailable(req, res) {
 async function indexAll(req, res) {
     try {
         const user = await User.findById(req.user.id)
-        const users = await User.find( { workspace: { $in: user.workspace } } ).populate('workspace').exec()
-        const userSet = new Set()
-        userSet.add(user)
-        users.forEach((user) => userSet.add(user))
-        const adminPageUsers = Array.from(userSet)
-        res.json(adminPageUsers)     
+        if (user.workspace.length > 0) {
+            const users = await User.find( { workspace: { $in: user.workspace } } ).populate('workspace').exec()
+            const userSet = new Set()
+            users.forEach((user) => userSet.add(user))
+            const adminPageUsers = Array.from(userSet)
+            res.json(adminPageUsers)     
+        } else {
+            res.json(user)
+        }
     } catch {
         res.status(400).json('Could not find all users for your workspaces.')
     }

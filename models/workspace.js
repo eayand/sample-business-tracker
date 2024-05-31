@@ -14,6 +14,7 @@ const workspaceSchema = new Schema({
         maxLength: 50,
         lowercase: true,
         match: [/^[A-Za-z0-9]*$/, 'letters and numbers only'],
+        unique: true,
     },
     description: {
         type: String, 

@@ -4,19 +4,19 @@ const customersCtrl = require('../../controllers/api/customers');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // GET /api/customers
-router.get('/', ensureLoggedIn, customersCtrl.index)
-router.get('/:id', ensureLoggedIn, customersCtrl.show)
-router.get('/no-ref/:id', ensureLoggedIn, customersCtrl.getNotAssociated)
-
-router.post('/create', ensureLoggedIn, customersCtrl.create)
-
-router.put('/:id', ensureLoggedIn, customersCtrl.update)
-router.put('/assoc/:id', ensureLoggedIn, customersCtrl.associateBroker)
-router.put('/associate-with/:id', ensureLoggedIn, customersCtrl.associateWithBroker)
-router.put('/remove/:id', ensureLoggedIn, customersCtrl.removeBroker)
-router.put('/remove-from/:id', ensureLoggedIn, customersCtrl.removeFromBroker)
-
-router.delete('/:id/delete', ensureLoggedIn, customersCtrl.delete)
+router.get('/:wsurl', ensureLoggedIn, customersCtrl.index)
+router.get('/:wsurl/:id', ensureLoggedIn, customersCtrl.show)
+router.get('/:wsurl/no-ref/:id', ensureLoggedIn, customersCtrl.getNotAssociated)
+// POST /api/customers
+router.post('/:wsurl/create', ensureLoggedIn, customersCtrl.create)
+// PUT /api/customers
+router.put('/:wsurl/:id', ensureLoggedIn, customersCtrl.update)
+router.put('/:wsurl/assoc/:id', ensureLoggedIn, customersCtrl.associateBroker)
+router.put('/:wsurl/associate-with/:id', ensureLoggedIn, customersCtrl.associateWithBroker)
+router.put('/:wsurl/remove/:id', ensureLoggedIn, customersCtrl.removeBroker)
+router.put('/:wsurl/remove-from/:id', ensureLoggedIn, customersCtrl.removeFromBroker)
+// DELETE /api/customers
+router.delete('/:wsurl/:id/delete', ensureLoggedIn, customersCtrl.delete)
 
 
 module.exports = router;

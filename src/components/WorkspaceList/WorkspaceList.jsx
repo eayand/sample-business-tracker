@@ -1,7 +1,7 @@
-import Workspace from "../WorkspaceCard/WorkspaceCard";
+import WorkspaceCard from "../WorkspaceCard/WorkspaceCard";
 
 export default function WorkspaceList({workspaces}) {
-    const workspaceList = workspaces.map((workspace) => < Workspace workspace={workspace} key={workspace._id}/>)
+    const workspaceList = workspaces.map((workspace) => < WorkspaceCard workspace={workspace} key={workspace._id}/>)
     return (
         <div className="flex flex-wrap gap-4">{workspaceList}</div>
     )

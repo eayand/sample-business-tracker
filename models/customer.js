@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Workspace = require('./workspace')
 
 const customerSchema = new Schema({
     name: {
@@ -44,7 +45,7 @@ const customerSchema = new Schema({
         type: Schema.Types.ObjectId, 
         ref: 'Workspace',
         required: true,
-    }
+    },
 },
 {
     timestamps: true,

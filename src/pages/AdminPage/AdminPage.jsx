@@ -6,7 +6,7 @@ import WorkspaceList from '../../components/WorkspaceList/WorkspaceList'
 import * as usersAPI from '../../utilities/users-api'
 import UserTable from '../../components/UserTable/UserTable'
 
-export default function AdminPage() {
+export default function AdminPage({user}) {
     const [workspaces, setWorkspaces] = useState([])
     const [users, setUsers] = useState([])
 
@@ -38,7 +38,7 @@ export default function AdminPage() {
             />
             
             <Box title="Create a Workspace" 
-            contents={<WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} />}/>
+            contents={<WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} users={users} setUsers={setUsers} />}/>
 
             <Box title="All Users"  
                 contents={users.length ? 
