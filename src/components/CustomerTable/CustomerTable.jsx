@@ -1,7 +1,7 @@
 import CustomerRow from "../CustomerRow/CustomerRow"
 
-export default function CustomerTable({customers}) {
-    const customerTable = customers.map((customer) => <CustomerRow customer={customer} key={customer._id}/>)
+export default function CustomerTable({customers, wsurl}) {
+    const customerTable = customers.map((customer) => <CustomerRow customer={customer} key={customer._id} wsurl={wsurl} />)
     return (
         <table>
             <thead>

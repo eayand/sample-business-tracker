@@ -7,7 +7,7 @@ import PlanContainer from "../../components/PlanContainer/PlanContainer"
 export default function CustomerDetailPage() {
 
     const navigate = useNavigate()
-    const {id} = useParams()
+    const {wsurl, id} = useParams()
     const [customer, setCustomer] = useState(null)
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
@@ -29,7 +29,7 @@ export default function CustomerDetailPage() {
 
 
     useEffect(function() {
-        (async () => setCustomer(await customersAPI.customerDetail(id)))();
+        (async () => setCustomer(await customersAPI.customerDetail(wsurl, id)))();
     }, [])
     
 
@@ -54,7 +54,7 @@ export default function CustomerDetailPage() {
 
     async function handleUpdateCustomer(event) {
         event.preventDefault()
-        const customer = await customersAPI.updateCustomer(id, form)
+        const customer = await customersAPI.updateCustomer(wsurl, id, form)
         setCustomer(customer)
         toggleEdit()
     }
@@ -64,7 +64,7 @@ export default function CustomerDetailPage() {
     }
 
     async function handleDeleteCustomer() {
-        await customersAPI.deleteCustomer(id)
+        await customersAPI.deleteCustomer(wsurl, id)
         navigate('/customers')
     }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

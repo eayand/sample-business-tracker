@@ -28,13 +28,13 @@ async function create(req, res) {
 }
 
 async function index(req, res) {
-    console.log('=========================', req.params.wsurl)
     const workspace = await Workspace.findOne({'customURL': req.params.wsurl})
     const customers = await Customer.find({'workspace': workspace}).sort('name').exec()
     res.json(customers)
 }
 
 async function show(req, res) {
+    console.log('=========================', req.params.id)
     const customer = await Customer.findById(req.params.id).populate('broker')
     res.json(customer)
 }

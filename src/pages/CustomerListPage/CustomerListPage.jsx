@@ -47,7 +47,7 @@ export default function CustomerListPage({user}) {
         </div>
 
         <div className="chart-container">
-            <CustomerTable customers={customers}/>
+            <CustomerTable customers={customers} wsurl={wsurl} />
         </div>
         </>
         : 

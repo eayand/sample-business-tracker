@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 
-export default function CustomerRow({customer}) {
+export default function CustomerRow({customer, wsurl}) {
     return (
         <tr>
-            <td className="first-column"> <Link to={`/customers/${customer._id}`}>{customer.name}</Link></td>
+            <td className="first-column"> <Link to={`/customers/${wsurl}/${customer._id}`}>{customer.name}</Link></td>
             <td>{customer.website}</td>
             <td>{customer.formatPhone}</td>
             <td>{customer.tax}</td>
