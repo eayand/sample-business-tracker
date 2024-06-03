@@ -22,7 +22,7 @@ export default function AdminPage({user}) {
     return(
         <>
         <h1
-        className="css-lg w-full text-left px-10 py-3" >
+        className="css-lg w-full text-center py-8" >
             Admin Home
         </h1>
 
