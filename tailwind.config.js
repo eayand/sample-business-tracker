@@ -12,6 +12,7 @@ module.exports = {
       'theme': '#0f183f',       //text and outlines
       'lightgreen': '#deffd4',  //admin or user theme
       'lightblue': '#c1d3ff',   //customer theme
+      'extralightblue': '#dfe8ff',
       'lightyellow': '#fff8ba', //broker theme
       'bluetext': '#8ab6e9',    //customer page text
       'yellowtext': '#e7cb7e',  //broker page text

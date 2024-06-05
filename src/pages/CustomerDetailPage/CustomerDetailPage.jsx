@@ -65,7 +65,7 @@ export default function CustomerDetailPage() {
 
     async function handleDeleteCustomer() {
         await customersAPI.deleteCustomer(wsurl, id)
-        navigate('/customers')
+        navigate(`/customers/${wsurl}`)
     }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import * as userService from '../../utilities/users-service'
 import UserActions from '../UserActions/UserActions'
@@ -9,17 +9,19 @@ export default function NavBar({ user, setUser }) {
         setHamburgerOpen(!hamburgerOpen)
     }
     const location = useLocation()
+    const pathSegments = location.pathname.split('/')
+    const wsurl = pathSegments[2]
 
     return (
         <>
             {
                 location.pathname === '/' ? null
                     :
-                    <nav className="navigation">
+                    <nav className="navigation py-2">
                         <div className="fullNav flex justify-center space-x-8">
-                            <div><Link to="/brokers">Brokers</Link></div>
-                            <div><Link to="/customers">Customers</Link></div>
-                            <div><Link to="/dashboard">Dashboard</Link></div>
+                            <div><Link to={`/brokers/${wsurl}`}>Brokers</Link></div>
+                            <div><Link to={`/customers/${wsurl}`}>Customers</Link></div>
+                            <div><Link to={`/dashboard/${wsurl}`}>Dashboard</Link></div>
                         </div>
 
                         <div className="hamburger" onClick={toggleHamburger}><span className="material-symbols-outlined">{`${hamburgerOpen ? 'close' : 'menu'}`}</span></div>

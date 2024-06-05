@@ -34,7 +34,6 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-    console.log('=========================', req.params.id)
     const customer = await Customer.findById(req.params.id).populate('broker')
     res.json(customer)
 }

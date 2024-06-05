@@ -2,17 +2,17 @@ import { Link } from "react-router-dom"
 
 export default function CustomerRow({customer, wsurl}) {
     return (
-        <tr>
-            <td className="first-column"> <Link to={`/customers/${wsurl}/${customer._id}`}>{customer.name}</Link></td>
-            <td>{customer.website}</td>
-            <td>{customer.formatPhone}</td>
-            <td>{customer.tax}</td>
-            <td>{customer.address}</td>
-            <td>{new Date(customer.fJoined).toLocaleDateString()}</td>
-            <td>{customer.renewal}</td>
-            <td>{customer.fCommission1}</td>
-            <td>{customer.fCommission2}</td>
-            <td>{customer.accountManager}</td>
+        <tr className="even:bg-extralightblue">
+            <td className="first-column border border-x-theme  max-h-1"> <Link to={`/customers/${wsurl}/${customer._id}`}>{customer.name}</Link></td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-48 text-nowrap">{customer.website}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-48 text-nowrap">{customer.formatPhone}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.tax}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-48 text-wrap">{customer.address}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{new Date(customer.fJoined).toLocaleDateString()}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.renewal}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.fCommission1}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.fCommission2}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-48 text-nowrap">{customer.accountManager}</td>
         </tr>
     )
 }
