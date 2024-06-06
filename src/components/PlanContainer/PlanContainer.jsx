@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import * as plansAAPI from '../../utilities/plans-A-api'
 import PlanCard from "../PlanCard/PlanCard"
 
-export default function PlanContainer({customer, customerId}) {
+export default function PlanContainer({customer, customerId, wsurl}) {
 
     const navigate = useNavigate()
 
@@ -22,12 +22,12 @@ export default function PlanContainer({customer, customerId}) {
     }
     
     useEffect(function() {
-        (async () => setPlansA(await plansAAPI.getPlans(customerId)))();
+        (async () => setPlansA(await plansAAPI.getPlans(wsurl, customerId)))();
     }, [])
 
     async function handleCreatePlanA(event) {
         event.preventDefault()
-        const plan = await plansAAPI.createPlanA(form)
+        const plan = await plansAAPI.createPlanA(wsurl, form)
         setPlansA([...plansA, plan])
         
     }

@@ -1,5 +1,5 @@
 
-export default function Pagination() {
+export default function Pagination({color}) {
 
     const button = 2
 
@@ -33,7 +33,7 @@ export default function Pagination() {
                             className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-400 hover:bg-hover focus:z-20 focus:outline-offset-0"
                         >
                             <span className="sr-only">Previous</span>
-                            <div className="h-5 w-5" aria-hidden="true"><span class="material-symbols-outlined">
+                            <div className="h-5 w-5" aria-hidden="true"><span className="material-symbols-outlined">
                                 arrow_back_ios
                             </span></div>
                         </a>
@@ -41,7 +41,7 @@ export default function Pagination() {
                         <a
                             href="#"
                             aria-current="page"
-                            className="relative z-10 inline-flex items-center bg-lightblue px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme"
+                            className={`relative z-10 inline-flex items-center ${color} px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme`}
                         >
                             1
                         </a>
@@ -83,7 +83,7 @@ export default function Pagination() {
                             className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-400 hover:bg-hover focus:z-20 focus:outline-offset-0"
                         >
                             <span className="sr-only">Next</span>
-                            <div className="h-5 w-5" aria-hidden="true"><span class="material-symbols-outlined">
+                            <div className="h-5 w-5" aria-hidden="true"><span className="material-symbols-outlined">
                                 arrow_forward_ios
                             </span></div>
                         </a>

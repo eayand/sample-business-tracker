@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import * as customersAPI from '../../utilities/customers-api'
 
-export default function BrokerCard({customerId, broker}) {
+export default function BrokerCard({customerId, broker, wsurl}) {
 
     async function handleRemoveBroker() {
-        await customersAPI.removeBroker(customerId, broker)
+        await customersAPI.removeBroker(wsurl, customerId, broker)
     }
 
     return (

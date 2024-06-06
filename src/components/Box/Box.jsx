@@ -2,7 +2,7 @@ export default function Box({title, contents}) {
 
     return(
         <div
-        className="border border-theme mx-0 my-6 sm:mx-6" >
+        className="border border-theme mx-2 sm:mx-6 my-6" >
 
             <div 
             className="relative flex justify-center" >

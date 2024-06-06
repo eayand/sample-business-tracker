@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import * as plansAAPI from '../../utilities/plans-A-api'
 
-export default function PlanCard({plan, updatePlansA}) {
+export default function PlanCard({plan, updatePlansA, wsurl}) {
 
     const id = plan._id
 
@@ -40,13 +40,13 @@ export default function PlanCard({plan, updatePlansA}) {
 
     async function handleUpdatePlan(event) {
         event.preventDefault()
-        const updatedPlan = await plansAAPI.updatePlan(id, form)
+        const updatedPlan = await plansAAPI.updatePlan(wsurl, id, form)
         updatePlansA(updatedPlan)
         toggleEdit()
     }
 
     async function handleDeletePlan() {
-        await plansAAPI.deletePlanA(id)
+        await plansAAPI.deletePlanA(wsurl, id)
     }
 
     return plan ? (

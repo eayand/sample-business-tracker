@@ -6,7 +6,7 @@ import CustomerCardContainer from "../../components/CustomerCardContainer/Custom
 export default function BrokerDetailPage() {
 
     const navigate = useNavigate()
-    const {id} = useParams()
+    const {wsurl, id} = useParams()
     const [broker, setBroker] = useState(null)
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
@@ -23,7 +23,7 @@ export default function BrokerDetailPage() {
     
     
     useEffect(function() {
-        (async () => setBroker(await brokersAPI.brokerDetail(id)))();
+        (async () => setBroker(await brokersAPI.brokerDetail(wsurl, id)))();
     }, [])
 
 
@@ -48,7 +48,7 @@ export default function BrokerDetailPage() {
 
     async function handleUpdateBroker(event) {
         event.preventDefault()
-        const broker = await brokersAPI.updateBroker(id, form)
+        const broker = await brokersAPI.updateBroker(wsurl, id, form)
         setBroker(broker)
         toggleEdit()
     }
@@ -58,8 +58,8 @@ export default function BrokerDetailPage() {
     }
 
     async function handleDeleteBroker() {
-        await brokersAPI.deleteBroker(id)
-        navigate('/brokers')
+        await brokersAPI.deleteBroker(wsurl, id)
+        navigate(`/brokers/${wsurl}`)
     }
 
 //////////////////////////////////////////////////
@@ -144,7 +144,7 @@ export default function BrokerDetailPage() {
                     <h3>Customers:</h3>
                 </div>
 
-                    <CustomerCardContainer broker={broker} id={id} handleChange={handleChange} />
+                    <CustomerCardContainer broker={broker} id={id} handleChange={handleChange} wsurl={wsurl} />
 
             </div>
             </>  

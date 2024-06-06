@@ -58,7 +58,7 @@ export default function CustomerListPage({ user }) {
                                 <p>Create a customer to get started.</p>
                         }
                     </div>
-                    <Pagination />
+                    <Pagination color="bg-lightblue"/>
                 </>
                 :
                 <div className="h-96 flex flex-col justify-center text-center text-3xl">Start by creating a workspace on your homepage.</div>

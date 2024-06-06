@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Broker = require('../../models/broker')
 const Customer = require('../../models/customer')
+const Workspace = require('../../models/workspace')
 
 module.exports = {
     create,
@@ -14,6 +15,8 @@ module.exports = {
 
 async function create(req, res) {
     try {
+        const workspace = await Workspace.find({'customURL': req.params.wsurl})
+        req.body.workspace = workspace[0]._id
         const broker = await Broker.create(req.body)
         res.json(broker)
     } catch {
@@ -22,7 +25,8 @@ async function create(req, res) {
 }
 
 async function index(req, res) {
-    const brokers = await Broker.find({'workspace': req.user.workspace[0]}).sort('name').exec();
+    const workspace = await Workspace.findOne({'customURL': req.params.wsurl})
+    const brokers = await Broker.find({'workspace': workspace}).sort('name').exec();
     res.json(brokers);
 }
 

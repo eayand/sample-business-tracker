@@ -27,7 +27,7 @@ export default function UserActions({user, setUser}) {
             className="userMenu shadow-md absolute right-3 w-32" >
                 <div 
                 className="text-sm text-center" >{user.name}</div>
-                <Link to="/">Home</Link>
+                <Link to="/" onClick={toggleUserMenu}>Home</Link>
                 <p>Edit Profile</p>
                 <Link onClick={handleLogOut}>Log Out</Link>
             </div>

@@ -3,12 +3,12 @@ const router = express.Router();
 const planACtrl = require('../../controllers/api/plan-a');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-router.get('/:customerId', ensureLoggedIn, planACtrl.index)
+router.get('/:wsurl/:customerId', ensureLoggedIn, planACtrl.index)
 
-router.post('/create', ensureLoggedIn, planACtrl.create)
+router.post('/:wsurl/create', ensureLoggedIn, planACtrl.create)
 
-router.put('/update/:id', ensureLoggedIn, planACtrl.update)
+router.put('/:wsurl/update/:id', ensureLoggedIn, planACtrl.update)
 
-router.delete('/delete/:id', ensureLoggedIn, planACtrl.delete)
+router.delete('/:wsurl/delete/:id', ensureLoggedIn, planACtrl.delete)
 
 module.exports = router

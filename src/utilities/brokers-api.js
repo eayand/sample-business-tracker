@@ -2,38 +2,38 @@ import sendRequest from "./send-request"
 
 const BASE_URL = '/api/brokers';
 
-export async function createBroker(form) {
-  return sendRequest(`${BASE_URL}/create`, 'POST', form)
+export async function createBroker(wsurl, form) {
+  return sendRequest(`${BASE_URL}/${wsurl}/create`, 'POST', form)
 }
 
-export async function listBrokers() {
-  return sendRequest(BASE_URL, 'GET');
+export async function listBrokers(wsurl) {
+  return sendRequest(`${BASE_URL}/${wsurl}`, 'GET');
 }
 
-export async function notAssocBrokers(id) {
-  return sendRequest(`${BASE_URL}/no-ref/${id}`, 'GET');
+export async function notAssocBrokers(wsurl, id) {
+  return sendRequest(`${BASE_URL}/${wsurl}/no-ref/${id}`, 'GET');
 }
 
-export async function brokerDetail(id) {
-  return sendRequest(`${BASE_URL}/${id}`, 'GET');
+export async function brokerDetail(wsurl, id) {
+  return sendRequest(`${BASE_URL}/${wsurl}/${id}`, 'GET');
 }
 
-export async function updateBroker(id, form) {
-  return sendRequest(`${BASE_URL}/${id}`, 'PUT', form);
+export async function updateBroker(wsurl, id, form) {
+  return sendRequest(`${BASE_URL}/${wsurl}/${id}`, 'PUT', form);
 }
 
-export async function deleteBroker(id) {
-  return sendRequest(`${BASE_URL}/${id}/delete`, 'DELETE');
+export async function deleteBroker(wsurl, id) {
+  return sendRequest(`${BASE_URL}/${wsurl}/${id}/delete`, 'DELETE');
 }
 
-export async function getAssocCustomers(id) {
-  return sendRequest(`${BASE_URL}/customers/${id}`, 'GET')
+export async function getAssocCustomers(wsurl, id) {
+  return sendRequest(`${BASE_URL}/${wsurl}/customers/${id}`, 'GET')
 }
 
-export async function associateCustomer(id, customer) {
-  return sendRequest(`${BASE_URL}/assoc/${id}`, 'PUT', customer);
+export async function associateCustomer(wsurl, id, customer) {
+  return sendRequest(`${BASE_URL}/${wsurl}/assoc/${id}`, 'PUT', customer);
 }
 
-export async function removeCustomer(id, customer) {
-  return sendRequest(`${BASE_URL}/remove/${id}`, 'PUT', customer)
+export async function removeCustomer(wsurl, id, customer) {
+  return sendRequest(`${BASE_URL}/${wsurl}/remove/${id}`, 'PUT', customer)
 }

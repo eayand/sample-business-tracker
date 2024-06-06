@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import * as brokersAPI from '../../utilities/brokers-api'
 import { associateBroker } from "../../utilities/customers-api";
 
-export default function BrokerSelect({customer, id, setCustomer}) {
+export default function BrokerSelect({customer, id, setCustomer, wsurl}) {
     const [availableBrokers, setAvailableBrokers] = useState([])
     const [form, setForm] = useState({
         broker: undefined,
     })
 
     useEffect(function() {
-        (async () => setAvailableBrokers(await brokersAPI.notAssocBrokers(id)))();
+        (async () => setAvailableBrokers(await brokersAPI.notAssocBrokers(wsurl, id)))();
     }, [customer.broker])
 
     function handleChange(event) {
