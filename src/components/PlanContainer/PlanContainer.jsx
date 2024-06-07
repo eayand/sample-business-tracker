@@ -38,6 +38,7 @@ export default function PlanContainer({customer, customerId, wsurl}) {
         } else if (select === 'B') {
             //plan B info here
         }
+        select = ""
     }
 
     function updatePlansA(planA) {
@@ -54,17 +55,16 @@ export default function PlanContainer({customer, customerId, wsurl}) {
 
     return (
         <>
-        <div className="flex margin-b">
-            <form className="flex-ctr-ctr">
-                <select name="type" value={select} onChange={handleChange} required className="inline-input ii-small">
+            <form className="flex justify-end mx-4">
+                <select name="type" value={select} onChange={handleChange} required className="border border-2 border-bluetext min-w-40 focus:bg-extralightblue">
                     <option value="" selected></option>
                     <option value="A">Type A</option>
                     <option value="B">Type B</option>
                 </select>
-                <button type="submit" onClick={direct}>Create Plan</button>
+                <button type="submit" onClick={direct} className="ml-4 text-nowrap">Create Plan</button>
             </form>
-        </div>
-        <div className="flex-cen">
+    
+        <div className="flex justify-center sm:justify-start">
             {planCards}
         </div>
         </>

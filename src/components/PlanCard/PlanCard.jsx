@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import * as plansAAPI from '../../utilities/plans-A-api'
 
-export default function PlanCard({plan, updatePlansA, wsurl}) {
+export default function PlanCard({ plan, updatePlansA, wsurl }) {
 
     const id = plan._id
 
@@ -50,86 +50,91 @@ export default function PlanCard({plan, updatePlansA, wsurl}) {
     }
 
     return plan ? (
-        <div className="card plan-card">
+        <div className="border border-bluetext p-4 m-4 w-full sm:w-96">
 
             {
-                edit ? 
-                <>
-                    <form className="big-form">
+                edit ?
+                    <>
+                        <form className="big-form">
 
-                    <label>Plan Name</label>
-                    <input name="name" value={form.name} onChange={handleChange} />
+                            <label>Plan Name</label>
+                            <input name="name" value={form.name} onChange={handleChange} />
 
-                    <label>Expert</label>
-                    <select name="expert" value={form.expert} onChange={handleChange}>
-                        <option value=""></option>
-                    </select><br />
+                            <label>Expert</label>
+                            <select name="expert" value={form.expert} onChange={handleChange}>
+                                <option value=""></option>
+                            </select><br />
 
-                    <label>Amount</label>
-                    <input type="number" name="amount" value={form.amount} onChange={handleChange} />
+                            <label>Amount</label>
+                            <input type="number" name="amount" value={form.amount} onChange={handleChange} />
 
-                    <label>System</label>
-                    <select name="system" value={form.system} onChange={handleChange}>
-                        <option value="" selected></option>
-                        <option value="Legacy">Legacy</option>
-                        <option value="Millenium">Millenium</option>
-                    </select><br />
+                            <label>System</label>
+                            <select name="system" value={form.system} onChange={handleChange}>
+                                <option value="" selected></option>
+                                <option value="Legacy">Legacy</option>
+                                <option value="Millenium">Millenium</option>
+                            </select><br />
 
-                    <label>Benefit Categories</label>
-                    <select multiple name="benefitCategories" value={form.benefitCategories} onChange={handleChange}>
-                        <option value="" selected></option>
-                        <option value="commuter">commuter</option>
-                        <option value="fitness">fitness</option>
-                        <option value="leisure">leisure</option>
-                        <option value="medical">medical</option>
-                    </select><br />
+                            <label>Benefit Categories</label>
+                            <select multiple name="benefitCategories" value={form.benefitCategories} onChange={handleChange}>
+                                <option value="" selected></option>
+                                <option value="commuter">commuter</option>
+                                <option value="fitness">fitness</option>
+                                <option value="leisure">leisure</option>
+                                <option value="medical">medical</option>
+                            </select><br />
 
-                    <label>Reminders</label>
-                    <select multiple name="reminders" value={form.reminders} onChange={handleChange}>
-                        <option value="" selected></option>
-                        <option value="email">email</option>
-                        <option value="paper">paper</option>
-                        <option value="none">none</option>
-                    </select><br />
+                            <label>Reminders</label>
+                            <select multiple name="reminders" value={form.reminders} onChange={handleChange}>
+                                <option value="" selected></option>
+                                <option value="email">email</option>
+                                <option value="paper">paper</option>
+                                <option value="none">none</option>
+                            </select><br />
 
-                    </form>    
+                        </form>
 
-                    <button type="submit" onClick={handleUpdatePlan}>SAVE</button>
-                    <button onClick={toggleEdit}>CANCEL</button>
+                        <button type="submit" onClick={handleUpdatePlan}>SAVE</button>
+                        <button onClick={toggleEdit}>CANCEL</button>
 
-                    { 
-                    preDelete ? 
-                        <>
-                            <p>Are you sure you want to delete {plan.type} {plan.name}?</p>
-                            <button onClick={togglePreDelete}>Cancel</button>
-                            <button onClick={handleDeletePlan}>Delete</button>
-                            <br />
-                        </>
-                    : 
-                        <>
-                            <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS PLAN</button>
-                        </>
-                    }
-                </>
-            : 
-            <>
-                    <div className="flex-even full-width plan-card-title">
-                        <div><label>{plan.type} </label></div>
+                        {
+                            preDelete ?
+                                <>
+                                    <p>Are you sure you want to delete {plan.type} {plan.name}?</p>
+                                    <button onClick={togglePreDelete}>Cancel</button>
+                                    <button onClick={handleDeletePlan}>Delete</button>
+                                    <br />
+                                </>
+                                :
+                                <>
+                                    <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS PLAN</button>
+                                </>
+                        }
+                    </>
+                    :
+                    <>
+                        <div className="flex justify-between">
+                            <div><label className="font-semibold">{plan.type} </label></div>
+                            <button type="button" onClick={toggleEdit} className="h-7 w-7 p-0">
+                                <span className="material-symbols-outlined text-2xl leading-7">
+                                    edit
+                                </span>
+                            </button>
+                        </div>
                         <div>{plan.name}</div>
-                    </div><br />
-                    <div className="flex-col full-width">
-                        <label>Expert</label>
-                        <p>{plan.expert}</p>
-                        <label>Amount</label>
-                        <p>{plan.fAmount}</p>
-                        <label>System</label>
-                        <p>{plan.system}</p>
-                        <label>Benefit Categories</label>
-                        <p>{plan.benefitCategories}</p>
-                        <label>Reminders</label>
-                        <p>{plan.reminders}</p>
-                        <button onClick={toggleEdit}>EDIT</button>
-                    </div>
+                        <br />
+                        <div className="flex-col full-width">
+                            <label className="text-bluetext">Expert</label>
+                            <p className="mb-3 h-8">{plan.expert}</p>
+                            <label className="text-bluetext">Amount</label>
+                            <p className="mb-3 h-8">{plan.fAmount}</p>
+                            <label className="text-bluetext">System</label>
+                            <p className="mb-3 h-8">{plan.system}</p>
+                            <label className="text-bluetext">Benefit Categories</label>
+                            <p className="mb-3 h-8">{plan.benefitCategories}</p>
+                            <label className="text-bluetext">Reminders</label>
+                            <p className="mb-3 h-8">{plan.reminders}</p>
+                        </div>
                     </>
             }
         </div>
