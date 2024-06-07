@@ -15,7 +15,7 @@ module.exports = {
       'extralightblue': '#dfe8ff',
       'lightyellow': '#fff8ba', //broker theme
       'extralightyellow': '#fffacd',
-      'bluetext': '#8ab6e9',    //customer page text
+      'bluetext': '#73a7e2',    //customer page text
       'yellowtext': '#e7cb7e',  //broker page text
       'interactable': '#d6f2ff',
       'hover': '#d1ffd7',

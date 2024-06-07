@@ -76,7 +76,7 @@ export default function CustomerDetailPage() {
     return customer ? (
         <div className="detail-body">
 
-            <h1>{customer.name}</h1>
+            <h1 className="font-bold text-3xl text-center">{customer.name}</h1>
 
             {
                 edit ?
@@ -154,32 +154,38 @@ export default function CustomerDetailPage() {
 
                     :
                     <>
-                        <div className="flex-j-end full-width relative">
-                            <button onClick={toggleEdit} className="detail-edit-button">Edit Mode</button>
+
+
+                        <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-12">
+
+                            <div className="mx-auto sm:mx-6 my-4 sm:col-start-10 sm:col-span-2 sm:flex sm:justify-end">
+                                <button onClick={toggleEdit} className="">Edit Mode</button>
+                            </div>
+
+                            <div className="sm:row-span-2 sm:col-span-5 sm:col-start-2" >
+                                <Box title="Basic Info"
+                                    contents={<CustomerInfo customer={customer} />}
+                                />
+                            </div>
+
+                            <div className="sm:col-span-5 sm:col-start-7">
+                                <Box title="Financial"
+                                    contents={<CustomerFinancial customer={customer} />}
+                                />
+                            </div>
+
+                            <div className="sm:col-span-5 sm:col-start-7">
+                                <Box title="Brokers"
+                                    contents={<BrokerCardContainer customer={customer} customerId={id} setCustomer={setCustomer} wsurl={wsurl} />}
+                                />
+                            </div>
+
+                            <div className="sm:col-span-10 sm:col-start-2">
+                                <Box title="Benefit Plans"
+                                    contents={<PlanContainer customer={customer} customerId={id} wsurl={wsurl} />}
+                                />
+                            </div>
                         </div>
-
-
-                        <Box title="Basic Info"
-                            contents={
-                                <CustomerInfo customer={customer} />
-                            }
-                        />
-
-
-
-                        <Box title="Financial"
-                            contents={<CustomerFinancial customer={customer} />}
-                        />
-
-                        <Box title="Brokers"
-                            contents={<BrokerCardContainer customer={customer} customerId={id} setCustomer={setCustomer} wsurl={wsurl} />}
-                        />
-
-                        <Box title="Benefit Plans"
-                            contents={
-                                <PlanContainer customer={customer} customerId={id} wsurl={wsurl}/>
-                            }
-                        />
 
                     </>
             }

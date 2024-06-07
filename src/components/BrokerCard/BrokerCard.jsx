@@ -9,9 +9,9 @@ export default function BrokerCard({customerId, broker, wsurl}) {
 
     return (
 
-        <div className="card-special flex-between brok-bg">
+        <div className="border border-yellowtext flex justify-between m-4 p-4">
             <Link className="card-special-link" to={`/brokers/${broker._id}`}><div className="flex-col">
-                <h4>{broker.name}</h4>
+                <h4 className="font-semibold" >{broker.name}</h4>
                 <div>{broker.formatPhone}</div>
                 </div></Link>
             <form>

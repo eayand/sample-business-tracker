@@ -27,17 +27,18 @@ export default function BrokerSelect({customer, id, setCustomer, wsurl}) {
 
     }
 
-    const dropdown = availableBrokers.map(b => <option value={b._id} key={b._id}>{b.name}</option>)
+    const dropdown = availableBrokers.map(b => <option value={b._id} key={b._id} className="w-full">{b.name}</option>)
 
 
     return (
         <>
-        <form className="flex-ctr-ctr">
-            <select name="broker" value={form.broker} onChange={handleChange} required className="inline-input ii-small">
+        <form className="flex justify-end m-4">
+            <select name="broker" value={form.broker} onChange={handleChange} required 
+            className="w-full border border-yellowtext border-2 p-2 focus:bg-extralightyellow focus:border-yellowtext ">
                 <option value=""></option>
                 {dropdown}
             </select>
-            <button type="submit" onClick={handleAssociateBroker}>Add Broker</button>
+            <button type="submit" onClick={handleAssociateBroker} className="ml-4 text-nowrap">Add Broker</button>
         </form>
         </>
     )
