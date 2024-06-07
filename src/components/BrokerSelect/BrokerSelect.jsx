@@ -22,9 +22,9 @@ export default function BrokerSelect({customer, id, setCustomer, wsurl}) {
 
     async function handleAssociateBroker(event) {
         event.preventDefault()
-        const updatedCustomer = await associateBroker(id, form)
+        const updatedCustomer = await associateBroker(wsurl, id, form)
         setCustomer(updatedCustomer)
-
+        setForm({broker: undefined})
     }
 
     const dropdown = availableBrokers.map(b => <option value={b._id} key={b._id} className="w-full">{b.name}</option>)
@@ -34,7 +34,7 @@ export default function BrokerSelect({customer, id, setCustomer, wsurl}) {
         <>
         <form className="flex justify-end m-4">
             <select name="broker" value={form.broker} onChange={handleChange} required 
-            className="w-full border border-yellowtext border-2 p-2 focus:bg-extralightyellow focus:border-yellowtext ">
+            className="w-full border border-yellowtext border-2 px-2 focus:bg-extralightyellow focus:border-yellowtext ">
                 <option value=""></option>
                 {dropdown}
             </select>
