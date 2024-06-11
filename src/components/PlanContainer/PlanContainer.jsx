@@ -38,7 +38,7 @@ export default function PlanContainer({customer, customerId, wsurl}) {
         } else if (select === 'B') {
             //plan B info here
         }
-        select = ""
+        setSelect("")
     }
 
     function updatePlansA(planA) {

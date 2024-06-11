@@ -5,7 +5,7 @@ const Workspace = require('../../models/workspace')
 
 module.exports = {
     create,
-    index, 
+    index,
     show,
     getNotAssociated,
     update,
@@ -18,19 +18,37 @@ module.exports = {
 
 async function create(req, res) {
     try {
-        const workspace = await Workspace.find({'customURL': req.params.wsurl})
+        const workspace = await Workspace.find({ 'customURL': req.params.wsurl })
         req.body.workspace = workspace[0]._id
         const customer = await Customer.create(req.body)
         res.json(customer)
-    } catch(err) {
+    } catch (err) {
         res.status(400).json('Could not create customer.')
     }
 }
 
 async function index(req, res) {
-    const workspace = await Workspace.findOne({'customURL': req.params.wsurl})
-    const customers = await Customer.find({'workspace': workspace}).sort('name').exec()
-    res.json(customers)
+    const ITEMS_PER_PAGE = 10
+    const page = req.query.page || 1
+    try {
+        const workspace = await Workspace.findOne({ 'customURL': req.params.wsurl })
+        const query = { 'workspace': workspace }
+        const skip = (page - 1) * ITEMS_PER_PAGE
+        const count = await Customer.estimatedDocumentCount(query)
+        const customers = await Customer.find(query).sort('name').skip(skip).limit(ITEMS_PER_PAGE)
+        const pageCount = Math.ceil(count / ITEMS_PER_PAGE)
+        res.json({
+            pagination: {
+                count,
+                pageCount
+            },
+            customers
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(400).json('Could not retrieve customers.')
+    }
+
 }
 
 async function show(req, res) {
@@ -41,7 +59,7 @@ async function show(req, res) {
 async function getNotAssociated(req, res) {
     const id = req.params.id
     const broker = await Broker.findById(id)
-    const customers = await Customer.find( { broker: { $ne: id }, workspace: broker.workspace  } )
+    const customers = await Customer.find({ broker: { $ne: id }, workspace: broker.workspace })
     res.json(customers)
 }
 
@@ -53,7 +71,7 @@ async function update(req, res) {
         customer.tax = req.body.tax
         customer.address = req.body.address
         customer.joined = req.body.joined
-        customer.renewal  = req.body.renewal
+        customer.renewal = req.body.renewal
         customer.commission1 = req.body.commission1
         customer.commission2 = req.body.commission2
         customer.accountManager = req.body.accountManager
@@ -72,7 +90,7 @@ async function associateBroker(req, res) {
         await customer.save()
         await customer.populate('broker')
         res.json(customer)
-    } catch(error) {
+    } catch (error) {
         console.log(error)
         res.status(400).json('Could not add broker to customer.')
     }
@@ -85,7 +103,7 @@ async function associateWithBroker(req, res) {
         customer.broker.push(broker)
         await customer.save()
         res.json(customer)
-    } catch(error) {
+    } catch (error) {
         console.log(error)
         res.status(400).json('Could not add customer to broker.')
     }

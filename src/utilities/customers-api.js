@@ -6,8 +6,8 @@ export async function createCustomer(wsurl, form) {
   return sendRequest(`${BASE_URL}/${wsurl}/create`, 'POST', form)
 }
 
-export async function listCustomers(wsurl) {
-  return sendRequest(`${BASE_URL}/${wsurl}`, 'GET');
+export async function listCustomers(wsurl, page) {
+  return sendRequest(`${BASE_URL}/${wsurl}?page=${page}`, 'GET');
 }
 
 export async function notAssocCustomers(wsurl, id) {

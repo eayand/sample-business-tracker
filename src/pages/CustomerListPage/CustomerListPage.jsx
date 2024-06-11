@@ -9,15 +9,23 @@ export default function CustomerListPage({ user }) {
 
     const navigate = useNavigate()
     const { wsurl } = useParams()
-    const [customers, setCustomers] = useState([])
+    const [customersData, setCustomersData] = useState({pagination:{}, customers:[] })
     const [form, setForm] = useState({
         workspace: undefined,
         name: undefined,
     })
+    const [page, setPage] = useState(1)
+    const [pageCount, setPageCount] = useState(0)
 
     useEffect(function () {
-        (async () => setCustomers(await customersAPI.listCustomers(wsurl)))()
-    }, [])
+        (async () => setCustomersData(await customersAPI.listCustomers(wsurl, page)))()
+    }, [page])
+
+    useEffect(() => {
+        if(customersData) {
+            setPageCount(customersData.pagination.pageCount)
+        }
+    }, [customersData])
 
     function handleChange(event) {
         const newFormData = {
@@ -32,6 +40,21 @@ export default function CustomerListPage({ user }) {
         const customer = await customersAPI.createCustomer(wsurl, form)
         const customerId = customer._id
         navigate(`/customers/${wsurl}/${customerId}`)
+    }
+
+    function handlePrevious() {
+        setPage((p) => {
+            if (p === 1) return p
+            return p - 1
+        })
+    }
+
+    function handleNext() {
+        setPage((p) => {
+            if(p === pageCount) return p
+            return p + 1
+        })
+        navigate(`/customers/${wsurl}?page=${page}`)
     }
 
     return (
@@ -52,13 +75,13 @@ export default function CustomerListPage({ user }) {
 
                     <div className="chart-container overflow-x-scroll mx-auto mt-6 border border-lightblue">
                         {
-                            customers.length ?
-                                <CustomerTable customers={customers} wsurl={wsurl} />
+                            customersData.customers.length ?
+                                <CustomerTable customers={customersData.customers} wsurl={wsurl} />
                                 :
                                 <p>Create a customer to get started.</p>
                         }
                     </div>
-                    <Pagination color="bg-lightblue"/>
+                    <Pagination color="bg-lightblue" page={page} pageCount={pageCount} handlePrevious={handlePrevious} handleNext={handleNext} />
                 </>
                 :
                 <div className="h-96 flex flex-col justify-center text-center text-3xl">Start by creating a workspace on your homepage.</div>

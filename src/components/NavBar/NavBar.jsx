@@ -18,13 +18,19 @@ export default function NavBar({ user, setUser }) {
                 location.pathname === '/' ? null
                     :
                     <nav className="navigation py-2">
-                        <div className="fullNav flex justify-center space-x-8">
-                            <div><Link to={`/brokers/${wsurl}`} onClick={toggleHamburger}>Brokers</Link></div>
-                            <div><Link to={`/customers/${wsurl}`} onClick={toggleHamburger}>Customers</Link></div>
-                            <div><Link to={`/dashboard/${wsurl}`} onClick={toggleHamburger}>Dashboard</Link></div>
+
+                        <div className="full-burger flex justify-center pt-8 sm:pt-0">
+
+                            <div className="menu-item w-full sm:w-40 text-center" ><Link to={`/brokers/${wsurl}`} onClick={toggleHamburger}>Brokers</Link></div>
+                            <div className="menu-item w-full sm:w-40 text-center"><Link to={`/customers/${wsurl}`} onClick={toggleHamburger}>Customers</Link></div>
+                            <div className="menu-item w-full sm:w-40 text-center"><Link to={`/dashboard/${wsurl}`} onClick={toggleHamburger}>Dashboard</Link></div>
+
                         </div>
 
-                        <div className="hamburger" onClick={toggleHamburger}><span className="material-symbols-outlined">{`${hamburgerOpen ? 'close' : 'menu'}`}</span></div>
+                        <div className="hamburger pl-3" onClick={toggleHamburger}>
+                            <span className="material-symbols-outlined text-3xl">{`${hamburgerOpen ? 'close' : 'menu'}`}</span>
+                        </div>
+
                     </nav>
             }
 
@@ -42,15 +48,20 @@ export default function NavBar({ user, setUser }) {
                     z-index: 10;
                 }
 
-                .fullNav {
+                .full-burger {
                     display: ${hamburgerOpen ? 'flex' : 'none'};
                     flex-direction: column;
-                    justify-content: space-evenly;
+                    justify-content: flex-start;
                     font-size: 2rem;
                     background-color: #fff;
-                    height: 95vh;
-                    width: 95vw;
-                    position: absolute;
+                    height: 100vh;
+                    width: 100vw;
+                    position: fixed;
+                    z-index: 10;
+                }
+
+                .menu-item {
+                    padding: 1rem;
                 }
             }
 

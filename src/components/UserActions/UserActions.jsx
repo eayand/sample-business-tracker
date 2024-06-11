@@ -24,11 +24,11 @@ export default function UserActions({user, setUser}) {
                 </div>
             </div>
             <div
-            className="userMenu shadow-md absolute right-3 w-32" >
+            className="userMenu shadow-lg p-4 absolute right-3 w-48" >
                 <div 
-                className="text-sm text-center" >{user.name}</div>
-                <Link to="/" onClick={toggleUserMenu}>Home</Link>
-                <p>Edit Profile</p>
+                className="text-sm text-center pb-3" >{user.name}</div>
+                <Link to="/" onClick={toggleUserMenu} className="pb-2">Home</Link>
+                <p className="pb-2" >Edit Profile</p>
                 <Link onClick={handleLogOut}>Log Out</Link>
             </div>
         </div>
