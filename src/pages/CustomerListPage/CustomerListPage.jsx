@@ -9,7 +9,8 @@ export default function CustomerListPage({ user }) {
 
     const navigate = useNavigate()
     const { wsurl } = useParams()
-    const [customersData, setCustomersData] = useState({pagination:{}, customers:[] })
+    const url = new URL(window.location.href);
+    const [customersData, setCustomersData] = useState({ pagination: {}, customers: [] })
     const [form, setForm] = useState({
         workspace: undefined,
         name: undefined,
@@ -22,7 +23,7 @@ export default function CustomerListPage({ user }) {
     }, [page])
 
     useEffect(() => {
-        if(customersData) {
+        if (customersData) {
             setPageCount(customersData.pagination.pageCount)
         }
     }, [customersData])
@@ -42,19 +43,21 @@ export default function CustomerListPage({ user }) {
         navigate(`/customers/${wsurl}/${customerId}`)
     }
 
+    function turnPage(number) {
+        url.searchParams.set('page', number);
+        window.history.pushState(null, '', url.toString())
+    }
+
     function handlePrevious() {
-        setPage((p) => {
-            if (p === 1) return p
-            return p - 1
-        })
+        if (page === 1) return
+        setPage(page - 1)
+        turnPage(page - 1)
     }
 
     function handleNext() {
-        setPage((p) => {
-            if(p === pageCount) return p
-            return p + 1
-        })
-        navigate(`/customers/${wsurl}?page=${page}`)
+        if (page === pageCount) return
+        setPage(page + 1)
+        turnPage(page + 1)
     }
 
     return (

@@ -15,7 +15,7 @@ export default function WorkspaceCard({ workspace }) {
             <div
                 className="flex justify-evenly m-3" >
 
-                <Link to={`/customers/${workspace.customURL}`}>
+                <Link to={`/customers/${workspace.customURL}?page=1`}>
                     <button>Log In</button>
                 </Link>
 
