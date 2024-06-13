@@ -56,7 +56,7 @@ export default class signUpForm extends Component {
                             First Name
                         </label>
                         <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} required 
-                        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5" />
+                        className="mx-5 my-2 w-80 border border-theme px-2 py-1 sm:max-w-96 sm:w-3/5" />
                         <br />
 
                         <label 
@@ -64,7 +64,7 @@ export default class signUpForm extends Component {
                             Last Name
                         </label>
                         <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} required 
-                        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5" />
+                        className="mx-5 my-2 w-80 border border-theme px-2 py-1 sm:max-w-96 sm:w-3/5" />
                         <br />
 
                         <label 
@@ -72,7 +72,7 @@ export default class signUpForm extends Component {
                             Email
                         </label>
                         <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required 
-                        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5" />
+                        className="mx-5 my-2 w-80 border border-theme px-2 py-1 sm:max-w-96 sm:w-3/5" />
                         <br />
 
                         <label 
@@ -80,15 +80,15 @@ export default class signUpForm extends Component {
                             Password
                         </label>
                         <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required 
-                        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5" />
+                        className="mx-5 my-2 w-80 border border-theme px-2 py-1 sm:max-w-96 sm:w-3/5" />
                         <br />
 
                         <label 
                         className="block sm:inline-block sm:text-right sm:w-1/5">
-                            Confirm Password
+                            Confirm
                         </label>
                         <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required 
-                        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5" />
+                        className="mx-5 my-2 w-80 border border-theme px-2 py-1 sm:max-w-96 sm:w-3/5" />
                         <br />
 
                         <button type="submit" disabled={disable}

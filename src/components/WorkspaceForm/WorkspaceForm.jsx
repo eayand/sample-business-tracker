@@ -36,19 +36,19 @@ export default function WorkspaceForm({workspaces, setWorkspaces, users, setUser
         <div >
             <label className="block">Workspace Name</label>
             <input name="name" value={form.name} onChange={handleChange} maxLength="50"
-            className="w-96" />
+            className="w-96 border border-theme px-2 py-1" />
         </div>
         <br />
         <div >
             <label className="block">Custom URL <span className="text-sm">letters and numbers only</span></label>
             <input name="customURL" value={form.customURL} onChange={handleChange} maxLength="50" pattern="[A-Za-z0-9]+"
-            className="w-96" />
+            className="w-96 border border-theme px-2 py-1" />
         </div>
         <br />
         <div >
             <label className="block">Workspace Description</label>
             <textarea name="description" value={form.description} onChange={handleChange} maxLength="100"
-            className="w-96" />
+            className="w-96 border border-theme px-2 py-1" />
         </div>
         <br />
         <p>{error}</p>

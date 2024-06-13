@@ -77,19 +77,19 @@ export default function BrokerDetailPage() {
                 <form className="big-form">
 
                     <label>Name of Company</label>
-                    <input name="name" value={form.name} onChange={handleChange} />
+                    <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
             
                     <label>Website</label>
-                    <input name="website" value={form.website} onChange={handleChange} />
+                    <input name="website" value={form.website} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
 
                     <label>Primary Phone Number</label>
-                    <input type="tel" name="phone" value={form.phone} onChange={handleChange} />
+                    <input type="tel" name="phone" value={form.phone} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
 
                     <label>Tax ID</label>
-                    <input name="tax" value={form.tax} onChange={handleChange} />
+                    <input name="tax" value={form.tax} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
 
                     <label>Address</label>
-                    <textarea name="address" value={form.address} onChange={handleChange} />
+                    <textarea name="address" value={form.address} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
         
                 </form>
 

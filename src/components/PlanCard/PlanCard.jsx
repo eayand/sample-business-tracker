@@ -58,25 +58,25 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
                         <form className="big-form">
 
                             <label>Plan Name</label>
-                            <input name="name" value={form.name} onChange={handleChange} />
+                            <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1"/>
 
                             <label>Expert</label>
-                            <select name="expert" value={form.expert} onChange={handleChange}>
+                            <select name="expert" value={form.expert} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
                                 <option value=""></option>
                             </select><br />
 
                             <label>Amount</label>
-                            <input type="number" name="amount" value={form.amount} onChange={handleChange} />
+                            <input type="number" name="amount" value={form.amount} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1"/>
 
                             <label>System</label>
-                            <select name="system" value={form.system} onChange={handleChange}>
+                            <select name="system" value={form.system} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
                                 <option value="" selected></option>
                                 <option value="Legacy">Legacy</option>
                                 <option value="Millenium">Millenium</option>
                             </select><br />
 
                             <label>Benefit Categories</label>
-                            <select multiple name="benefitCategories" value={form.benefitCategories} onChange={handleChange}>
+                            <select multiple name="benefitCategories" value={form.benefitCategories} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
                                 <option value="" selected></option>
                                 <option value="commuter">commuter</option>
                                 <option value="fitness">fitness</option>
@@ -85,7 +85,7 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
                             </select><br />
 
                             <label>Reminders</label>
-                            <select multiple name="reminders" value={form.reminders} onChange={handleChange}>
+                            <select multiple name="reminders" value={form.reminders} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
                                 <option value="" selected></option>
                                 <option value="email">email</option>
                                 <option value="paper">paper</option>

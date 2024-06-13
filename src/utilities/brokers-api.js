@@ -6,8 +6,8 @@ export async function createBroker(wsurl, form) {
   return sendRequest(`${BASE_URL}/${wsurl}/create`, 'POST', form)
 }
 
-export async function listBrokers(wsurl) {
-  return sendRequest(`${BASE_URL}/${wsurl}`, 'GET');
+export async function listBrokers(wsurl, page) {
+  return sendRequest(`${BASE_URL}/${wsurl}?page=${page}`, 'GET');
 }
 
 export async function notAssocBrokers(wsurl, id) {

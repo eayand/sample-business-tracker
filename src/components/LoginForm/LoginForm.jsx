@@ -36,23 +36,22 @@ export default function LoginForm({ setUser }) {
 
       <h1 className="text-left font-bold">Log In</h1>
 
-      <form autoComplete="off" onSubmit={handleSubmit} 
-      className="" >
+      <form autoComplete="off" onSubmit={handleSubmit}>
 
         <label 
         className="block sm:inline-block sm:text-right sm:w-1/5">
           Email
         </label>
         <input type="text" name="email" value={credentials.email} onChange={handleChange} required 
-        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5"/>
-        <br />
+        className="mx-5 my-2 w-80 border border-theme px-2 py-1 sm:max-w-96 sm:w-3/5"/>
+        <br/>
 
         <label 
         className="block sm:inline-block sm:text-right sm:w-1/5">
           Password
         </label>
         <input type="password" name="password" value={credentials.password} onChange={handleChange} required 
-        className="border m-3 mt-1 sm:max-w-96 sm:w-3/5"/>
+        className="mx-5 my-2 w-80 border border-theme px-2 py-1 sm:max-w-96 sm:w-3/5"/>
         <br />
 
         <button type="submit" className="mt-4" >LOG IN</button>

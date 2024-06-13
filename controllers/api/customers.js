@@ -34,7 +34,8 @@ async function index(req, res) {
         const workspace = await Workspace.findOne({ 'customURL': req.params.wsurl })
         const query = { 'workspace': workspace }
         const skip = (page - 1) * ITEMS_PER_PAGE
-        const count = await Customer.estimatedDocumentCount(query)
+        const total = await Customer.find(query)
+        const count = total.length
         const customers = await Customer.find(query).sort('name').skip(skip).limit(ITEMS_PER_PAGE)
         const pageCount = Math.ceil(count / ITEMS_PER_PAGE)
         res.json({

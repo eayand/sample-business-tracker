@@ -25,9 +25,27 @@ async function create(req, res) {
 }
 
 async function index(req, res) {
-    const workspace = await Workspace.findOne({'customURL': req.params.wsurl})
-    const brokers = await Broker.find({'workspace': workspace}).sort('name').exec();
-    res.json(brokers);
+    const ITEMS_PER_PAGE = 10
+    const page = req.query.page || 1
+    try {
+        const workspace = await Workspace.findOne({'customURL': req.params.wsurl})
+        const query = { 'workspace': workspace }
+        const skip = (page - 1) * ITEMS_PER_PAGE
+        const total = await Broker.find(query)
+        const count = total.length
+        const brokers = await Broker.find(query).sort('name').skip(skip).limit(ITEMS_PER_PAGE)
+        const pageCount = Math.ceil(count / ITEMS_PER_PAGE)
+        res.json({
+            pagination: {
+                count,
+                pageCount
+            },
+            brokers
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(400).json('Could not retrieve brokers.')
+    }
 }
 
 async function show(req, res) {

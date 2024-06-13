@@ -13,12 +13,12 @@ export default function CustomerListPage({ user }) {
     const urlPage = new URL(document.location).searchParams
     const page = parseInt(urlPage.get('page'))
     const [customersData, setCustomersData] = useState({ pagination: {}, customers: [] })
+    const [pageCount, setPageCount] = useState(0)
+
     const [form, setForm] = useState({
         workspace: undefined,
         name: undefined,
     })
-    // const [page, setPage] = useState(1)
-    const [pageCount, setPageCount] = useState(0)
 
     useEffect(function () {
         (async () => setCustomersData(await customersAPI.listCustomers(wsurl, page)))()
@@ -88,7 +88,7 @@ export default function CustomerListPage({ user }) {
                                 <p>Create a customer to get started.</p>
                         }
                     </div>
-                    <Pagination textColor="text-bluetext" bgColor="bg-bluetext" wsurl={wsurl} page={page} pageCount={pageCount} handlePrevious={handlePrevious} handleNext={handleNext} />
+                    <Pagination textColor="text-bluetext" bgColor="bg-bluetext" section="customers" wsurl={wsurl} page={page} pageCount={pageCount} handlePrevious={handlePrevious} handleNext={handleNext} />
                 </>
                 :
                 <div className="h-96 flex flex-col justify-center text-center text-3xl">Start by creating a workspace on your homepage.</div>

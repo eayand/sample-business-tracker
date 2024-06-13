@@ -56,15 +56,15 @@ export default function WorkspaceDetailPage() {
         <form className="flex-ctr-ctr flex-col workspace-form">
             <div >
                 <label>Workspace Name</label><br />
-                <input name="name" value={form.name} onChange={handleChange} />
+                <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
             </div>
             <div >
                 <label>Custom URL</label><br />
-                <input name="customURL" value={form.customURL} onChange={handleChange} />
+                <input name="customURL" value={form.customURL} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
             </div>
             <div >
                 <label>Workspace Description</label><br />
-                <textarea name="description" value={form.description} onChange={handleChange} />
+                <textarea name="description" value={form.description} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
             </div>
             <div>
                 <button type="submit" onClick={handleUpdateWorkspace}>Update</button>

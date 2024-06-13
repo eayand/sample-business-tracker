@@ -21,7 +21,7 @@ export default function NavBar({ user, setUser }) {
 
                         <div className="full-burger flex justify-center pt-8 sm:pt-0">
 
-                            <div className="menu-item w-full sm:w-40 text-center" ><Link to={`/brokers/${wsurl}`} onClick={toggleHamburger}>Brokers</Link></div>
+                            <div className="menu-item w-full sm:w-40 text-center" ><Link to={`/brokers/${wsurl}?page=1`} onClick={toggleHamburger}>Brokers</Link></div>
                             <div className="menu-item w-full sm:w-40 text-center"><Link to={`/customers/${wsurl}?page=1`} onClick={toggleHamburger}>Customers</Link></div>
                             <div className="menu-item w-full sm:w-40 text-center"><Link to={`/dashboard/${wsurl}`} onClick={toggleHamburger}>Dashboard</Link></div>
 

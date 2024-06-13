@@ -1,10 +1,10 @@
 import { useNavigate, Link } from "react-router-dom"
 
-export default function Pagination({ textColor, bgColor, wsurl, page, pageCount, handlePrevious, handleNext }) {
+export default function Pagination({ textColor, bgColor, section, wsurl, page, pageCount, handlePrevious, handleNext }) {
 
     const navigate = useNavigate()
     
-    const boxStyle = `relative inline-flex items-center justify-center w-10 px-0 py-2 text-sm font-semibold ${textColor} ring-1 ring-inset ring-gray-400 hover:bg-hover disabled:hover:none focus:z-20 focus:outline-offset-0`
+    const boxStyle = `relative inline-flex items-center justify-center w-10 px-0 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-400 hover:bg-hover focus:z-20 focus:outline-offset-0`
 
     const threshold = pageCount > 7 && page > 7 ? "above" : "below"
 
@@ -71,6 +71,14 @@ export default function Pagination({ textColor, bgColor, wsurl, page, pageCount,
         }
     }
 
+    const options1 = options[threshold].box1
+    const options2 = options[threshold].box2
+    const options3 = options[threshold].box3
+    const options4 = options[threshold].box4
+    const options5 = options[threshold].box5
+    const options6 = options[threshold].box6
+    const options7 = options[threshold].box7
+
     return (
         <>
             <div className="flex items-center justify-between px-4 py-3 sm:px-6">
@@ -110,51 +118,50 @@ export default function Pagination({ textColor, bgColor, wsurl, page, pageCount,
                             {/* Current: "z-10 bg-bluetext text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme", Default: "text-gray-400 ring-1 ring-inset ring-gray-400 hover:bg-hover focus:outline-offset-0" */}
 
                             <Link
-                                to={`/customers/${wsurl}?page=${options[threshold].box1.content}`}
-                                aria-current="page"
-                                className={options[threshold].box1.content===page ? options[threshold].box1.style.concat(' ', `text-white ${bgColor}`) : options[threshold].box1.style}
+                                to={`/${section}/${wsurl}?page=${options1.content}`}
+                                className={options1.content===page ? options1.style.concat(' ', `text-white ${bgColor}`) : options1.style.concat(' ', textColor)}
                             >
-                                {options[threshold].box1.content}
+                                {options1.content}
                             </Link>
 
                             <Link
-                                to={`/customers/${wsurl}?page=${options[threshold].box2.content}`}
-                                className={options[threshold].box2.content===page ? options[threshold].box2.style.concat(' ', `text-white ${bgColor}`) : options[threshold].box2.style}
+                                to={`/${section}/${wsurl}?page=${options2.content}`}
+                                className={options2.content===page ? options2.style.concat(' ', `text-white ${bgColor}`) : options2.style.concat(' ', textColor)}
                             >
-                                {options[threshold].box2.content}
+                                {options2.content}
                             </Link>
 
                             <Link
-                                to={`/customers/${wsurl}?page=${options[threshold].box3.content}`}
-                                className={options[threshold].box3.content===page ? options[threshold].box3.style.concat(' ', `text-white ${bgColor}`) : options[threshold].box3.style}
+                                to={`/${section}/${wsurl}?page=${options3.content}`}
+                                className={options3.content===page ? options3.style.concat(' ', `text-white ${bgColor}`) : options3.style.concat(' ', textColor)}
                             >
-                                {options[threshold].box3.content}
+                                {options3.content}
                             </Link>
 
                             <Link
-                                to={`/customers/${wsurl}?page=${options[threshold].box4.content}`}
-                                className={options[threshold].box4.content===page ? options[threshold].box4.style.concat(' ', `text-white ${bgColor}`) : options[threshold].box4.style}
+                                to={`/${section}/${wsurl}?page=${options4.content}`}
+                                className={options4.content===page ? options4.style.concat(' ', `text-white ${bgColor}`) : options4.style.concat(' ', textColor)}
                             >
-                                {options[threshold].box4.content}
+                                {options4.content}
                             </Link>
                             
                             <Link
-                                to={`/customers/${wsurl}?page=${options[threshold].box5.content}`}
-                                className={options[threshold].box5.content===page ? options[threshold].box5.style.concat(' ', `text-white ${bgColor}`) : options[threshold].box5.style}
+                                to={`/${section}/${wsurl}?page=${options5.content}`}
+                                className={options5.content===page ? options5.style.concat(' ', `text-white ${bgColor}`) : options5.style.concat(' ', textColor)}
                             >
-                                {options[threshold].box5.content}
+                                {options5.content}
                             </Link>
                             <Link
-                                to={`/customers/${wsurl}?page=${options[threshold].box6.content}`}
-                                className={options[threshold].box6.content===page ? options[threshold].box6.style.concat(' ', `text-white ${bgColor}`) : options[threshold].box6.style}
+                                to={`/${section}/${wsurl}?page=${options6.content}`}
+                                className={options6.content===page ? options6.style.concat(' ', `text-white ${bgColor}`) : options6.style.concat(' ', textColor)}
                             >
-                                {options[threshold].box6.content}
+                                {options6.content}
                             </Link>
                             <Link
-                                to={`/customers/${wsurl}?page=${options[threshold].box7.content}`}
-                                className={options[threshold].box7.content===page ? options[threshold].box7.style.concat(' ', `text-white ${bgColor}`) : options[threshold].box7.style}
+                                to={`/${section}/${wsurl}?page=${options7.content}`}
+                                className={options7.content===page ? options7.style.concat(' ', `text-white ${bgColor}`) : options7.style.concat(' ', textColor)}
                             >
-                                {options[threshold].box7.content}
+                                {options7.content}
                             </Link>
                             <div
                                 className={"relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-400 hover:bg-hover focus:z-20 focus:outline-offset-0"}
