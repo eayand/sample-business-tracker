@@ -9,13 +9,15 @@ export default function CustomerListPage({ user }) {
 
     const navigate = useNavigate()
     const { wsurl } = useParams()
-    const url = new URL(window.location.href);
+    const url = new URL(window.location.href)
+    const urlPage = new URL(document.location).searchParams
+    const page = parseInt(urlPage.get('page'))
     const [customersData, setCustomersData] = useState({ pagination: {}, customers: [] })
     const [form, setForm] = useState({
         workspace: undefined,
         name: undefined,
     })
-    const [page, setPage] = useState(1)
+    // const [page, setPage] = useState(1)
     const [pageCount, setPageCount] = useState(0)
 
     useEffect(function () {
@@ -50,13 +52,15 @@ export default function CustomerListPage({ user }) {
 
     function handlePrevious() {
         if (page === 1) return
-        setPage(page - 1)
+        // setPage(page - 1)
+        navigate(`/customers/${wsurl}?page=${page-1}`)
         turnPage(page - 1)
     }
-
+    
     function handleNext() {
         if (page === pageCount) return
-        setPage(page + 1)
+        // setPage(page + 1)
+        navigate(`/customers/${wsurl}?page=${page+1}`)
         turnPage(page + 1)
     }
 
@@ -68,7 +72,7 @@ export default function CustomerListPage({ user }) {
                         <h1 className="font-bold text-3xl">Customers </h1>
                         <form className="flex flex-wrap justify-center lg:justify-right">
                             <div>
-                                <input name="name" value={form.name} onChange={handleChange} required className="mx-5 my-2 lg:my-0 w-80" data-ignore="true" data-1p-ignore="true" />
+                                <input name="name" value={form.name} onChange={handleChange} required className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
                             </div>
                             <div>
                                 <button type="submit" onClick={handleCreateCustomer} className="my-2 lg:my-0 bg-green text-white">Create New Customer</button>
@@ -84,7 +88,7 @@ export default function CustomerListPage({ user }) {
                                 <p>Create a customer to get started.</p>
                         }
                     </div>
-                    <Pagination color="bg-lightblue" page={page} pageCount={pageCount} handlePrevious={handlePrevious} handleNext={handleNext} />
+                    <Pagination textColor="text-bluetext" bgColor="bg-bluetext" wsurl={wsurl} page={page} pageCount={pageCount} handlePrevious={handlePrevious} handleNext={handleNext} />
                 </>
                 :
                 <div className="h-96 flex flex-col justify-center text-center text-3xl">Start by creating a workspace on your homepage.</div>

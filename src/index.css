@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Root colors can be removed once design is finished. */
 :root {
   --backdrop: #ffffff;
   --theme: #0f183f;
@@ -42,10 +43,11 @@ button:disabled, form:invalid button[type="submit"] {
   color: #a3a3a3;
 }
 
-input, textarea {
+/* input, textarea {
   padding: .2rem .5rem;
   border: solid var(--theme)
-}
+} */
+/* Take the tailwind formatting from the create customer input to replace this. */
 
 /* re-apply the usual h3 styling to the Box title */
 .h3 {
@@ -61,7 +63,13 @@ input, textarea {
 
 .chart-container {
   max-width: 90vw;
-  max-height: 80vh;
+  max-height: 75vh;
+}
+
+.pagination {
+  position: fixed;
+  bottom: 2vh;
+  right: 5vw;
 }
 
 
