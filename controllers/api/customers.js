@@ -53,15 +53,23 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-    const customer = await Customer.findById(req.params.id).populate('broker')
-    res.json(customer)
-}
+    try {
+        const customer = await Customer.findById(req.params.id).populate('broker')
+        res.json(customer)
+    } catch {
+        res.status(400).json('Could not retrieve customer.')
+    }
+    }
 
 async function getNotAssociated(req, res) {
-    const id = req.params.id
-    const broker = await Broker.findById(id)
-    const customers = await Customer.find({ broker: { $ne: id }, workspace: broker.workspace })
-    res.json(customers)
+    try {
+        const id = req.params.id
+        const broker = await Broker.findById(id)
+        const customers = await Customer.find({ broker: { $ne: id }, workspace: broker.workspace })
+        res.json(customers)
+    } catch {
+        res.status(400).json('Could not retrieve potential customers.')
+    }
 }
 
 async function update(req, res) {

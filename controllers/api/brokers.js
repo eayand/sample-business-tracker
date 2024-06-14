@@ -49,14 +49,22 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-    const broker = await Broker.findById(req.params.id);
-    res.json(broker);
+    try {
+        const broker = await Broker.findById(req.params.id);
+        res.json(broker);
+    } catch {
+        res.status(400).json('Could not retrieve broker.')
+    }
 }
 
 async function getNotAssociated(req, res) {
-    const customer = await Customer.findById(req.params.id)
-    const brokers = await Broker.find({ workspace: customer.workspace, _id: {$nin: customer.broker}}).sort('name')
-    res.json(brokers)
+    try {
+        const customer = await Customer.findById(req.params.id)
+        const brokers = await Broker.find({ workspace: customer.workspace, _id: {$nin: customer.broker}}).sort('name')
+        res.json(brokers)
+    } catch {
+        res.status(400).json('Could not retrieve potential brokers.')
+    }
 }
 
 async function update(req, res) {
@@ -79,13 +87,16 @@ async function deleteBroker(req, res) {
     try {
         await broker.deleteOne()
         res.json('Deleted')
-    } catch(err) {
-        console.error(err)
+    } catch {
         res.status(400).json('Could not delete broker.')
     }
 }
 
 async function getCustomers(req, res) {
-    const customers = await Customer.find({broker: new mongoose.Types.ObjectId(req.params.id)})
-    res.json(customers)
-}
+    try {
+        const customers = await Customer.find({broker: new mongoose.Types.ObjectId(req.params.id)})
+        res.json(customers)
+    } catch {
+        res.status(400).json('Could not retrieve this customers for this broker.')
+    }
+    }

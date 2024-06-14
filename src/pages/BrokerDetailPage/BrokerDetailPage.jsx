@@ -139,9 +139,9 @@ export default function BrokerDetailPage() {
 
                             <div className="sm:col-span-10 sm:col-start-2">
                                 <Box title="Customers"
-                                    contents="move CustomerCardContainer here"
+                                    contents={<CustomerCardContainer broker={broker} id={id} handleChange={handleChange} wsurl={wsurl} />}
                                 />
-                                {/* <CustomerCardContainer broker={broker} id={id} handleChange={handleChange} wsurl={wsurl} /> */}
+                                
                             </div>
 
                         </div>

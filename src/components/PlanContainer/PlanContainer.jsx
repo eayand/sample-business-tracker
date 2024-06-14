@@ -56,7 +56,7 @@ export default function PlanContainer({customer, customerId, wsurl}) {
     return (
         <>
             <form className="flex justify-end mx-4">
-                <select name="type" value={select} onChange={handleChange} required className="border border-2 border-bluetext min-w-40 focus:bg-extralightblue">
+                <select name="type" value={select} onChange={handleChange} required className="border border-2 border-bluetext min-w-60 focus:bg-extralightblue">
                     <option value="" selected></option>
                     <option value="A">Type A</option>
                     <option value="B">Type B</option>

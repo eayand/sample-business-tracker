@@ -39,15 +39,18 @@ const brokerSchema = new Schema({
     }
 });
 
-// brokerSchema.pre('deleteOne', function(next) {
-//     this.model('Customer').update(
-//         {},
-//         { '$pull': {'broker': this._id} }, 
-//         {'multi': true},
-//         next
-//     )
-// })
-// Put this back in when formatting is determined.
+brokerSchema.pre('deleteOne', {document: true, query: false}, async function() {
+    const brokerId = this._id
+    try {
+        const Customer = mongoose.model('Customer')
+        await Customer.updateMany(
+            {broker: brokerId},
+            { $pull: {broker: brokerId} },
+        )
+    } catch {
+        console.log('Could not update customers before deleting broker.')
+    }
+})
 
 brokerSchema.virtual('formatPhone').get(function () {
     if (this.phone) {
