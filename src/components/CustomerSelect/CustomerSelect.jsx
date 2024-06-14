@@ -32,13 +32,13 @@ export default function CustomerSelect({broker, id, customers, setCustomers}) {
 
     return (
         <>
-        <form className="flex-ctr-ctr">
+        {/* <form className="flex-ctr-ctr">
             <select name={"customer"} value={form.customer} onChange={handleChange} required className="inline-input ii-small">
                 <option value=""></option>
                 {dropdown}
             </select>
             <button type="submit" onClick={handleAssociateCustomer}>Add Customer</button>
-        </form>
+        </form> */}
         </>
     )
 

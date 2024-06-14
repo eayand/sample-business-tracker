@@ -74,7 +74,7 @@ export default function CustomerDetailPage() {
 
 
     return customer ? (
-        <div className="detail-body">
+        <div>
 
             <h1 className="font-bold text-3xl text-center">{customer.name}</h1>
 

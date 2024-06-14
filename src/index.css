@@ -4,19 +4,21 @@
 
 /* Root colors can be removed once design is finished. */
 :root {
-  --backdrop: #ffffff;
+  --white: #ffffff;
+  
   --theme: #0f183f;
-  --theme-customer: #c1d3ff;
-  --theme-broker: #fff8ba;
-  --text-customer: #73a7e2;
-  --text-broker: #e7cb7e;
+  --lightgreen: #deffd4;
+  --lightblue: #c1d3ff;
+  --extralightblue: #dfe8ff;
+  --lightyellow: #fff8ba;
+  --extralightyellow: #fffacd;
+  --bluetext: #73a7e2;
+  --yellowtext: #eac04d;
   --interactable: #d6f2ff;
   --hover: #d1ffd7;
-  --shape-big: #3370ff;
-  --accent: #00bc19;
-  --error: #ff0000;
-  extralightblue: #dfe8ff;
-  extralightyellow: #fffacd;
+  --brightblue: #3370ff;
+  --green: #00bc19;
+  --red: #ff0000;
 }
 
 
