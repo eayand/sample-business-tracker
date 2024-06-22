@@ -10,7 +10,7 @@ export default function UserRow({user}) {
             <td className="px-8 py-2">{user.email}</td>
             <td className="px-8 py-2">{user.role}</td>
             <td className="px-8 py-2">{workspaces}</td>
-            <td className="px-8 py-2">{user.createdAt}</td>
+            <td className="px-8 py-2">{user.fCreatedAt}</td>
         </tr>
     )
 }

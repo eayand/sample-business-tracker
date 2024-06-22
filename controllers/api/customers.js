@@ -59,7 +59,7 @@ async function show(req, res) {
     } catch {
         res.status(400).json('Could not retrieve customer.')
     }
-    }
+}
 
 async function getNotAssociated(req, res) {
     try {
@@ -75,15 +75,9 @@ async function getNotAssociated(req, res) {
 async function update(req, res) {
     const customer = await Customer.findById(req.params.id)
     try {
-        customer.website = req.body.website
-        customer.phone = req.body.phone
-        customer.tax = req.body.tax
-        customer.address = req.body.address
-        customer.joined = req.body.joined
-        customer.renewal = req.body.renewal
-        customer.commission1 = req.body.commission1
-        customer.commission2 = req.body.commission2
-        customer.accountManager = req.body.accountManager
+        for (const field in req.body) {
+            customer[field] = req.body[field]
+        }
         await customer.save()
         res.json(customer)
     } catch {
@@ -100,7 +94,6 @@ async function associateBroker(req, res) {
         await customer.populate('broker')
         res.json(customer)
     } catch (error) {
-        console.log(error)
         res.status(400).json('Could not add broker to customer.')
     }
 }

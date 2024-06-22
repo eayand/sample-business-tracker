@@ -5,11 +5,6 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
 
     const id = plan._id
 
-    // const [thisPlan, setThisPlan] = useState(null)
-    // useEffect(function() {
-    //     (async () => setThisPlan(await plansAAPI.planDetail(id)))();
-    // }, [])
-
     const [form, setForm] = useState({
         name: plan.name,
         expert: plan.expert,

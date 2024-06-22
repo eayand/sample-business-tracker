@@ -62,6 +62,11 @@ userSchema.virtual('initials').get(function () {
     return this.firstName.charAt().concat('', this.lastName.charAt())
 })
 
+userSchema.virtual('fCreatedAt').get(function () {
+    const date = new Date(this.createdAt)
+    return date.toLocaleString()
+})
+
 userSchema.pre('save', async function(next) {
     // 'this' is the user doc
     if (!this.isModified('password')) return next();

@@ -77,11 +77,18 @@ customerSchema.virtual('fCommission2').get(function () {
     } else {return}
 })
 
+// customerSchema.virtual('fJoined').get(function () {
+//     if (this.joined) {
+//         const date = new Date(this.joined).toISOString()
+//         return date
+//     } else {return}
+// })
+
 customerSchema.virtual('fJoined').get(function () {
-    if (this.joined) {
-        const date = new Date(this.joined).toISOString()
-        return date
-    } else {return}
+    const date = new Date(this.joined)
+    const offset = date.getTimezoneOffset()
+    const localDate = new Date(this.joined + offset * 60000)
+    return localDate.toLocaleDateString()
 })
 
 module.exports = mongoose.model('Customer', customerSchema);

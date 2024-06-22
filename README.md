@@ -29,8 +29,11 @@ Here, the data models and automated actions are much simpler than they would be 
 
 [Click to demo](https://sample-business-tracker-ve-b731cbb53a18.herokuapp.com/)
 
-# Next Steps
+# Features in the Works
 
-- Add plan type B and reorganize the plans section
-- Set up a tasks dashboard with tasks created when certain fields of certain models change
-- Integrate Google Maps API to select addresses
+- Create Plan B data model and its UI on the customer detail page
+- Add alerts on dashboard for certain field changes
+- Add tasks on dashboard for certain field changes
+- Times are currently in UTC; add a selection at the workplace level for US time zones
+- Integrate Google Maps API to select addresses of customers and brokers
+- Phase 2 of time zone improvements: Use Google Maps Time Zone API to allow admins to select their organization's time zone based on location of headquarters

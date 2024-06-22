@@ -8,7 +8,7 @@ export default function CustomerRow({customer, wsurl}) {
             <td className="border border-x-theme p-2 max-h-3 min-w-48 text-nowrap">{customer.formatPhone}</td>
             <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.tax}</td>
             <td className="border border-x-theme p-2 max-h-3 min-w-48 text-wrap">{customer.address}</td>
-            <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{new Date(customer.fJoined).toLocaleDateString()}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.fJoined}</td>
             <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.renewal}</td>
             <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.fCommission1}</td>
             <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.fCommission2}</td>

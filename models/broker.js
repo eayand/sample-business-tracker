@@ -42,7 +42,6 @@ const brokerSchema = new Schema({
 brokerSchema.pre('deleteOne', {document: true, query: false}, async function() {
     const brokerId = this._id
     try {
-        const Customer = mongoose.model('Customer')
         await Customer.updateMany(
             {broker: brokerId},
             { $pull: {broker: brokerId} },

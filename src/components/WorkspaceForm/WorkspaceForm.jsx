@@ -32,7 +32,7 @@ export default function WorkspaceForm({workspaces, setWorkspaces, users, setUser
 
     return(
     <form
-    className="text-center" >
+    className="text-left" >
         <div >
             <label className="block">Workspace Name</label>
             <input name="name" value={form.name} onChange={handleChange} maxLength="50"
@@ -52,7 +52,7 @@ export default function WorkspaceForm({workspaces, setWorkspaces, users, setUser
         </div>
         <br />
         <p>{error}</p>
-        <div >
+        <div className="text-center">
             <button type="submit" onClick={handleSaveWorkspace}>Create</button>
         </div>
     </form>

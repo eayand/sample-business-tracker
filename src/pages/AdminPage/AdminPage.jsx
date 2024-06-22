@@ -49,22 +49,6 @@ export default function AdminPage({user}) {
 
         </div>
 
-        <div className="m-8 flex gap-2">
-            <div className="h-24 w-24 bg-white">white</div>
-            <div className="h-24 w-24 bg-gray-400">gray-400</div>
-            <div className="h-24 w-24 bg-theme text-white">theme</div>
-            <div className="h-24 w-24 bg-lightgreen">lightgreen</div>
-            <div className="h-24 w-24 bg-lightblue">lightblue</div>
-            <div className="h-24 w-24 bg-lightyellow">lightyellow</div>
-            <div className="h-24 w-24 bg-bluetext">bluetext</div>
-            <div className="h-24 w-24 bg-yellowtext">yellowtext</div>
-            <div className="h-24 w-24 bg-interactable">interactable</div>
-            <div className="h-24 w-24 bg-hover">hover</div>
-            <div className="h-24 w-24 bg-brightblue">brightblue</div>
-            <div className="h-24 w-24 bg-green">green</div>
-            <div className="h-24 w-24 bg-red">red</div>
-        </div>
-
         </>
     )
 }

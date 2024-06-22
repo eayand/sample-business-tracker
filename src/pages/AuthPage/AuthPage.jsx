@@ -33,7 +33,7 @@ export default function AuthPage({setUser}) {
                     </li>
                     <li 
                     className="p-4">
-                        This demo account is not secure, so do not enter any sensitive information.
+                        Because strong passwords are not required, do not enter any sensitive information.
                     </li>
                     <li 
                     className="p-4">

@@ -12,39 +12,35 @@ export default function CustomerDetailPage() {
     const navigate = useNavigate()
     const { wsurl, id } = useParams()
     const [customer, setCustomer] = useState(null)
+    const [actions, setActions] = useState(false)
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
-
-    //vvvvvvvvvvv only used in edit mode vvvvvvvvvv
     const [form, setForm] = useState({
-        name: undefined,
-        website: undefined,
-        phone: undefined,
-        tax: undefined,
-        address: undefined,
-        joined: undefined,
-        renewal: '',
-        commission1: undefined,
-        commission2: undefined,
-        accountManager: undefined,
+        name: null,
     })
-    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
     useEffect(function () {
-        (async () => setCustomer(await customersAPI.customerDetail(wsurl, id)))();
+        (async () => {
+            const customerResult = await customersAPI.customerDetail(wsurl, id)
+            setCustomer(customerResult)
+            setForm({
+                name: customerResult.name
+            })
+        })();
     }, [])
-
+    
+    const toggleActions = () => {
+        setActions(!actions)
+    }
 
     const toggleEdit = () => {
         setEdit(!edit)
     }
 
-
-    //vvvvvvvvvvv only used in edit mode vvvvvvvvvv
-    useEffect(function () {
-        setForm(customer)
-    }, [customer])
+    const editAndActions = () => {
+        toggleActions()
+        toggleEdit()
+    }
 
 
     function handleChange(event) {
@@ -66,129 +62,82 @@ export default function CustomerDetailPage() {
         setPreDelete(!preDelete)
     }
 
+    const preDeleteAndActions = () => {
+        toggleActions()
+        togglePreDelete()
+    }
+
     async function handleDeleteCustomer() {
         await customersAPI.deleteCustomer(wsurl, id)
         navigate(`/customers/${wsurl}`)
     }
-    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
     return customer ? (
-        <div>
+        <>
 
-            <h1 className="font-bold text-3xl text-center">{customer.name}</h1>
+            <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-12">
 
-            {
-                edit ?
-                    <>
-                        <form className="big-form">
-
-                            <label>Name of Company</label>
-                            <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Website</label>
-                            <input name="website" value={form.website} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Primary Phone Number</label>
-                            <input type="tel" name="phone" value={form.phone} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Tax ID</label>
-                            <input name="tax" value={form.tax} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Address</label>
-                            <textarea name="address" value={form.address} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Joined</label>
-                            <input type="date" name="joined" value={form.joined} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Renewal</label>
-                            <select name="renewal" value={form.renewal} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1">
-                                <option value="" selected></option>
-                                <option value="January">January</option>
-                                <option value="February">February</option>
-                                <option value="March">March</option>
-                                <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="July">July</option>
-                                <option value="August">August</option>
-                                <option value="September">September</option>
-                                <option value="October">October</option>
-                                <option value="November">November</option>
-                                <option value="December">December</option>
-                            </select><br />
-
-                            <label>Broker Commission 1</label>
-                            <input type="number" name="commission1" value={form.commission1} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Broker Commission 2</label>
-                            <input type="number" name="commission2" value={form.commission2} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                            <label>Account Manager</label>
-                            <input name="accountManager" value={form.accountManager} onChange={handleChange} className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1"/>
-
-                        </form>
-
-                        <div className="edit-controls">
-                            <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
-                            <button onClick={toggleEdit}>CANCEL</button>
-                            {
-                                preDelete ?
-                                    <>
-                                        <div className="large-alert">
-                                            <p>Are you sure you want to delete {customer.name}?</p>
-                                            <button onClick={togglePreDelete}>Cancel</button>
-                                            <button onClick={handleDeleteCustomer}>Delete</button>
-                                        </div>
-                                    </>
-                                    :
-                                    <>
-
-                                        <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
-                                    </>
-                            }
+                <div className="sm:flex sm:justify-between sm:col-span-10 sm:col-start-2 mx-auto sm:mx-6 my-4">
+                    {
+                        edit ?
+                            <form>
+                                <input name="name" value={form.name} onChange={handleChange} className="font-bold text-3xl sm:w-full text-left mt-14 sm:mt-0 border border-theme" />
+                                <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
+                                <button onClick={toggleEdit}>CANCEL</button>
+                            </form>
+                            :
+                            <h1 className="font-bold text-3xl sm:w-full text-left mt-14 sm:mt-0">{customer.name}</h1>
+                    }
+                    <div>
+                        <button className="flex pt-2 pb-1 pl-2 mt-2 mx-auto relative z-[9]" onClick={toggleActions}>
+                            <div className="-mt-1">Actions</div> <span className="material-symbols-outlined -mb-6 pl-1 -mr-1">
+                                arrow_drop_down
+                            </span></button>
+                        <div className={`py-2 border border-r-2 border-gray-300 z-[8] bg-white ${actions ? "absolute" : "hidden"}`}>
+                            <p onClick={editAndActions} className="pl-3 pr-5 py-1 hover:bg-extralightblue">Rename</p>
+                            <p onClick={preDeleteAndActions} className="pl-3 pr-5 py-1 hover:bg-extralightblue">Delete</p>
                         </div>
-
-                    </>
-
-
-                    :
-                    <>
+                    </div>
+                </div>
 
 
-                        <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-12">
 
-                            <div className="mx-auto sm:mx-6 my-4 sm:col-start-10 sm:col-span-2 sm:flex sm:justify-end">
-                                <button onClick={toggleEdit} className="">Edit Mode</button>
-                            </div>
+                <div className="sm:row-span-2 sm:col-span-5 sm:col-start-2" >
+                    <Box title="Basic Info"
+                        contents={<CustomerInfo wsurl={wsurl} customer={customer} id={id} setCustomer={setCustomer} />}
+                    />
+                </div>
 
-                            <div className="sm:row-span-2 sm:col-span-5 sm:col-start-2" >
-                                <Box title="Basic Info"
-                                    contents={<CustomerInfo customer={customer} />}
-                                />
-                            </div>
+                <div className="sm:col-span-5 sm:col-start-7">
+                    <Box title="Financial"
+                        contents={<CustomerFinancial wsurl={wsurl} customer={customer} id={id} setCustomer={setCustomer} />}
+                    />
+                </div>
 
-                            <div className="sm:col-span-5 sm:col-start-7">
-                                <Box title="Financial"
-                                    contents={<CustomerFinancial customer={customer} />}
-                                />
-                            </div>
+                <div className="sm:col-span-5 sm:col-start-7">
+                    <Box title="Brokers"
+                        contents={<BrokerCardContainer customer={customer} customerId={id} setCustomer={setCustomer} wsurl={wsurl} />}
+                    />
+                </div>
 
-                            <div className="sm:col-span-5 sm:col-start-7">
-                                <Box title="Brokers"
-                                    contents={<BrokerCardContainer customer={customer} customerId={id} setCustomer={setCustomer} wsurl={wsurl} />}
-                                />
-                            </div>
+                <div className="sm:col-span-10 sm:col-start-2">
+                    <Box title="Benefit Plans"
+                        contents={<PlanContainer customer={customer} customerId={id} wsurl={wsurl} />}
+                    />
+                </div>
+            </div>
 
-                            <div className="sm:col-span-10 sm:col-start-2">
-                                <Box title="Benefit Plans"
-                                    contents={<PlanContainer customer={customer} customerId={id} wsurl={wsurl} />}
-                                />
-                            </div>
-                        </div>
+            <div className={`${preDelete ? "fixed top-0" : "hidden"} flex w-full h-full bg-gray-400 bg-opacity-75 z-20`}>
+                <div className="m-auto w-[40rem] bg-white flex flex-col justify-between rounded-3xl">
+                    <p className="text-2xl font-semibold m-10">Delete Customer?</p>
+                    <p className="mx-10">Are you sure you want to delete <span className="font-semibold">{customer.name}</span>?</p>
+                    <div className="flex justify-end m-10">
+                        <button onClick={togglePreDelete}>Cancel</button>
+                        <button onClick={handleDeleteCustomer} className="ml-10 text-white bg-red">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </>
 
-                    </>
-            }
-        </div>
     ) : null
 }  
