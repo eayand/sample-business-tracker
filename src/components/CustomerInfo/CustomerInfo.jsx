@@ -18,24 +18,26 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
         setEdit(!edit)
     }
 
-    const [phoneError, setPhoneError] = useState(false)
+    const [phoneInvalid, setPhoneInvalid] = useState(false)
 
     function handleChange(event) {
         const newFormData = {
             ...form,
             [event.target.name]: event.target.value
         }
+        if (newFormData.phone.match(/^\d{10}$/)) {
+            setPhoneInvalid(false)
+        } else if (newFormData.phone === '') {
+            newFormData.phone = null
+            setPhoneInvalid(false)
+        } else {
+            setPhoneInvalid(true)
+        } 
         setForm(newFormData)
-        // if (!form.phone.match(/^\d{10}$/)) {
-        //     setPhoneError(true)
-        // } 
     }
 
     async function handleUpdateCustomer(event) {
         event.preventDefault()
-        // if (form.phone) {
-        //     setPhoneError(true)
-        // }
         const customer = await customersAPI.updateCustomer(wsurl, id, form)
         setCustomer(customer)
         toggleEdit()
@@ -56,7 +58,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
                             className="mb-2 w-full border border-theme px-2 py-1" />
 
                             <label>Primary Phone Number</label>
-                            <p className={`text-red ${phoneError ? "relative" : "hidden"}`} >* Must be 10 digits</p>
+                            <p className={`text-red ${phoneInvalid ? "relative" : "hidden"}`}>* Must be 10 digits</p>
                             <input type="tel" name="phone" value={form.phone} onChange={handleChange} pattern="[0-9]{10}" title="must be ten digits"
                             className="mb-2 w-full border border-theme px-2 py-1" />
 
