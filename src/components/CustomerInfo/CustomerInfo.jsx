@@ -7,7 +7,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
         accountManager: customer.accountManager,
         website: customer.website,
         phone: customer.phone,
-        taxId: customer.tax,
+        tax: customer.tax,
         address: customer.address,
         joined: customer.joined,
         renewal: customer.renewal,
@@ -19,6 +19,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
     }
 
     const [phoneInvalid, setPhoneInvalid] = useState(false)
+    const [taxInvalid, setTaxInvalid] = useState(false)
 
     function handleChange(event) {
         const newFormData = {
@@ -58,12 +59,12 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
                             className="mb-2 w-full border border-theme px-2 py-1" />
 
                             <label>Primary Phone Number</label>
-                            <p className={`text-red ${phoneInvalid ? "relative" : "hidden"}`}>* Must be 10 digits</p>
+                            <p className={`text-red ${phoneInvalid ? "relative" : "hidden"}`}>* Enter 10 digits only.</p>
                             <input type="tel" name="phone" value={form.phone} onChange={handleChange} pattern="[0-9]{10}" title="must be ten digits"
                             className="mb-2 w-full border border-theme px-2 py-1" />
 
                             <label>Tax ID</label>
-                            <input name="tax" value={form.tax} onChange={handleChange} 
+                            <input name="tax" value={form.tax} onChange={handleChange} pattern="[0-9]{9}"
                             className="mb-2 w-full border border-theme px-2 py-1" />
 
                             <label>Address</label>
