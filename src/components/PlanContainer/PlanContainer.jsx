@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import * as plansAAPI from '../../utilities/plans-A-api'
-import PlanCard from "../PlanCard/PlanCard"
+import * as plansBAPI from '../../utilities/plans-B-api'
+
+import PlanACard from "../PlanACard/PlanACard"
+import PlanBCard from "../PlanBCard/PlanBCard"
 
 export default function PlanContainer({customer, customerId, wsurl}) {
 
@@ -15,6 +18,7 @@ export default function PlanContainer({customer, customerId, wsurl}) {
     const [select, setSelect] = useState('')
 
     const [plansA, setPlansA] = useState([])
+    const [plansB, setPlansB] = useState([])
 
     function handleChange(event) {
         const selection = event.target.value
@@ -23,20 +27,26 @@ export default function PlanContainer({customer, customerId, wsurl}) {
     
     useEffect(function() {
         (async () => setPlansA(await plansAAPI.getPlans(wsurl, customerId)))();
+        (async () => setPlansB(await plansBAPI.getPlans(wsurl, customerId)))();
     }, [])
 
     async function handleCreatePlanA(event) {
         event.preventDefault()
         const plan = await plansAAPI.createPlanA(wsurl, form)
         setPlansA([...plansA, plan])
-        
+    }
+
+    async function handleCreatePlanB(event) {
+        event.preventDefault()
+        const plan = await plansBAPI.createPlanB(wsurl, form)
+        setPlansB([...plansB, plan])
     }
 
     function direct(event) {
         if (select === 'A') {
             handleCreatePlanA(event)
         } else if (select === 'B') {
-            //plan B info here
+            handleCreatePlanB(event)
         }
         setSelect("")
     }
@@ -48,9 +58,18 @@ export default function PlanContainer({customer, customerId, wsurl}) {
         setPlansA(newPlanList)
     }
 
+    function updatePlansB(planB) {
+        const newPlanList = [...plansB]
+        const planIndex = newPlanList.findIndex((plan) => plan._id === planB._id)
+        newPlanList[planIndex] = planB
+        setPlansB(newPlanList)
+    }
 
 
-    const planCards = plansA.map((plan) => <PlanCard plan={plan} key={plan._id} customerId={customerId} updatePlansA={updatePlansA} /> )
+
+    const planACards = plansA.map((plan) => <PlanACard plan={plan} key={plan._id} customerId={customerId} updatePlansA={updatePlansA} /> )
+
+    const planBCards = plansB.map((plan) => <PlanBCard plan={plan} key={plan._id} customerId={customerId} updatePlansB={updatePlansB} /> )
 
 
     return (
@@ -65,7 +84,8 @@ export default function PlanContainer({customer, customerId, wsurl}) {
             </form>
     
         <div className="flex justify-center sm:justify-start">
-            {planCards}
+            {planACards}
+            {planBCards}
         </div>
         </>
     )

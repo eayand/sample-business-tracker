@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import * as plansAAPI from '../../utilities/plans-A-api'
+import * as plansBAPI from '../../utilities/plans-B-api'
 
-export default function PlanCard({ plan, updatePlansA, wsurl }) {
+export default function PlanBCard({ plan, updatePlansB, wsurl }) {
 
     const id = plan._id
 
@@ -10,8 +10,7 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
         expert: plan.expert,
         amount: plan.amount,
         system: plan.system,
-        benefitCategories: plan.benefitCategories,
-        reminders: plan.reminders,
+        autoRenew: plan.autoRenew,
     })
 
     const [edit, setEdit] = useState(false)
@@ -35,13 +34,13 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
 
     async function handleUpdatePlan(event) {
         event.preventDefault()
-        const updatedPlan = await plansAAPI.updatePlan(wsurl, id, form)
-        updatePlansA(updatedPlan)
+        const updatedPlan = await plansBAPI.updatePlan(wsurl, id, form)
+        updatePlansB(updatedPlan)
         toggleEdit()
     }
 
     async function handleDeletePlan() {
-        await plansAAPI.deletePlanA(wsurl, id)
+        await plansBAPI.deletePlanB(wsurl, id)
     }
 
     return plan ? (
@@ -61,7 +60,13 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
                             </select><br />
 
                             <label>Amount</label>
-                            <input type="number" name="amount" value={form.amount} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1"/>
+                            <select name="system" value={form.amount} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
+                                <option value="" selected></option>
+                                <option value={500}>$500</option>
+                                <option value={550}>$550</option>
+                                <option value={600}>$600</option>
+                                <option value={650}>$650</option>
+                            </select><br />
 
                             <label>System</label>
                             <select name="system" value={form.system} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
@@ -70,21 +75,10 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
                                 <option value="Millenium">Millenium</option>
                             </select><br />
 
-                            <label>Benefit Categories</label>
-                            <select multiple name="benefitCategories" value={form.benefitCategories} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
-                                <option value="" selected></option>
-                                <option value="commuter">commuter</option>
-                                <option value="fitness">fitness</option>
-                                <option value="leisure">leisure</option>
-                                <option value="medical">medical</option>
-                            </select><br />
-
-                            <label>Reminders</label>
-                            <select multiple name="reminders" value={form.reminders} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
-                                <option value="" selected></option>
-                                <option value="email">email</option>
-                                <option value="paper">paper</option>
-                                <option value="none">none</option>
+                            <label>Auto Renew</label>
+                            <select name="autoRenew" value={form.autoRenew} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
+                                <option value={true} selected>Yes</option>
+                                <option value={false}>No</option>
                             </select><br />
 
                         </form>
@@ -125,21 +119,11 @@ export default function PlanCard({ plan, updatePlansA, wsurl }) {
                             <p className="mb-3 h-8">{plan.fAmount}</p>
                             <label className="text-bluetext">System</label>
                             <p className="mb-3 h-8">{plan.system}</p>
-                            <label className="text-bluetext">Benefit Categories</label>
-                            <p className="mb-3 h-8">{plan.benefitCategories}</p>
-                            <label className="text-bluetext">Reminders</label>
-                            <p className="mb-3 h-8">{plan.reminders}</p>
+                            <label className="text-bluetext">Auto Renew</label>
+                            <p className="mb-3 h-8">{plan.autoRenew}</p>
                         </div>
                     </>
             }
         </div>
     ) : null
 }
-
-// name
-// amount
-// system
-// benefitCategories
-// reminders
-// expert
-// customer

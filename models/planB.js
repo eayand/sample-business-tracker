@@ -9,7 +9,8 @@ const planBSchema = new Schema({
     },
     amount: {        
         type: Number,
-        enum: ['', 500, 550, 600, 650]},
+        enum: [undefined, 500, 550, 600, 650]
+    },
     system: {
         type: String,
         enum: ['', 'Legacy', 'Millenium']
@@ -34,11 +35,11 @@ const planBSchema = new Schema({
     }
 });
 
-planASchema.virtual('type').get(function () {
-    return 'Type A'
+planBSchema.virtual('type').get(function () {
+    return 'Type B'
 })
 
-planASchema.virtual('fAmount').get(function () {
+planBSchema.virtual('fAmount').get(function () {
     if (this.amount) {
         const number = this.amount.toFixed(2)
         return `$${number}`
@@ -46,4 +47,4 @@ planASchema.virtual('fAmount').get(function () {
 })
 
 
-module.exports = mongoose.model('PlanA', planASchema);
+module.exports = mongoose.model('PlanB', planBSchema);

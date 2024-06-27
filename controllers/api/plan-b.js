@@ -9,6 +9,7 @@ module.exports = {
 }
 
 async function create(req, res) {
+    console.log('==================== ', req.body)
     try {
         const plan = await PlanB.create(req.body)
         res.json(plan)
