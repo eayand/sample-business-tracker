@@ -1,7 +1,7 @@
 import { useState } from "react"
 import * as customersAPI from '../../utilities/customers-api'
 
-export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
+export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
 
     const [form, setForm] = useState({
         accountManager: customer.accountManager,
@@ -29,11 +29,10 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
         if (newFormData.phone.match(/^\d{10}$/)) {
             setPhoneInvalid(false)
         } else if (newFormData.phone === '') {
-            newFormData.phone = null
             setPhoneInvalid(false)
         } else {
             setPhoneInvalid(true)
-        } 
+        }
         setForm(newFormData)
     }
 
@@ -51,33 +50,33 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
                     <>
                         <form>
                             <label>Account Manager</label>
-                            <input name="accountManager" value={form.accountManager} onChange={handleChange} 
-                            className="mb-2 w-full border border-theme px-2 py-1" />
+                            <input name="accountManager" value={form.accountManager} onChange={handleChange}
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
 
                             <label>Website</label>
-                            <input name="website" value={form.website} onChange={handleChange} 
-                            className="mb-2 w-full border border-theme px-2 py-1" />
+                            <input name="website" value={form.website} onChange={handleChange}
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
 
                             <label>Primary Phone Number</label>
                             <p className={`text-red ${phoneInvalid ? "relative" : "hidden"}`}>* Enter 10 digits only.</p>
                             <input type="tel" name="phone" value={form.phone} onChange={handleChange} pattern="[0-9]{10}" title="must be ten digits"
-                            className="mb-2 w-full border border-theme px-2 py-1" />
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
 
                             <label>Tax ID</label>
                             <input name="tax" value={form.tax} onChange={handleChange} pattern="[0-9]{9}"
-                            className="mb-2 w-full border border-theme px-2 py-1" />
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
 
                             <label>Address</label>
-                            <textarea name="address" value={form.address} onChange={handleChange} 
-                            className="mb-2 w-full border border-theme px-2 py-1" />
+                            <textarea name="address" value={form.address} onChange={handleChange}
+                                className="mb-2 w-full border border-theme px-2 py-1" />
 
                             <label>Joined</label>
-                            <input type="date" name="joined" value={form.joined} onChange={handleChange} 
-                            className="mb-2 w-full border border-theme px-2 py-1" />
+                            <input type="date" name="joined" value={form.joined} onChange={handleChange}
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
 
                             <label>Renewal</label>
-                            <select name="renewal" value={form.renewal} onChange={handleChange} 
-                            className="mb-2 w-full border border-theme px-2 py-1">
+                            <select name="renewal" value={form.renewal} onChange={handleChange}
+                                className="mb-2 w-full border border-theme px-2 py-1">
                                 <option value="" selected></option>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
@@ -116,10 +115,10 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer}) {
                         <p className="mb-3 h-8">{customer.website}</p>
 
                         <label className="text-bluetext">Primary Phone Number</label>
-                        <p className="mb-3 h-8">{customer.formatPhone}</p>
+                        <p className="mb-3 h-8">{customer.fPhone}</p>
 
                         <label className="text-bluetext">Tax ID</label>
-                        <p className="mb-3 h-8">{customer.tax}</p>
+                        <p className="mb-3 h-8">{customer.fTax}</p>
 
                         <label className="text-bluetext">Address</label>
                         <p className="mb-3 h-8">{customer.address}</p>

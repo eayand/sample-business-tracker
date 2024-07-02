@@ -51,7 +51,7 @@ brokerSchema.pre('deleteOne', {document: true, query: false}, async function() {
     }
 })
 
-brokerSchema.virtual('formatPhone').get(function () {
+brokerSchema.virtual('fPhone').get(function () {
     if (this.phone) {
         const area = this.phone.slice(0, 3)
         const three = this.phone.slice(3, 6)

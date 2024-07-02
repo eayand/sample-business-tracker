@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 const Workspace = require('./workspace')
+const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
     name: {
-        type: String, 
+        type: String,
         trim: true,
         required: true,
     },
@@ -15,9 +15,8 @@ const customerSchema = new Schema({
     },
     phone: {
         type: String,
-        maxLength: 10,
-        minLength: 10,
-    }, 
+        trim: true,
+    },
     tax: {
         type: String,
         trim: true,
@@ -42,39 +41,57 @@ const customerSchema = new Schema({
         ref: 'Broker'
     }],
     workspace: {
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'Workspace',
         required: true,
     },
 },
-{
-    timestamps: true,
-    toJSON: {
-        virtuals: true
-    }
-});
+    {
+        timestamps: true,
+        toJSON: {
+            virtuals: true
+        }
+    })
 
-customerSchema.virtual('formatPhone').get(function () {
-    if (this.phone) {
+customerSchema.virtual('fPhone').get(function () {
+    if (!this.phone) {
+        return
+    } else if (this.phone.length === 10) {
         const area = this.phone.slice(0, 3)
         const three = this.phone.slice(3, 6)
         const four = this.phone.slice(6)
         return `+1 (${area}) ${three}-${four}`
-    } else {return}
+
+    } else { 
+        return `${this.phone} *!!`
+    }
+})
+
+customerSchema.virtual('fTax').get(function () {
+    if (!this.tax) {
+        return
+    } else if (this.tax.length === 9) {
+        const two = this.tax.slice(0, 2)
+        const seven = this.tax.slice(2)
+        return `${two}-${seven}`
+
+    } else { 
+        return `${this.tax} *!!`
+    }
 })
 
 customerSchema.virtual('fCommission1').get(function () {
     if (this.commission1) {
         const number = this.commission1.toFixed(2)
         return `$${number}`
-    } else {return}
+    } else { return }
 })
 
 customerSchema.virtual('fCommission2').get(function () {
     if (this.commission2) {
         const number = this.commission2.toFixed(2)
         return `$${number}`
-    } else {return}
+    } else { return }
 })
 
 // customerSchema.virtual('fJoined').get(function () {

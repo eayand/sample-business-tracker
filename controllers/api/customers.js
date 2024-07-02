@@ -76,11 +76,15 @@ async function update(req, res) {
     const customer = await Customer.findById(req.params.id)
     try {
         for (const field in req.body) {
+            if (field === '') {
+                field = undefined
+            }
             customer[field] = req.body[field]
         }
         await customer.save()
         res.json(customer)
-    } catch {
+    } catch(error) {
+        console.log(error)
         res.status(400).json('Could not update customer.')
     }
 }

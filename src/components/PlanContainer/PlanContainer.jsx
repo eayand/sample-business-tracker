@@ -6,7 +6,7 @@ import * as plansBAPI from '../../utilities/plans-B-api'
 import PlanACard from "../PlanACard/PlanACard"
 import PlanBCard from "../PlanBCard/PlanBCard"
 
-export default function PlanContainer({customer, customerId, wsurl}) {
+export default function PlanContainer({ customer, customerId, wsurl }) {
 
     const navigate = useNavigate()
 
@@ -24,8 +24,8 @@ export default function PlanContainer({customer, customerId, wsurl}) {
         const selection = event.target.value
         setSelect(selection)
     }
-    
-    useEffect(function() {
+
+    useEffect(function () {
         (async () => setPlansA(await plansAAPI.getPlans(wsurl, customerId)))();
         (async () => setPlansB(await plansBAPI.getPlans(wsurl, customerId)))();
     }, [])
@@ -67,26 +67,26 @@ export default function PlanContainer({customer, customerId, wsurl}) {
 
 
 
-    const planACards = plansA.map((plan) => <PlanACard plan={plan} key={plan._id} customerId={customerId} updatePlansA={updatePlansA} /> )
+    const planACards = plansA.map((plan) => <PlanACard plan={plan} key={plan._id} customerId={customerId} updatePlansA={updatePlansA} />)
 
-    const planBCards = plansB.map((plan) => <PlanBCard plan={plan} key={plan._id} customerId={customerId} updatePlansB={updatePlansB} /> )
+    const planBCards = plansB.map((plan) => <PlanBCard plan={plan} key={plan._id} customerId={customerId} updatePlansB={updatePlansB} />)
 
 
     return (
         <>
             <form className="flex justify-end mx-4">
-                <select name="type" value={select} onChange={handleChange} required className="border border-2 border-bluetext min-w-60 focus:bg-extralightblue">
-                    <option value="" selected></option>
-                    <option value="A">Type A</option>
-                    <option value="B">Type B</option>
-                </select>
+                    <select name="type" value={select} onChange={handleChange} required className="border border-2 border-bluetext w-full max-w-60 focus:bg-extralightblue">
+                        <option value=""></option>
+                        <option value="A">Type A</option>
+                        <option value="B">Type B</option>
+                    </select>
                 <button type="submit" onClick={direct} className="ml-4 text-nowrap">Create Plan</button>
             </form>
-    
-        <div className="flex justify-center sm:justify-start">
-            {planACards}
-            {planBCards}
-        </div>
+
+            <div className="flex flex-col sm:flex-row justify-center sm:justify-start">
+                {planACards}
+                {planBCards}
+            </div>
         </>
     )
 }

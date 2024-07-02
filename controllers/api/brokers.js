@@ -70,11 +70,9 @@ async function getNotAssociated(req, res) {
 async function update(req, res) {
     const broker = await Broker.findById(req.params.id)
     try {
-        broker.name = req.body.name
-        broker.website = req.body.website
-        broker.phone = req.body.phone
-        broker.tax = req.body.tax
-        broker.address = req.body.address
+        for (const field in req.body) {
+            broker[field] = req.body[field]
+        }
         await broker.save()
         res.json(broker)
     } catch {

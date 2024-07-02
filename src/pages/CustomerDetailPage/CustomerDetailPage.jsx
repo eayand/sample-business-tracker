@@ -28,7 +28,7 @@ export default function CustomerDetailPage() {
             })
         })();
     }, [])
-    
+
     const toggleActions = () => {
         setActions(!actions)
     }
@@ -41,7 +41,6 @@ export default function CustomerDetailPage() {
         toggleActions()
         toggleEdit()
     }
-
 
     function handleChange(event) {
         const newFormData = {
@@ -81,7 +80,7 @@ export default function CustomerDetailPage() {
                     {
                         edit ?
                             <form>
-                                <input name="name" value={form.name} onChange={handleChange} className="font-bold text-3xl sm:w-full text-left mt-14 sm:mt-0 border border-theme" />
+                                <input name="name" value={form.name} onChange={handleChange} className="font-bold text-3xl sm:w-full text-left mt-14 sm:mt-0 border border-theme" data-ignore="true" data-1p-ignore="true" />
                                 <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
                                 <button onClick={toggleEdit}>CANCEL</button>
                             </form>
