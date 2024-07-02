@@ -9,18 +9,22 @@ const userSchema = new Schema({
         type: String, 
         trim: true,
         minLength: 1,
+        maxLength: 100,
         required: true,
     },
     lastName: {
         type: String, 
         trim: true,
         minLength: 1,
+        maxLength: 100,
         required: true
     },
     email: {
         type: String,
         unique: true,
         trim: true,
+        minLength: 1,
+        maxLength: 100,
         lowercase: true,
         required: true
     },
@@ -28,6 +32,7 @@ const userSchema = new Schema({
         type: String,
         trim: true,
         minLength: 3,
+        maxLength: 100,
         required: true
     }, 
     workspace: [{

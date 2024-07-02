@@ -6,32 +6,43 @@ const customerSchema = new Schema({
     name: {
         type: String,
         trim: true,
+        maxLength: 100,
         required: true,
     },
     website: {
         type: String,
         trim: true,
         lowercase: true,
+        maxLength: 100,
     },
     phone: {
         type: String,
         trim: true,
+        maxLength: 15,
     },
     tax: {
         type: String,
         trim: true,
+        maxLength: 9,
     },
     address: {
         type: String,
         trim: true,
+        maxLength: 100,
     },
     joined: Date,
     renewal: {
         type: String,
         enum: ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     },
-    commission1: Number,
-    commission2: Number,
+    commission1: {
+        type: Number,
+        max: 100,
+    },
+    commission2: {
+        type: Number,
+        max: 100,
+    },
     accountManager: {
         type: Schema.Types.ObjectId,
         ref: 'User'

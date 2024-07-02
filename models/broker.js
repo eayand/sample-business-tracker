@@ -6,25 +6,29 @@ const brokerSchema = new Schema({
     name: {
         type: String, 
         trim: true,
+        maxLength: 100,
         required: true,
     },
     website: {
         type: String,
         trim: true,
+        maxLength: 100,
         lowercase: true,
     },
     phone: {
         type: String,
-        maxLength: 10,
-        minLength: 10,
+        trim: true,
+        maxLength: 15,
     }, 
     tax: {
         type: String,
         trim: true,
+        maxLength: 9,
     },
     address: {
         type: String,
         trim: true,
+        maxLength: 100,
     },
     workspace: {
         type: Schema.Types.ObjectId, 

@@ -5,9 +5,13 @@ const planASchema = new Schema({
     name: {
         type: String, 
         trim: true,
+        maxLength: 100,
         required: true,
     },
-    amount: Number,
+    amount: {
+        type: Number,
+        max: 100000,
+    },
     system: {
         type: String,
         enum: ['', 'Legacy', 'Millenium']

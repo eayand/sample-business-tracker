@@ -5,6 +5,7 @@ const planBSchema = new Schema({
     name: {
         type: String, 
         trim: true,
+        maxLength: 100,
         required: true,
     },
     amount: {        
