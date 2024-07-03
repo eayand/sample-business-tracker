@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const universal = require('./universal')
+const bad = universal.bad
 
 const planBSchema = new Schema({
     name: {

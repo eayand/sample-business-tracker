@@ -73,7 +73,7 @@ async function getNotAssociated(req, res) {
 }
 
 async function update(req, res) {
-    const customer = await Customer.findById(req.params.id)
+    const customer = await Customer.findById(req.params.id).populate('broker')
     try {
         for (const field in req.body) {
             if (field === '') {

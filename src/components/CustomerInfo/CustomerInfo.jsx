@@ -9,7 +9,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
         phone: customer.phone,
         tax: customer.tax,
         address: customer.address,
-        joined: customer.joined,
+        joinedDay: customer.joinedDay,
         renewal: customer.renewal,
     })
 
@@ -26,12 +26,15 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
             ...form,
             [event.target.name]: event.target.value
         }
-        if (newFormData.phone.match(/^\d{10}$/)) {
-            setPhoneInvalid(false)
-        } else if (newFormData.phone === '') {
-            setPhoneInvalid(false)
-        } else {
-            setPhoneInvalid(true)
+        console.log(newFormData)
+        if (newFormData.phone) {
+            if (newFormData.phone.match(/^\d{10}$/)) {
+                setPhoneInvalid(false)
+            } else if (newFormData.phone === '') {
+                setPhoneInvalid(false)
+            } else {
+                setPhoneInvalid(true)
+            }
         }
         setForm(newFormData)
     }
@@ -70,8 +73,8 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                             <textarea name="address" value={form.address} onChange={handleChange}
                                 className="mb-2 w-full border border-theme px-2 py-1" />
 
-                            <label>Joined</label>
-                            <input type="date" name="joined" value={form.joined} onChange={handleChange}
+                            <label>Joined Day</label>
+                            <input type="number" name="joinedDay" value={form.joinedDay} onChange={handleChange}
                                 className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
 
                             <label>Renewal</label>
@@ -124,7 +127,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                         <p className="mb-3 h-8">{customer.address}</p>
 
                         <label className="text-bluetext">Joined</label>
-                        <p className="mb-3 h-8">{new Date(customer.joined).toLocaleDateString()}</p>
+                        <p className="mb-3 h-8">{customer.joinedDay}</p>
 
                         <label className="text-bluetext">Renewal</label>
                         <p className="mb-3 h-8">{customer.renewal}</p>

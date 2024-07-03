@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const universal = require('./universal')
+const bad = universal.bad
 
 const workspaceSchema = new Schema({
     name: {
@@ -25,7 +27,7 @@ const workspaceSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-    }
+    }, 
 },
 {
     timestamps: true,

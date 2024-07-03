@@ -9,10 +9,10 @@ export default function BrokerCardContainer({ customer, customerId, setCustomer,
 
         <div className="flex-col">
 
-
             <BrokerSelect customer={customer} id={customerId} setCustomer={setCustomer} wsurl={wsurl} />
-
+            
             {brokerCards}
+
         </div>
 
     )
