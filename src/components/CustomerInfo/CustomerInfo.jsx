@@ -9,7 +9,9 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
         phone: customer.phone,
         tax: customer.tax,
         address: customer.address,
+        joinedMonth: customer.joinedMonth,
         joinedDay: customer.joinedDay,
+        joinedYear: customer.joinedYear,
         renewal: customer.renewal,
     })
 
@@ -54,28 +56,41 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                         <form>
                             <label>Account Manager</label>
                             <input name="accountManager" value={form.accountManager} onChange={handleChange}
-                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
 
                             <label>Website</label>
                             <input name="website" value={form.website} onChange={handleChange}
-                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
 
                             <label>Primary Phone Number</label>
                             <p className={`text-red ${phoneInvalid ? "relative" : "hidden"}`}>* Enter 10 digits only.</p>
                             <input type="tel" name="phone" value={form.phone} onChange={handleChange} pattern="[0-9]{10}" title="must be ten digits"
-                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
 
                             <label>Tax ID</label>
                             <input name="tax" value={form.tax} onChange={handleChange} pattern="[0-9]{9}"
-                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
+                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
 
                             <label>Address</label>
                             <textarea name="address" value={form.address} onChange={handleChange}
                                 className="mb-2 w-full border border-theme px-2 py-1" />
 
-                            <label>Joined Day</label>
-                            <input type="number" name="joinedDay" value={form.joinedDay} onChange={handleChange}
-                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true"/>
+                            <fieldset className="flex gap-2 align-center">
+                                <legend>Joined</legend>
+
+                                <label>Month</label>
+                                <input type="number" name="joinedMonth" value={form.joinedMonth} onChange={handleChange}
+                                    className="mb-2 mr-8 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
+
+                                <label>Day</label>
+                                <input type="number" name="joinedDay" value={form.joinedDay} onChange={handleChange}
+                                    className="mb-2 mr-8 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
+
+                                <label>Year</label>
+                                <input type="number" name="joinedYear" value={form.joinedYear} onChange={handleChange}
+                                    className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
+                            </fieldset>
+
 
                             <label>Renewal</label>
                             <select name="renewal" value={form.renewal} onChange={handleChange}
@@ -127,7 +142,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                         <p className="mb-3 h-8">{customer.address}</p>
 
                         <label className="text-bluetext">Joined</label>
-                        <p className="mb-3 h-8">{customer.joinedDay}</p>
+                        <p className="mb-3 h-8">{customer.fJoined}</p>
 
                         <label className="text-bluetext">Renewal</label>
                         <p className="mb-3 h-8">{customer.renewal}</p>

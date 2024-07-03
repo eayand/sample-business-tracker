@@ -107,11 +107,10 @@ customerSchema.virtual('fTax').get(function () {
 })
 
 customerSchema.virtual('fJoined').get(function () {
-    // const day = this.joinedDay || '??'
-    // const month = this.joinedMonth || '??'
-    // const year = this.joinedYear || '????'
-    // return `${month}/${day}/${year}`
-    return 'fJoined'
+    const day = this.joinedDay || '??'
+    const month = this.joinedMonth || '??'
+    const year = this.joinedYear || '????'
+    return `${month} / ${day} / ${year}`
 })
 
 customerSchema.virtual('fCommission1').get(function () {
