@@ -1,15 +1,16 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
 const Workspace = require('../../models/workspace')
+const Customer = require('../../models/customer')
 const bcrypt = require('bcrypt');
-const workspace = require('../../models/workspace');
 
 module.exports = {
     create,
     login,
     checkToken,
     index,
-    indexAvailable,
+    indexNotInThisWorkspace,
+    indexNotThisCustomersAM,
     indexAll,
     addWorkspace,
     removeWorkspace
@@ -58,13 +59,23 @@ async function index(req, res) {
     }
 }
 
-async function indexAvailable(req, res) {
+async function indexNotInThisWorkspace(req, res) {
     const id = req.params.workspace
     try {
         const users = await User.find( { workspace: { $ne: id }  } )
         res.json(users)
     } catch {
         res.status(400).json('Could not find users.')
+    }
+}
+
+async function indexNotThisCustomersAM(req, res) {
+    try {
+        const customer = await Customer.findById(req.params.id)
+        const users = await User.find({workspace: customer.workspace, _id: {$nin: customer.accountManager}}).sort('lastName')
+        res.json(users)
+    } catch {
+        res.status(400).json('Could not retrieve potential account managers.')
     }
 }
 

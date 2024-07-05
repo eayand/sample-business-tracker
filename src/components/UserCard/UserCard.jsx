@@ -12,7 +12,7 @@ export default function UserCard({user, id, setUsers, users, availableUsers, set
     }
 
     return (
-        <div className="outline p-2">
+        <div className="border border-theme border-2 p-2">
             <p className="m-2">{user.name}</p>
             <form className="flex justify-center">
                 <input type="hidden" name="user" value={user._id} />

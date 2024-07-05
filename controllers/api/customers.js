@@ -54,7 +54,7 @@ async function index(req, res) {
 
 async function show(req, res) {
     try {
-        const customer = await Customer.findById(req.params.id).populate('broker')
+        const customer = await Customer.findById(req.params.id).populate('broker').populate('accountManager')
         res.json(customer)
     } catch {
         res.status(400).json('Could not retrieve customer.')
@@ -73,7 +73,7 @@ async function getNotAssociated(req, res) {
 }
 
 async function update(req, res) {
-    const customer = await Customer.findById(req.params.id).populate('broker')
+    const customer = await Customer.findById(req.params.id).populate('broker').populate('accountManager')
     try {
         for (const field in req.body) {
             if (field === '') {
@@ -82,6 +82,7 @@ async function update(req, res) {
             customer[field] = req.body[field]
         }
         await customer.save()
+        console.log('=========', customer)
         res.json(customer)
     } catch(error) {
         console.log(error)

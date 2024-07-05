@@ -10,7 +10,8 @@ router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken)
 
 router.get('/admin-page', usersCtrl.indexAll)
 router.get('/:workspace', usersCtrl.index)
-router.get('/no-ref/:workspace', usersCtrl.indexAvailable)
+router.get('/index-not-in-this-workspace/:workspace', usersCtrl.indexNotInThisWorkspace)
+router.get('/:wsurl/index-not-this-customers-am/:id', ensureLoggedIn, usersCtrl.indexNotThisCustomersAM)
 
 // POST /api/users
 router.post('/', usersCtrl.create)

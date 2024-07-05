@@ -43,9 +43,9 @@ export default function App() {
         : 
         < AuthPage setUser={setUser}/>
       }
-    <footer className="h-20">
+    {/* <footer className="h-20">
       
-    </footer>
+    </footer> */}
     </main>
   );
 }

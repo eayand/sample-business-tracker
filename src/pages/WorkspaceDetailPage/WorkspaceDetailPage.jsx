@@ -21,7 +21,7 @@ export default function WorkspaceDetailPage() {
     useEffect(function () {
         (async () => setWorkspace(await workspacesAPI.showWorkspace(id)))();
         (async () => setUsers(await usersAPI.listUsers(id)))();
-        (async () => setAvailableUsers(await usersAPI.listAvailableUsers(id)))();
+        (async () => setAvailableUsers(await usersAPI.indexNotInThisWorkspace(id)))();
     }, [])
 
     const toggleEdit = () => {

@@ -7,7 +7,7 @@ export default function AuthPage({setUser}) {
         className="h-screen flex flex-col sm:flex-row" >
 
             <div 
-            className="sm:block inline-block bg-lightyellow sm:bg-lightblue w-full sm:w-1/2 text-center p-8">
+            className="inline-block sm:block bg-lightyellow sm:bg-lightblue w-full sm:w-1/2 text-center p-8">
                 <h1 
                 className="css-lg">This Is a Demo</h1>
                 <br />
@@ -18,36 +18,28 @@ export default function AuthPage({setUser}) {
                 </p>
                 <br />
 
-                <p
-                className="text-left">
-                    Click "Take a Tour" below to get introduced to the features, or sign up to try them out for yourself.
-                </p>
-                <br />
-
-                <p>When you sign up...</p>
+                <p className="text-left">When you sign up...</p>
                 <ul
                 className="list-disc sm:px-20 text-left">
                     <li 
                     className="p-4">
-                        To keep the demo convenient, you are not required to use a strong password. Email addresses must be unique but do not need to be real.
+                        You are an admin and can create users. Each account you create must have a <strong>unique email address</strong>. If you want to use example@abc.com but someone has already used it, you will not be able to create an account for that address.
                     </li>
                     <li 
                     className="p-4">
-                        Because strong passwords are not required, do not enter any sensitive information.
+                        <strong>Do not enter sensitive information</strong> in your demo account. It is set up for easy access, not maximum security.
                     </li>
                     <li 
                     className="p-4">
-                        Your demo account will be automatically deleted after two weeks.
+                        Your demo account will be <strong>automatically deleted</strong> after two weeks.
                     </li>
                 </ul>
                 <br />
 
-                <button>Take a Tour</button>
-
             </div>
 
             <div 
-            className=" flex flex-col text-center place-content-center pt-8 w-full sm:w-1/2 sm:px-8">
+            className=" flex flex-col text-center pt-8 sm:mt-8 w-full sm:w-1/2 sm:px-8">
                 <LoginForm setUser={setUser}/>
                 <SignUpForm setUser={setUser}/>
             </div>

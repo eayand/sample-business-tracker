@@ -32,6 +32,12 @@ const workspaceSchema = new Schema({
 {
     timestamps: true,
 });
-    
-module.exports = mongoose.model('Workspace', workspaceSchema);
 
+workspaceSchema.pre('save', {document: true, query: false}, function() {
+    if (!this.customURL) {
+        this.customURL = this._id
+    }
+})
+
+    
+module.exports = mongoose.model('Workspace', workspaceSchema)

@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as customersAPI from '../../utilities/customers-api'
+import * as usersAPI from '../../utilities/users-api'
 
 export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
+
+    const [availableAMs, setAvailableAMs] = useState([])
 
     const [form, setForm] = useState({
         accountManager: customer.accountManager,
@@ -14,6 +17,10 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
         joinedYear: customer.joinedYear,
         renewal: customer.renewal,
     })
+
+    useEffect(function () {
+        (async () => setAvailableAMs(await usersAPI.indexNotThisCustomersAM(wsurl, id)))();
+    }, [customer.accountManager])
 
     const [edit, setEdit] = useState(false)
     const toggleEdit = () => {
@@ -28,7 +35,6 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
             ...form,
             [event.target.name]: event.target.value
         }
-        console.log(newFormData)
         if (newFormData.phone) {
             if (newFormData.phone.match(/^\d{10}$/)) {
                 setPhoneInvalid(false)
@@ -39,6 +45,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
             }
         }
         setForm(newFormData)
+        console.log(customer.accountManager)
     }
 
     async function handleUpdateCustomer(event) {
@@ -48,6 +55,8 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
         toggleEdit()
     }
 
+    const dropdown = availableAMs.map(a => <option value={a._id} key={a._id} className="w-full">{a.name}</option>)
+
     return (
         <>
             {
@@ -55,8 +64,11 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                     <>
                         <form>
                             <label>Account Manager</label>
-                            <input name="accountManager" value={form.accountManager} onChange={handleChange}
-                                className="mb-2 w-full border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
+                            <select name="accountManager" value={form.accountManager} onChange={handleChange}
+                                className="mb-2 w-full border border-theme px-2 py-1">
+                                <option value="">(remove account manager)</option>
+                                {dropdown}
+                                </select>
 
                             <label>Website</label>
                             <input name="website" value={form.website} onChange={handleChange}
@@ -127,7 +139,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                         </div>
 
                         <label className="text-bluetext">Account Manager</label>
-                        <p className="mb-3 h-8">{customer.accountManager}</p>
+                        <p className="mb-3 h-8">{customer.accountManager.name}</p>
 
                         <label className="text-bluetext">Website</label>
                         <p className="mb-3 h-8">{customer.website}</p>
