@@ -1,8 +1,10 @@
 const Workspace = require('../../models/workspace')
 const User = require('../../models/user')
+const user = require('../../models/user')
 
 module.exports = {
     create,
+    createWithUser,
     index, 
     userIndex,
     show, 
@@ -20,6 +22,16 @@ async function create(req, res) {
     } catch {
         res.status(400).json('Could not create workspace. Please check: (1) Custom URL contains only letters and numbers. (2) Name and URL are 50 characters max; description is 100 characters max.')
     }
+}
+
+async function createWithUser(user) {
+    const data = {
+        name: 'Click Mangage to rename me',
+        description: 'Add a note about this workspace.',
+        createdBy: user._id,
+    }
+    const workspace = await Workspace.create(data)
+    return workspace
 }
 
 async function index(req, res) {

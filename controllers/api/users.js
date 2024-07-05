@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
 const Workspace = require('../../models/workspace')
+const workspaces = require('../../controllers/api/workspaces')
 const Customer = require('../../models/customer')
 const bcrypt = require('bcrypt');
 
@@ -18,17 +19,14 @@ module.exports = {
 
 async function create(req, res) {
     try {
-      // Add the user to the database
-        const user = await User.create(req.body);
-      // token will be a string
-        const token = createJWT(user);
-      // Yes, we can use res.json to send back just a string
-      // The client code needs to take this into consideration
-        res.json(token);
+        const user = await User.create(req.body)
+        const token = createJWT(user)
+        const workspace = await workspaces.createWithUser(user)
+        user.workspace.push(workspace)
+        await user.save()
+        res.json(token)
     } catch (err) {
-      // Client will check for non-2xx status code 
-      // 400 = Bad Request
-        res.status(400).json(err);
+        res.status(400).json(err)
     }
 }
 

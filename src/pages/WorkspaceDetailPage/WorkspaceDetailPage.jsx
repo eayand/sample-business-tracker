@@ -42,7 +42,8 @@ export default function WorkspaceDetailPage() {
 
     async function handleUpdateWorkspace(event) {
         event.preventDefault()
-        await workspacesAPI.updateWorkspace(id, form)
+        const updatedWorkspace = await workspacesAPI.updateWorkspace(id, form)
+        setWorkspace(updatedWorkspace)
         toggleEdit()
     }
 
