@@ -139,7 +139,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                         </div>
 
                         <label className="text-bluetext">Account Manager</label>
-                        <p className="mb-3 h-8">{customer.accountManager.name}</p>
+                        <p className="mb-3 h-8">{ customer.accountManager ? customer.accountManager.name : ""}</p>
 
                         <label className="text-bluetext">Website</label>
                         <p className="mb-3 h-8">{customer.website}</p>
