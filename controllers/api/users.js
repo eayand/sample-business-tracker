@@ -33,10 +33,8 @@ async function create(req, res) {
 
 async function createViaAdmin(req, res) {
     try {
-        console.log('create via admin')
         req.body.createdBy = req.user._id
         const user = await User.create(req.body)
-        console.log(user)
         res.json(user)
     } catch {
         res.status(400).json('Could not create user.')
@@ -45,7 +43,7 @@ async function createViaAdmin(req, res) {
 
 async function login(req, res) {
     try {
-        const user = await User.findOne({email: req.body.email})
+        const user = await User.findOne({ email: req.body.email })
         if (!user) throw new Error()
         const match = await bcrypt.compare(req.body.password, user.password)
         if (!match) throw new Error()
@@ -63,7 +61,7 @@ function checkToken(req, res) {
 
 async function index(req, res) {
     try {
-        const users = await User.find({workspace: req.params.workspace}).sort('lastName').exec()
+        const users = await User.find({ workspace: req.params.workspace }).sort('lastName').exec()
         res.json(users)
     } catch {
         res.status(400).json('Could not find users.')
@@ -73,7 +71,12 @@ async function index(req, res) {
 async function indexNotInThisWorkspace(req, res) {
     const id = req.params.workspace
     try {
-        const users = await User.find( { workspace: { $ne: id }  } )
+        const users = await User.find({ 
+            $and: [
+                { workspace: { $ne: id } },
+                { createdBy: req.user.id }
+            ]
+        })
         res.json(users)
     } catch {
         res.status(400).json('Could not find users.')
@@ -83,7 +86,7 @@ async function indexNotInThisWorkspace(req, res) {
 async function indexNotThisCustomersAM(req, res) {
     try {
         const customer = await Customer.findById(req.params.id)
-        const users = await User.find({workspace: customer.workspace, _id: {$nin: customer.accountManager}}).sort('lastName')
+        const users = await User.find({ workspace: customer.workspace, _id: { $nin: customer.accountManager } }).sort('lastName')
         res.json(users)
     } catch {
         res.status(400).json('Could not retrieve potential account managers.')
@@ -93,15 +96,21 @@ async function indexNotThisCustomersAM(req, res) {
 async function indexAll(req, res) {
     try {
         const user = await User.findById(req.user.id)
+        let users
         if (user.workspace.length > 0) {
-            const users = await User.find( { workspace: { $in: user.workspace } } ).populate('workspace').exec()
-            const userSet = new Set()
-            users.forEach((user) => userSet.add(user))
-            const adminPageUsers = Array.from(userSet)
-            res.json(adminPageUsers)     
+            users = await User.find({
+                $or: [
+                    { workspace: { $in: user.workspace } },
+                    { createdBy: req.user.id }
+                ]
+            }).populate('workspace').exec()
         } else {
-            res.json(user)
+            users = await User.find({ createdBy: req.user.id }).populate('workspace').exec();
         }
+        const userSet = new Set()
+        users.forEach((user) => userSet.add(user))
+        const adminPageUsers = Array.from(userSet)
+        res.json(adminPageUsers)
     } catch {
         res.status(400).json('Could not find all users for your workspaces.')
     }
