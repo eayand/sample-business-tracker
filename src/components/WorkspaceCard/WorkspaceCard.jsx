@@ -1,12 +1,31 @@
 import { Link } from "react-router-dom";
 
-export default function Workspace({workspace}) {
+export default function WorkspaceCard({ workspace }) {
     return (
-        <Link to={`/workspaces/${workspace._id}`}>
-            <div className="workspace-card">
-                <h3>{workspace.name}</h3>
-                <p>{workspace.description}</p>
+
+        <div
+            className="border-2 border-theme p-2 w-80">
+
+            <p
+                className="font-bold" >
+                {workspace.name}
+            </p>
+            <p>{workspace.description}</p>
+
+            <div
+                className="flex justify-evenly m-3" >
+
+                <Link to={`/customers/${workspace.customURL}?page=1`}>
+                    <button>Log In</button>
+                </Link>
+
+                <Link to={`/workspaces/${workspace._id}`}>
+                    <button>Manage</button>
+                </Link>
+
             </div>
-        </Link>
+
+        </div>
+
     )
 }

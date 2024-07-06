@@ -8,7 +8,9 @@ import BrokerListPage from '../BrokerListPage/BrokerListPage';
 import BrokerDetailPage from '../BrokerDetailPage/BrokerDetailPage';
 import CustomerListPage from '../CustomerListPage/CustomerListPage';
 import CustomerDetailPage from '../CustomerDetailPage/CustomerDetailPage';
+import Dashboard from '../Dashboard/Dashboard'
 import NavBar from '../../components/NavBar/NavBar';
+import UserActions from '../../components/UserActions/UserActions';
 import { useState } from 'react';
 import { getUser } from '../../utilities/users-service';
 import './App.css';
@@ -21,6 +23,7 @@ export default function App() {
         user ? 
         <>
           <NavBar user={user} setUser={setUser}/>
+          <UserActions user={user} setUser={setUser}/>
           <Routes>
             { user.role === 'admin' ? 
               <>
@@ -28,22 +31,21 @@ export default function App() {
               <Route path='/workspaces/:id' element={<WorkspaceDetailPage user={user}/>}/>
               </>
             : 
-              <Route path='/' element={<HomePage user={user}/>} />
-            }
-            { user.workspace.length > 0 ? 
-            <>
-            <Route path ='/brokers' element={<BrokerListPage user={user}/>} />
-            <Route path ='/brokers/:id' element={<BrokerDetailPage user={user}/>} />
-            <Route path='/customers' element={<CustomerListPage user={user}/>}/>
-            <Route path='/customers/:id' element={<CustomerDetailPage user={user}/>} />
-            </>
-            : undefined }
+            <Route path='/' element={<HomePage user={user}/>} />
+          }
+            <Route path ='/brokers/:wsurl' element={<BrokerListPage user={user}/>} />
+            <Route path ='/brokers/:wsurl/:id' element={<BrokerDetailPage user={user}/>} />
+            <Route path='/customers/:wsurl' element={<CustomerListPage user={user}/>}/>
+            <Route path='/customers/:wsurl/:id' element={<CustomerDetailPage user={user}/>} />
+            <Route path='/dashboard/:wsurl' element={<Dashboard user={user}/>} />
           </Routes> 
         </>
         : 
         < AuthPage setUser={setUser}/>
       }
-    <footer></footer>
+    {/* <footer className="h-20">
+      
+    </footer> */}
     </main>
   );
 }

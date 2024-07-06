@@ -4,6 +4,6 @@ export default function UserListAvailable({availableUsers, id, setAvailableUsers
 
     const userList = availableUsers.map((user) => <UserCardAvailable user={user} id={id} key={user._id} setAvailableUsers={setAvailableUsers} availableUsers={availableUsers} users={users} setUsers={setUsers} />)
     return (
-        <div className="flex">{userList}</div>
+        <div className="flex gap-4 flex-wrap">{userList}</div>
     )
 }

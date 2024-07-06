@@ -1,30 +1,40 @@
-import {Link} from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import * as userService from '../../utilities/users-service'
+import UserActions from '../UserActions/UserActions'
 
-export default function NavBar({user, setUser}) {
+export default function NavBar({ user, setUser }) {
     const [hamburgerOpen, setHamburgerOpen] = useState(false)
     const toggleHamburger = () => {
         setHamburgerOpen(!hamburgerOpen)
     }
+    const location = useLocation()
+    const pathSegments = location.pathname.split('/')
+    const wsurl = pathSegments[2]
 
-    function handleLogOut() {
-        userService.logOut()
-        setUser(null)
-    }
     return (
         <>
-        <nav className="navigation">
-            <div className='fullNav'>
-                <div className="loggedInUser">{user.name}<Link onClick={handleLogOut}>Log Out</Link></div>
-                <div><Link to="/brokers">Brokers</Link></div>
-                <div><Link to="/customers">Customers</Link></div>
-            </div>
-            <div className="hamburger" onClick={toggleHamburger}><span className="material-symbols-outlined">{`${hamburgerOpen ? 'close' : 'menu'}`}</span></div>
-        </nav>
+            {
+                location.pathname === '/' ? null
+                    :
+                    <nav className="navigation py-2">
 
+                        <div className="full-burger flex justify-center pt-8 sm:pt-0">
 
-        <style>{`
+                            <div className="menu-item w-full sm:w-40 text-center" ><Link to={`/brokers/${wsurl}?page=1`} onClick={toggleHamburger}>Brokers</Link></div>
+                            <div className="menu-item w-full sm:w-40 text-center"><Link to={`/customers/${wsurl}?page=1`} onClick={toggleHamburger}>Customers</Link></div>
+                            <div className="menu-item w-full sm:w-40 text-center"><Link to={`/dashboard/${wsurl}`} onClick={toggleHamburger}>Dashboard</Link></div>
+
+                        </div>
+
+                        <div className="hamburger pl-3" onClick={toggleHamburger}>
+                            <span className="material-symbols-outlined text-3xl">{`${hamburgerOpen ? 'close' : 'menu'}`}</span>
+                        </div>
+
+                    </nav>
+            }
+
+            <style>{`
 
             .hamburger {
                 display: none;
@@ -38,15 +48,20 @@ export default function NavBar({user, setUser}) {
                     z-index: 10;
                 }
 
-                .fullNav {
+                .full-burger {
                     display: ${hamburgerOpen ? 'flex' : 'none'};
                     flex-direction: column;
-                    justify-content: space-evenly;
+                    justify-content: flex-start;
                     font-size: 2rem;
                     background-color: #fff;
-                    height: 95vh;
-                    width: 95vw;
-                    position: absolute;
+                    height: 100vh;
+                    width: 100vw;
+                    position: fixed;
+                    z-index: 10;
+                }
+
+                .menu-item {
+                    padding: 1rem;
                 }
             }
 

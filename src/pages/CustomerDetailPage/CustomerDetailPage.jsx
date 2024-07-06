@@ -2,47 +2,45 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import * as customersAPI from '../../utilities/customers-api'
 import BrokerCardContainer from "../../components/BrokerCardContainer/BrokerCardContainer"
+import CustomerInfo from "../../components/CustomerInfo/CustomerInfo"
 import PlanContainer from "../../components/PlanContainer/PlanContainer"
+import Box from "../../components/Box/Box"
+import CustomerFinancial from "../../components/CustomerFinancial/CustomerFinancial"
 
 export default function CustomerDetailPage() {
 
     const navigate = useNavigate()
-    const {id} = useParams()
+    const { wsurl, id } = useParams()
     const [customer, setCustomer] = useState(null)
+    const [actions, setActions] = useState(false)
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
-
-//vvvvvvvvvvv only used in edit mode vvvvvvvvvv
     const [form, setForm] = useState({
-        name: undefined,
-        website: undefined,
-        phone: undefined,
-        tax: undefined,
-        address: undefined,
-        joined: undefined,
-        renewal: '',
-        commission1: undefined,
-        commission2: undefined,
-        accountManager: undefined,
+        name: null,
     })
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
-    useEffect(function() {
-        (async () => setCustomer(await customersAPI.customerDetail(id)))();
+    useEffect(function () {
+        (async () => {
+            const customerResult = await customersAPI.customerDetail(wsurl, id)
+            setCustomer(customerResult)
+            setForm({
+                name: customerResult.name
+            })
+        })();
     }, [])
-    
+
+    const toggleActions = () => {
+        setActions(!actions)
+    }
 
     const toggleEdit = () => {
         setEdit(!edit)
     }
 
-
-//vvvvvvvvvvv only used in edit mode vvvvvvvvvv
-    useEffect(function() {
-        setForm(customer)
-    }, [customer])
-
+    const editAndActions = () => {
+        toggleActions()
+        toggleEdit()
+    }
 
     function handleChange(event) {
         const newFormData = {
@@ -54,7 +52,7 @@ export default function CustomerDetailPage() {
 
     async function handleUpdateCustomer(event) {
         event.preventDefault()
-        const customer = await customersAPI.updateCustomer(id, form)
+        const customer = await customersAPI.updateCustomer(wsurl, id, form)
         setCustomer(customer)
         toggleEdit()
     }
@@ -63,155 +61,82 @@ export default function CustomerDetailPage() {
         setPreDelete(!preDelete)
     }
 
-    async function handleDeleteCustomer() {
-        await customersAPI.deleteCustomer(id)
-        navigate('/customers')
+    const preDeleteAndActions = () => {
+        toggleActions()
+        togglePreDelete()
     }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-//question mark after customer means only load if it's truthy; this is why customer's initial state needs to be null and not an empty object; it will wait to load this page until customer is available, which allows all the child components to work
+    async function handleDeleteCustomer() {
+        await customersAPI.deleteCustomer(wsurl, id)
+        navigate(`/customers/${wsurl}`)
+    }
+
     return customer ? (
-        <div className="detail-body">
+        <>
 
-            <h1>{customer.name}</h1>
+            <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-12">
 
-            { 
-            edit ? 
-            <>
-                <form className="big-form">
-
-                    <label>Name of Company</label>
-                    <input name="name" value={form.name} onChange={handleChange} />
-            
-                    <label>Website</label>
-                    <input name="website" value={form.website} onChange={handleChange} />
-
-                    <label>Primary Phone Number</label>
-                    <input type="tel" name="phone" value={form.phone} onChange={handleChange} />
-
-                    <label>Tax ID</label>
-                    <input name="tax" value={form.tax} onChange={handleChange} />
-
-                    <label>Address</label>
-                    <textarea name="address" value={form.address} onChange={handleChange} />
-
-                    <label>Joined</label>
-                    <input type="date" name="joined" value={form.joined} onChange={handleChange} />
-
-                    <label>Renewal</label>
-                    <select name="renewal" value={form.renewal} onChange={handleChange}>
-                        <option value="" selected></option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>                
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select><br />
-
-                    <label>Broker Commission 1</label>
-                    <input type="number" name="commission1" value={form.commission1} onChange={handleChange} />
-
-                    <label>Broker Commission 2</label>
-                    <input type="number" name="commission2" value={form.commission2} onChange={handleChange} />
-
-                    <label>Account Manager</label>
-                    <input name="accountManager" value={form.accountManager} onChange={handleChange} />
-        
-                </form>
-
-                <div className="edit-controls">
-                    <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
-                    <button onClick={toggleEdit}>CANCEL</button>
-                    { 
-                        preDelete ? 
-                        <>
-                            <div className="large-alert">
-                                <p>Are you sure you want to delete {customer.name}?</p>
-                                <button onClick={togglePreDelete}>Cancel</button>
-                                <button onClick={handleDeleteCustomer}>Delete</button>
-                            </div>
-                        </>
-                    : 
-                        <>
-                                
-                                <button className="pre-delete" onClick={togglePreDelete}>DELETE THIS CUSTOMER</button>
-                        </>
+                <div className="sm:flex sm:justify-between sm:col-span-10 sm:col-start-2 mx-auto sm:mx-6 my-4">
+                    {
+                        edit ?
+                            <form>
+                                <input name="name" value={form.name} onChange={handleChange} className="font-bold text-3xl sm:w-full text-left mt-14 sm:mt-0 border border-theme" data-ignore="true" data-1p-ignore="true" />
+                                <button type="submit" onClick={handleUpdateCustomer}>SAVE</button>
+                                <button onClick={toggleEdit}>CANCEL</button>
+                            </form>
+                            :
+                            <h1 className="font-bold text-3xl sm:w-full text-left mt-14 sm:mt-0">{customer.name}</h1>
                     }
-                </div>
-
-            </>
-
-
-            : 
-            <>
-                <div className="flex-j-end full-width relative">
-                    <button onClick={toggleEdit} className="detail-edit-button">Edit Mode</button>
-                </div>      
-
-
-                <div className="detail-section db-left">
-
-                    <div className="title-3">
-                        <h3>Basic Info</h3>
+                    <div>
+                        <button className="flex pt-2 pb-1 pl-2 mt-2 mx-auto relative z-[9]" onClick={toggleActions}>
+                            <div className="-mt-1">Actions</div> <span className="material-symbols-outlined -mb-6 pl-1 -mr-1">
+                                arrow_drop_down
+                            </span></button>
+                        <div className={`py-2 border border-r-2 border-gray-300 z-[8] bg-white ${actions ? "absolute" : "hidden"}`}>
+                            <p onClick={editAndActions} className="pl-3 pr-5 py-1 hover:bg-extralightblue">Rename</p>
+                            <p onClick={preDeleteAndActions} className="pl-3 pr-5 py-1 hover:bg-extralightblue">Delete</p>
+                        </div>
                     </div>
-
-                    <label>Account Manager</label>
-                    <p>{customer.accountManager}</p>
-                    <label>Website</label>
-                    <p>{customer.website}</p>
-                    <label>Primary Phone Number</label>
-                    <p>{customer.formatPhone}</p>
-                    <label>Tax ID</label>
-                    <p>{customer.tax}</p>
-                    <label>Address</label>
-                    <p>{customer.address}</p>
-                    <label>Joined</label>
-                    <p>{new Date(customer.joined).toLocaleDateString()}</p>
-                    <label>Renewal</label>
-                    <p>{customer.renewal}</p>
-
                 </div>
 
 
-                <div className="db-right">
-                    <div className="detail-section full-width">
-                        <div className="title-3">
-                            <h3>Financial</h3>
-                        </div>
-                        <label>Commission 1</label>
-                        <p>{customer.fCommission1}</p>
-                        <label>Commission 2</label>
-                        <p>{customer.fCommission2}</p>
-                    </div>
 
-                    <div className="detail-section">
-                        <div className="title-3">
-                            <h3>Brokers</h3>
-                        </div>
-                            <BrokerCardContainer customer={customer} customerId={id} setCustomer={setCustomer} />
-                        </div>
-                    </div>
-
-                <div className="detail-section db-bottom">
-
-                    <div className="title-3">
-                        <h3>Benefit Plans</h3>
-                    </div>
-
-                    <PlanContainer customer={customer} customerId={id} />
-
+                <div className="sm:row-span-2 sm:col-span-5 sm:col-start-2" >
+                    <Box title="Basic Info"
+                        contents={<CustomerInfo wsurl={wsurl} customer={customer} id={id} setCustomer={setCustomer} />}
+                    />
                 </div>
 
-            </>  
-            }
-        </div>
+                <div className="sm:col-span-5 sm:col-start-7">
+                    <Box title="Financial"
+                        contents={<CustomerFinancial wsurl={wsurl} customer={customer} id={id} setCustomer={setCustomer} />}
+                    />
+                </div>
+
+                <div className="sm:col-span-5 sm:col-start-7">
+                    <Box title="Brokers"
+                        contents={<BrokerCardContainer customer={customer} customerId={id} setCustomer={setCustomer} wsurl={wsurl} />}
+                    />
+                </div>
+
+                <div className="sm:col-span-10 sm:col-start-2">
+                    <Box title="Benefit Plans"
+                        contents={<PlanContainer customer={customer} customerId={id} wsurl={wsurl} />}
+                    />
+                </div>
+            </div>
+
+            <div className={`${preDelete ? "fixed top-0" : "hidden"} flex w-full h-full bg-gray-400 bg-opacity-75 z-20`}>
+                <div className="m-auto w-[40rem] bg-white flex flex-col justify-between rounded-3xl">
+                    <p className="text-2xl font-semibold m-10">Delete Customer?</p>
+                    <p className="mx-10">Are you sure you want to delete <span className="font-semibold">{customer.name}</span>?</p>
+                    <div className="flex justify-end m-10">
+                        <button onClick={togglePreDelete}>Cancel</button>
+                        <button onClick={handleDeleteCustomer} className="ml-10 text-white bg-red">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </>
+
     ) : null
-    // : null is the option if the customer isn't available yet. It makes the page stay blank until then. You could have a loading screen here instead.
 }  

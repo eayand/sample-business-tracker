@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import * as customersAPI from '../../utilities/customers-api'
 
-export default function CustomerSelect({broker, id, customers, setCustomers}) {
+export default function CustomerSelect({wsurl, broker, id, customers, setCustomers}) {
     const [availableCustomers, setAvailableCustomers] = useState([])
     const [form, setForm] = useState({
         customer: undefined,
@@ -9,7 +9,7 @@ export default function CustomerSelect({broker, id, customers, setCustomers}) {
 
 
     useEffect(function() {
-        (async () => setAvailableCustomers(await customersAPI.notAssocCustomers(id)))();
+        (async () => setAvailableCustomers(await customersAPI.notAssocCustomers(wsurl, id)))();
     }, [])
 
     function handleChange(event) {
@@ -22,7 +22,7 @@ export default function CustomerSelect({broker, id, customers, setCustomers}) {
 
     async function handleAssociateCustomer(event) {
         event.preventDefault()
-        const newCustomer = await customersAPI.associateWithBroker(id, form)
+        const newCustomer = await customersAPI.associateWithBroker(wsurl, id, form)
         const customerId = newCustomer._id
         setCustomers([...customers, newCustomer])
         setForm({customer: ""})
@@ -32,12 +32,12 @@ export default function CustomerSelect({broker, id, customers, setCustomers}) {
 
     return (
         <>
-        <form className="flex-ctr-ctr">
-            <select name={"customer"} value={form.customer} onChange={handleChange} required className="inline-input ii-small">
+        <form className="flex justify-end mx-4">
+            <select name="customer" value={form.customer} onChange={handleChange} required className="border border-2 border-bluetext min-w-60 focus:bg-extralightblue">
                 <option value=""></option>
                 {dropdown}
             </select>
-            <button type="submit" onClick={handleAssociateCustomer}>Add Customer</button>
+            <button type="submit" onClick={handleAssociateCustomer} className="ml-4 text-nowrap">Add Customer</button>
         </form>
         </>
     )

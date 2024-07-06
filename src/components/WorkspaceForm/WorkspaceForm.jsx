@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import * as workspacesAPI from '../../utilities/workspaces-api'
 
-export default function WorkspaceForm({workspaces, setWorkspaces}) {
+export default function WorkspaceForm({workspaces, setWorkspaces, users, setUsers}) {
     const [form, setForm] = useState({
         name: "",
         customURL: "",
         description: ""
     })
+
+    const [error, setError] = useState(null)
 
     function handleChange(event) {
         const newFormData = {
@@ -20,6 +22,7 @@ export default function WorkspaceForm({workspaces, setWorkspaces}) {
         event.preventDefault()
         const newWorkspace = await workspacesAPI.saveWorkspace(form)
         setWorkspaces([newWorkspace, ...workspaces])
+        setUsers([users])
         setForm({
             name: "",
             customURL: "",
@@ -28,24 +31,28 @@ export default function WorkspaceForm({workspaces, setWorkspaces}) {
     }
 
     return(
-    <form className="admin-form">
-        <h4>Create a Workspace</h4>
+    <form
+    className="text-left" >
         <div >
-            <label>Workspace Name</label>
-            <input name="name" value={form.name} onChange={handleChange} />
+            <label className="block">Workspace Name</label>
+            <input name="name" value={form.name} onChange={handleChange} maxLength="50"
+            className="w-96 border border-theme px-2 py-1" />
         </div>
         <br />
         <div >
-            <label>Custom URL</label>
-            <input name="customURL" value={form.customURL} onChange={handleChange} />
+            <label className="block">Custom URL <span className="text-sm">letters and numbers only</span></label>
+            <input name="customURL" value={form.customURL} onChange={handleChange} maxLength="50" pattern="[A-Za-z0-9]+"
+            className="w-96 border border-theme px-2 py-1" />
         </div>
         <br />
         <div >
-            <label>Workspace Description</label>
-            <textarea name="description" value={form.description} onChange={handleChange} />
+            <label className="block">Workspace Description</label>
+            <textarea name="description" value={form.description} onChange={handleChange} maxLength="100"
+            className="w-96 border border-theme px-2 py-1" />
         </div>
         <br />
-        <div >
+        <p>{error}</p>
+        <div className="text-center">
             <button type="submit" onClick={handleSaveWorkspace}>Create</button>
         </div>
     </form>

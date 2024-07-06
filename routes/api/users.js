@@ -7,12 +7,14 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn')
 
 // GET api/users/check-token
 router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken)
-
+router.get('/admin-page', usersCtrl.indexAll)
 router.get('/:workspace', usersCtrl.index)
-router.get('/no-ref/:workspace', usersCtrl.indexAvailable)
+router.get('/index-not-in-this-workspace/:workspace', usersCtrl.indexNotInThisWorkspace)
+router.get('/:wsurl/index-not-this-customers-am/:id', ensureLoggedIn, usersCtrl.indexNotThisCustomersAM)
 
 // POST /api/users
 router.post('/', usersCtrl.create)
+router.post('/create-via-admin', usersCtrl.createViaAdmin)
 router.post('/login', usersCtrl.login)
 router.post('/add-workspace', usersCtrl.addWorkspace)
 router.post('/remove-workspace/:id', usersCtrl.removeWorkspace)
