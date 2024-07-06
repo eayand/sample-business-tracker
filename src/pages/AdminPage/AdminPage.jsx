@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import Box from '../../components/Box/Box'
 import * as workspacesAPI from '../../utilities/workspaces-api'
+import * as usersAPI from '../../utilities/users-api'
+import Box from '../../components/Box/Box'
 import WorkspaceForm from '../../components/WorkspaceForm/WorkspaceForm'
 import WorkspaceList from '../../components/WorkspaceList/WorkspaceList'
-import * as usersAPI from '../../utilities/users-api'
 import UserTable from '../../components/UserTable/UserTable'
+import UserForm from '../../components/UserForm/UserForm'
 
 export default function AdminPage({user}) {
     const [workspaces, setWorkspaces] = useState([])
@@ -20,7 +21,7 @@ export default function AdminPage({user}) {
 
 
     return(
-        <>
+        < div className="flex flex-col justify-center sm:mx-10">
         <h1
         className="css-lg w-full text-center py-8" >
             Admin Home
@@ -40,6 +41,10 @@ export default function AdminPage({user}) {
             <Box title="Create a Workspace" 
             contents={<WorkspaceForm workspaces={workspaces} setWorkspaces={setWorkspaces} users={users} setUsers={setUsers} />}/>
 
+            <Box title="Create a User" 
+            contents={<UserForm users={users} setUsers={setUsers}/>}
+            />
+
             <Box title="All Users"  
                 contents={users.length ? 
                     <UserTable users={users} />
@@ -49,6 +54,6 @@ export default function AdminPage({user}) {
 
         </div>
 
-        </>
+        </div>
     )
 }

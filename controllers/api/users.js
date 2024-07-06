@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     create,
+    createViaAdmin,
     login,
     checkToken,
     index,
@@ -27,6 +28,18 @@ async function create(req, res) {
         res.json(token)
     } catch (err) {
         res.status(400).json(err)
+    }
+}
+
+async function createViaAdmin(req, res) {
+    try {
+        console.log('create via admin')
+        req.body.createdBy = req.user._id
+        const user = await User.create(req.body)
+        console.log(user)
+        res.json(user)
+    } catch {
+        res.status(400).json('Could not create user.')
     }
 }
 

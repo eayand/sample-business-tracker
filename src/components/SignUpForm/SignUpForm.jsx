@@ -49,7 +49,7 @@ export default class signUpForm extends Component {
 
                     <h1 className="text-left font-bold">Sign Up</h1>
 
-                    <form autoComplete="off" onSubmit={this.handleSubmit} className="">
+                    <form autoComplete="off" onSubmit={this.handleSubmit}>
 
                         <label 
                         className="block sm:inline-block sm:text-right sm:w-1/5">

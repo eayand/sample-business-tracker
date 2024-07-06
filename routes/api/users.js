@@ -15,6 +15,7 @@ router.get('/:wsurl/index-not-this-customers-am/:id', ensureLoggedIn, usersCtrl.
 
 // POST /api/users
 router.post('/', usersCtrl.create)
+router.post('/create-via-admin', usersCtrl.createViaAdmin)
 router.post('/login', usersCtrl.login)
 router.post('/add-workspace', usersCtrl.addWorkspace)
 router.post('/remove-workspace/:id', usersCtrl.removeWorkspace)

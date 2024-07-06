@@ -5,6 +5,10 @@ export async function signUp(userData) {
     return sendRequest(BASE_URL, 'POST', userData)
 }
 
+export async function createViaAdmin(form) {
+    return sendRequest(`${BASE_URL}/create-via-admin`, 'POST', form)
+}
+
 export async function login(credentials) {
     return sendRequest(`${BASE_URL}/login`, 'POST', credentials)
 }

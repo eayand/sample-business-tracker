@@ -47,14 +47,17 @@ const userSchema = new Schema({
         default: 'readonly-employee',
         required: true,
     },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    }, 
 },
 {
     timestamps: true,
-    // Even though it's hashed - don't serialize the password
     toJSON: {
         transform: function(doc, ret) {
-        delete ret.password;
-        return ret;
+        delete ret.password
+        return ret
         },
         virtuals: true
     }
