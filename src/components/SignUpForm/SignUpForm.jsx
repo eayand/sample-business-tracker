@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { signUp } from "../../utilities/users-service";
 import { redirect } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //class based ones accept props automatically, so we don't have to specifically pass down the setUser function, but we have to refer to it as this.props.setUser
 export default class signUpForm extends Component {
@@ -35,7 +35,7 @@ export default class signUpForm extends Component {
         // payload of the JSON Web Token (JWT)
             const user = await signUp(formData)
             this.props.setUser(user)
-            // navigate('/')
+            useNavigate('/')
         } catch {
             this.setState({error: 'Signup failed. Try again.'})
         }
