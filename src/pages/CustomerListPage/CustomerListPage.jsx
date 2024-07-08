@@ -91,7 +91,10 @@ export default function CustomerListPage({ user }) {
                     <Pagination textColor="text-bluetext" bgColor="bg-bluetext" section="customers" wsurl={wsurl} page={page} pageCount={pageCount} handlePrevious={handlePrevious} handleNext={handleNext} />
                 </>
                 :
+                <> 
+                <p>{user.name}</p>
                 <div className="h-96 flex flex-col justify-center text-center text-3xl">Start by creating a workspace on your homepage.</div>
+                </>
             }
         </>
 
