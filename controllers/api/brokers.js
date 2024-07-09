@@ -5,6 +5,7 @@ const Workspace = require('../../models/workspace')
 
 module.exports = {
     create,
+    createWithUser,
     index, 
     getNotAssociated,
     show,
@@ -22,6 +23,19 @@ async function create(req, res) {
     } catch {
         res.status(400).json('Could not create broker.')
     }
+}
+
+async function createWithUser(workspace) {
+    const data = {
+        name: 'Broker Bros (example brokerage)',
+        website: 'brokerbros.bro',
+        phone: '1112223333',
+        tax: '227777777',
+        address: '123 Main St, Los Angeles, CA 92999',
+        workspace: workspace,
+    }
+    const broker = await Broker.create(data)
+    return broker
 }
 
 async function index(req, res) {

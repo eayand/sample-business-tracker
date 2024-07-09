@@ -26,8 +26,8 @@ async function create(req, res) {
 
 async function createWithUser(user) {
     const data = {
-        name: 'Click Mangage to rename me',
-        description: 'Add a note about this workspace.',
+        name: 'Your First Workspace',
+        description: 'Click Manage and then Edit to rename.',
         createdBy: user._id,
     }
     const workspace = await Workspace.create(data)

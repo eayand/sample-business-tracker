@@ -92,7 +92,7 @@ export default function CustomerListPage({ user }) {
                 </>
                 :
                 <> 
-                <p>{user.name}</p>
+                <p>{user.workspace}</p>
                 <div className="h-96 flex flex-col justify-center text-center text-3xl">Start by creating a workspace on your homepage.</div>
                 </>
             }

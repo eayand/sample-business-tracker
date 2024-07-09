@@ -5,6 +5,7 @@ const Workspace = require('../../models/workspace')
 
 module.exports = {
     create,
+    createWithUser,
     index,
     show,
     getNotAssociated,
@@ -25,6 +26,25 @@ async function create(req, res) {
     } catch (err) {
         res.status(400).json('Could not create customer.')
     }
+}
+
+async function createWithUser(workspace) {
+    const data = {
+        name: 'Pizzazz Pizza Parlor (example customer)',
+        website: 'pizzazz.ppp',
+        phone: '1231231234',
+        tax: '123456789',
+        address: '456 Ocean Blvd, San Diego, CA 92999',
+        joinedDay: 1,
+        joinedMonth: 1,
+        joinedYear: 2024,
+        renewal: 'January',
+        commission1: 2.75,
+        commission2: 5,
+        workspace: workspace,
+    }
+    const customer = await Customer.create(data)
+    return customer
 }
 
 async function index(req, res) {

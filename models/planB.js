@@ -12,7 +12,7 @@ const planBSchema = new Schema({
     },
     amount: {        
         type: Number,
-        enum: [undefined, 500, 550, 600, 650]
+        enum: [0, 500, 550, 600, 650]
     },
     system: {
         type: String,
@@ -20,6 +20,7 @@ const planBSchema = new Schema({
     },
     autoRenew: {
         type: Boolean,
+        default: false,
     },
     expert: {
         type: Schema.Types.ObjectId,
@@ -47,6 +48,14 @@ planBSchema.virtual('fAmount').get(function () {
         const number = this.amount.toFixed(2)
         return `$${number}`
     } else {return}
+})
+
+planBSchema.virtual('fAutoRenew').get(function () {
+    if (this.autoRenew === true) {
+        return 'Yes'
+    } else {
+        return 'No'
+    }
 })
 
 

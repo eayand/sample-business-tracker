@@ -3,6 +3,7 @@ const Customer = require('../../models/customer')
 
 module.exports = {
     create,
+    createWithUser,
     index,
     update,
     delete: deletePlan,
@@ -15,6 +16,19 @@ async function create(req, res) {
     } catch {
         res.status(400).json('Could not create plan.')
     }
+}
+
+async function createWithUser(customer) {
+    const data = {
+        name: 'Kaiser HMO (example plan)',
+        amount: 3000,
+        system: 'Legacy',
+        benefitCategories: ['medical'],
+        reminders: ['email', 'paper'],
+        customer: customer,
+    }
+    const planA = await PlanA.create(data)
+    return planA
 }
 
 async function index(req, res) {

@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
 const Workspace = require('../../models/workspace')
-const workspaces = require('../../controllers/api/workspaces')
 const Customer = require('../../models/customer')
+const workspaces = require('../../controllers/api/workspaces')
+const brokers = require('../../controllers/api/brokers')
+const customers = require('../../controllers/api/customers')
+const planAs = require('../../controllers/api/plan-a')
+const planBs = require('../../controllers/api/plan-b')
 const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -21,10 +25,22 @@ module.exports = {
 async function create(req, res) {
     try {
         const user = await User.create(req.body)
-        const token = createJWT(user)
+
         const workspace = await workspaces.createWithUser(user)
         user.workspace.push(workspace)
         await user.save()
+
+        const broker = await brokers.createWithUser(workspace)
+
+        const customer = await customers.createWithUser(workspace)
+        customer.broker.push(broker)
+        await customer.save()
+
+        const planA = await planAs.createWithUser(customer)
+
+        const planB = await planBs.createWithUser(customer)
+
+        const token = createJWT(user)
         res.json(token)
     } catch (err) {
         res.status(400).json(err)

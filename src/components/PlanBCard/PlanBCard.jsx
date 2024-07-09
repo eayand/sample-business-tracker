@@ -60,8 +60,8 @@ export default function PlanBCard({ plan, updatePlansB, wsurl }) {
                             </select><br />
 
                             <label>Amount</label>
-                            <select name="system" value={form.amount} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
-                                <option value="" selected></option>
+                            <select name="amount" value={form.amount} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
+                                <option value={0} selected></option>
                                 <option value={500}>$500</option>
                                 <option value={550}>$550</option>
                                 <option value={600}>$600</option>
@@ -120,7 +120,7 @@ export default function PlanBCard({ plan, updatePlansB, wsurl }) {
                             <label className="text-bluetext">System</label>
                             <p className="mb-3 h-8">{plan.system}</p>
                             <label className="text-bluetext">Auto Renew</label>
-                            <p className="mb-3 h-8">{plan.autoRenew}</p>
+                            <p className="mb-3 h-8">{plan.fAutoRenew}</p>
                         </div>
                     </>
             }
