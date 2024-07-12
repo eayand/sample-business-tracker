@@ -20,7 +20,7 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
 
     useEffect(function () {
         (async () => setAvailableAMs(await usersAPI.indexNotThisCustomersAM(wsurl, id)))();
-    }, [customer.accountManager])
+    }, [customer])
 
     const [edit, setEdit] = useState(false)
     const toggleEdit = () => {
@@ -36,16 +36,19 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
             [event.target.name]: event.target.value
         }
         if (newFormData.phone) {
-            if (newFormData.phone.match(/^\d{10}$/)) {
-                setPhoneInvalid(false)
-            } else if (newFormData.phone === '') {
-                setPhoneInvalid(false)
-            } else {
-                setPhoneInvalid(true)
-            }
+            validatePhone(newFormData.phone)
         }
         setForm(newFormData)
-        console.log(customer.accountManager)
+    }
+
+    function validatePhone(newPhone) {
+        if (newPhone.match(/^\d{10}$/)) {
+            setPhoneInvalid(false)
+        } else if (newPhone === '') {
+            setPhoneInvalid(false)
+        } else {
+            setPhoneInvalid(true)
+        }
     }
 
     async function handleUpdateCustomer(event) {
@@ -66,7 +69,8 @@ export default function CustomerInfo({ wsurl, customer, id, setCustomer }) {
                             <label>Account Manager</label>
                             <select name="accountManager" value={form.accountManager} onChange={handleChange}
                                 className="mb-2 w-full border border-theme px-2 py-1">
-                                <option value="">(remove account manager)</option>
+                                { customer.accountManager ? <option value={customer.accountManager._id}>{customer.accountManager.name}</option> : null}
+                                <option value=""></option>
                                 {dropdown}
                                 </select>
 

@@ -75,7 +75,7 @@ export default function CustomerDetailPage() {
         <>
 
             <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-12">
-
+                    
                 <div className="sm:flex sm:justify-between sm:col-span-10 sm:col-start-2 mx-auto sm:mx-6 my-4">
                     {
                         edit ?
@@ -98,8 +98,6 @@ export default function CustomerDetailPage() {
                         </div>
                     </div>
                 </div>
-
-
 
                 <div className="sm:row-span-2 sm:col-span-5 sm:col-start-2" >
                     <Box title="Basic Info"

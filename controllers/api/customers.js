@@ -93,22 +93,34 @@ async function getNotAssociated(req, res) {
 }
 
 async function update(req, res) {
-    const customer = await Customer.findById(req.params.id).populate('broker').populate('accountManager')
+    const customer = await Customer.findById(req.params.id).populate('broker')
     try {
         for (const field in req.body) {
-            if (field === '') {
-                field = undefined
+            if (req.body[field] === '') {
+                req.body[field] = null
             }
             customer[field] = req.body[field]
         }
+        console.log('Req Body AM: ', req.body.accountManager)
+        console.log('Customer AM: ', customer.accountManager)
         await customer.save()
-        console.log('=========', customer)
+        await customer.populate('accountManager')
+        // console.log(customer)
         res.json(customer)
-    } catch(error) {
-        console.log(error)
+    } catch {
         res.status(400).json('Could not update customer.')
     }
 }
+// console.log('========', customer[field], '++++', req.body[field])
+// if (req.body.accountManager === '') {
+//     customer.accountManager = null
+//     await customer.save()
+//     res.json(customer)
+// } else {
+//     await customer.save()
+//     await customer.populate('accountManager')
+//     res.json(customer)
+// }
 
 async function associateBroker(req, res) {
     const customer = await Customer.findById(req.params.id)
@@ -118,7 +130,7 @@ async function associateBroker(req, res) {
         await customer.save()
         await customer.populate('broker')
         res.json(customer)
-    } catch (error) {
+    } catch {
         res.status(400).json('Could not add broker to customer.')
     }
 }
@@ -130,8 +142,7 @@ async function associateWithBroker(req, res) {
         customer.broker.push(broker)
         await customer.save()
         res.json(customer)
-    } catch (error) {
-        console.log(error)
+    } catch {
         res.status(400).json('Could not add customer to broker.')
     }
 }

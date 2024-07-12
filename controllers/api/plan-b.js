@@ -45,8 +45,7 @@ async function update(req, res) {
         plan.autoRenew = req.body.autoRenew,
         await plan.save()
         res.json(plan)
-    } catch(error) {
-        console.log(error)
+    } catch {
         res.status(400).json('Could not update plan.')
     }
 }
