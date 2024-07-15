@@ -12,7 +12,7 @@ export default function CustomerRow({customer, wsurl}) {
             <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.renewal}</td>
             <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.fCommission1}</td>
             <td className="border border-x-theme p-2 max-h-3 min-w-32 text-nowrap">{customer.fCommission2}</td>
-            <td className="border border-x-theme p-2 max-h-3 min-w-48 text-nowrap">{customer.accountManager}</td>
+            <td className="border border-x-theme p-2 max-h-3 min-w-48 text-nowrap">{customer.accountManager?.name}</td>
         </tr>
     )
 }

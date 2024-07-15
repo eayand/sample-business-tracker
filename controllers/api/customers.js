@@ -56,8 +56,9 @@ async function index(req, res) {
         const skip = (page - 1) * ITEMS_PER_PAGE
         const total = await Customer.find(query)
         const count = total.length
-        const customers = await Customer.find(query).sort('name').skip(skip).limit(ITEMS_PER_PAGE)
+        const customers = await Customer.find(query).sort('name').skip(skip).limit(ITEMS_PER_PAGE).populate('accountManager')
         const pageCount = Math.ceil(count / ITEMS_PER_PAGE)
+        console.log('=======================CUSTOMERS', customers)
         res.json({
             pagination: {
                 count,

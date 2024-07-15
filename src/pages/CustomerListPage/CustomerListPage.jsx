@@ -70,6 +70,7 @@ export default function CustomerListPage({ user }) {
                 <>
                     <div className="flex flex-wrap justify-center lg:justify-between mx-20 pl-10 pr-20 pt-5">
                         <h1 className="font-bold text-3xl">Customers </h1>
+                        {/* <h2>{customersData.customers.length}</h2> */}
                         <form className="flex flex-wrap justify-center lg:justify-right">
                             <div>
                                 <input name="name" value={form.name} onChange={handleChange} required className="mx-5 my-2 lg:my-0 w-80 border border-theme px-2 py-1" data-ignore="true" data-1p-ignore="true" />
@@ -79,7 +80,6 @@ export default function CustomerListPage({ user }) {
                             </div>
                         </form>
                     </div>
-
                     <div className="chart-container overflow-x-scroll mx-auto mt-6 border border-lightblue">
                         {
                             customersData.customers.length ?

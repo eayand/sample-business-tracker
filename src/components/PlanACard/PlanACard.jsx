@@ -14,6 +14,17 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
         reminders: plan.reminders,
     })
 
+    const [subForm, setSubForm] = useState({
+        commuter: plan.commuterBool,
+        fitness: false,
+        leisure: false,
+        medical: false,
+
+        email: false,
+        paper: false,
+        name: false,
+    })
+
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
 
@@ -33,6 +44,14 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
         setForm(newFormData)
     }
 
+    function subHandleChange(event) {
+        const newSubFormData = {
+            ...subForm,
+            [event.target.name]: !!event.target.value
+        }
+        setSubForm(newSubFormData)
+    }
+
     async function handleUpdatePlan(event) {
         event.preventDefault()
         const updatedPlan = await plansAAPI.updatePlan(wsurl, id, form)
@@ -43,9 +62,11 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
     async function handleDeletePlan() {
         await plansAAPI.deletePlanA(wsurl, id)
     }
+    
 
     return plan ? (
         <div className="border border-bluetext p-4 m-4 w-full sm:w-96">
+            <p>{plan.commuterBool}</p>
 
             {
                 edit ?
@@ -70,22 +91,48 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
                                 <option value="Millenium">Millenium</option>
                             </select><br />
 
-                            <label>Benefit Categories</label>
-                            <select multiple name="benefitCategories" value={form.benefitCategories} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
-                                <option value="" selected></option>
-                                <option value="commuter">commuter</option>
-                                <option value="fitness">fitness</option>
-                                <option value="leisure">leisure</option>
-                                <option value="medical">medical</option>
-                            </select><br />
+                            <fieldset className="mt-2">
+                                <legend>Benefit Categories</legend>
+                                <div>
+                                    <input type="checkbox" checked="false" id="commuter" name="commuter" value={subForm.commuter} onChange={subHandleChange}
+                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
+                                    <label for="commuter">commuter</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="fitness" name="fitness" 
+                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
+                                    <label for="fitness">fitness</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="leisure" name="leisure" 
+                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
+                                    <label for="leisure">leisure</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="medical" name="medical" 
+                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
+                                    <label for="medical">medical</label>
+                                </div>
+                            </fieldset>
 
-                            <label>Reminders</label>
-                            <select multiple name="reminders" value={form.reminders} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
-                                <option value="" selected></option>
-                                <option value="email">email</option>
-                                <option value="paper">paper</option>
-                                <option value="none">none</option>
-                            </select><br />
+                            <fieldset className="mt-2">
+                                <legend>Reminders</legend>
+                                <div>
+                                    <input type="checkbox" id="email" name="email" 
+                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
+                                    <label for="email">email</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="paper" name="paper" 
+                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
+                                    <label for="paper">paper</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="none" name="none" 
+                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
+                                    <label for="none">none</label>
+                                </div>
+                            </fieldset><br />
 
                         </form>
 

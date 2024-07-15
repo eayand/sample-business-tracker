@@ -54,5 +54,10 @@ planASchema.virtual('fAmount').get(function () {
     } else {return}
 })
 
+//Boolean benefitCategories
+planASchema.virtual('commuterBool').get(function () {
+    return this.benefitCategories.includes('commuter')
+})
+
 
 module.exports = mongoose.model('PlanA', planASchema);
