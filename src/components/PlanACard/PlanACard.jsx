@@ -10,19 +10,19 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
         expert: plan.expert,
         amount: plan.amount,
         system: plan.system,
-        benefitCategories: plan.benefitCategories,
-        reminders: plan.reminders,
     })
 
-    const [subForm, setSubForm] = useState({
+    const [benefitCategoriesForm, setBenefitCategoriesForm] = useState({
         commuter: plan.commuterBool,
-        fitness: false,
-        leisure: false,
-        medical: false,
+        fitness: plan.fitnessBool,
+        leisure: plan.leisureBool,
+        medical: plan.medicalBool,
+    })
 
-        email: false,
-        paper: false,
-        name: false,
+    const [remindersForm, setRemindersForm] = useState({
+        email: plan.emailBool,
+        paper: plan.paperBool,
+        none: plan.noneBool,
     })
 
     const [edit, setEdit] = useState(false)
@@ -44,16 +44,39 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
         setForm(newFormData)
     }
 
-    function subHandleChange(event) {
-        const newSubFormData = {
-            ...subForm,
-            [event.target.name]: !!event.target.value
+    function benefitCategoriesHandleChange(event) {
+        const newBenefitCategoriesFormData = {
+            ...benefitCategoriesForm,
+            [event.target.name]: !benefitCategoriesForm[event.target.name]
         }
-        setSubForm(newSubFormData)
+        setBenefitCategoriesForm(newBenefitCategoriesFormData)
+    }
+
+    function remindersHandleChange(event) {
+        const newRemindersFormData = {
+            ...remindersForm,
+            [event.target.name]: !remindersForm[event.target.name]
+        }
+        setRemindersForm(newRemindersFormData)
     }
 
     async function handleUpdatePlan(event) {
         event.preventDefault()
+        const benefitCategoriesSelected = []
+        const remindersSelected = []
+        for (let key in benefitCategoriesForm) {
+            if (benefitCategoriesForm[key] === true) {
+                benefitCategoriesSelected.push(key)
+            }
+        }
+        for (let key in remindersForm) {
+            if (remindersForm[key] === true) {
+                remindersSelected.push(key)
+            }
+        }
+        console.log(benefitCategoriesSelected, remindersSelected)
+        form.benefitCategories = benefitCategoriesSelected
+        form.reminders = remindersSelected
         const updatedPlan = await plansAAPI.updatePlan(wsurl, id, form)
         updatePlansA(updatedPlan)
         toggleEdit()
@@ -62,7 +85,7 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
     async function handleDeletePlan() {
         await plansAAPI.deletePlanA(wsurl, id)
     }
-    
+
 
     return plan ? (
         <div className="border border-bluetext p-4 m-4 w-full sm:w-96">
@@ -74,7 +97,7 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
                         <form className="big-form">
 
                             <label>Plan Name</label>
-                            <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1"/>
+                            <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1" />
 
                             <label>Expert</label>
                             <select name="expert" value={form.expert} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
@@ -82,11 +105,11 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
                             </select><br />
 
                             <label>Amount</label>
-                            <input type="number" name="amount" value={form.amount} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1"/>
+                            <input type="number" name="amount" value={form.amount} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1" />
 
                             <label>System</label>
                             <select name="system" value={form.system} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
-                                <option value="" selected></option>
+                                <option value=""></option>
                                 <option value="Legacy">Legacy</option>
                                 <option value="Millenium">Millenium</option>
                             </select><br />
@@ -94,43 +117,43 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
                             <fieldset className="mt-2">
                                 <legend>Benefit Categories</legend>
                                 <div>
-                                    <input type="checkbox" checked="false" id="commuter" name="commuter" value={subForm.commuter} onChange={subHandleChange}
-                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
-                                    <label for="commuter">commuter</label>
+                                    <input type="checkbox" id="commuter" name="commuter" value={benefitCategoriesForm.commuter} onChange={benefitCategoriesHandleChange} checked={benefitCategoriesForm.commuter}
+                                        className="ml-6 mr-3 mb-3 h-5 w-5" />
+                                    <label htmlFor="commuter">commuter</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="fitness" name="fitness" 
-                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
-                                    <label for="fitness">fitness</label>
+                                    <input type="checkbox" id="fitness" name="fitness" value={benefitCategoriesForm.fitness} onChange={benefitCategoriesHandleChange} checked={benefitCategoriesForm.fitness}
+                                        className="ml-6 mr-3 mb-3 h-5 w-5" />
+                                    <label htmlFor="fitness">fitness</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="leisure" name="leisure" 
-                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
-                                    <label for="leisure">leisure</label>
+                                    <input type="checkbox" id="leisure" name="leisure" value={benefitCategoriesForm.leisure} onChange={benefitCategoriesHandleChange} checked={benefitCategoriesForm.leisure}
+                                        className="ml-6 mr-3 mb-3 h-5 w-5" />
+                                    <label htmlFor="leisure">leisure</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="medical" name="medical" 
-                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
-                                    <label for="medical">medical</label>
+                                    <input type="checkbox" id="medical" name="medical" value={benefitCategoriesForm.medical} onChange={benefitCategoriesHandleChange} checked={benefitCategoriesForm.medical}
+                                        className="ml-6 mr-3 mb-3 h-5 w-5" />
+                                    <label htmlFor="medical">medical</label>
                                 </div>
                             </fieldset>
 
                             <fieldset className="mt-2">
                                 <legend>Reminders</legend>
                                 <div>
-                                    <input type="checkbox" id="email" name="email" 
-                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
-                                    <label for="email">email</label>
+                                    <input type="checkbox" id="email" name="email" value={true} onChange={remindersHandleChange} checked={remindersForm.email}
+                                        className="ml-6 mr-3 mb-3 h-5 w-5" />
+                                    <label htmlFor="email">email</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="paper" name="paper" 
-                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
-                                    <label for="paper">paper</label>
+                                    <input type="checkbox" id="paper" name="paper" value={true} onChange={remindersHandleChange} checked={remindersForm.paper}
+                                        className="ml-6 mr-3 mb-3 h-5 w-5" />
+                                    <label htmlFor="paper">paper</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="none" name="none" 
-                                    className="ml-6 mr-3 mb-3 h-5 w-5"/>
-                                    <label for="none">none</label>
+                                    <input type="checkbox" id="none" name="none" value={true} onChange={remindersHandleChange} checked={remindersForm.none}
+                                        className="ml-6 mr-3 mb-3 h-5 w-5" />
+                                    <label htmlFor="none">none</label>
                                 </div>
                             </fieldset><br />
 
@@ -173,9 +196,9 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
                             <label className="text-bluetext">System</label>
                             <p className="mb-3 h-8">{plan.system}</p>
                             <label className="text-bluetext">Benefit Categories</label>
-                            <p className="mb-3 h-8">{plan.benefitCategories}</p>
+                            <p className="mb-3 h-8">{plan.benefitCategories.sort().join(', ')}</p>
                             <label className="text-bluetext">Reminders</label>
-                            <p className="mb-3 h-8">{plan.reminders}</p>
+                            <p className="mb-3 h-8">{plan.reminders.sort().join(', ')}</p>
                         </div>
                     </>
             }

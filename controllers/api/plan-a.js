@@ -37,6 +37,7 @@ async function index(req, res) {
 }
 
 async function update(req, res) {
+    console.log('========req.body', req.body)
     const plan = await PlanA.findById(req.params.id)
     try {
         plan.name = req.body.name

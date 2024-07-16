@@ -54,10 +54,34 @@ planASchema.virtual('fAmount').get(function () {
     } else {return}
 })
 
-//Boolean benefitCategories
+//Boolean benefitCategories ////////////////////////////////
 planASchema.virtual('commuterBool').get(function () {
     return this.benefitCategories.includes('commuter')
 })
 
+planASchema.virtual('fitnessBool').get(function () {
+    return this.benefitCategories.includes('fitness')
+})
+
+planASchema.virtual('leisureBool').get(function () {
+    return this.benefitCategories.includes('leisure')
+})
+
+planASchema.virtual('medicalBool').get(function () {
+    return this.benefitCategories.includes('medical')
+})
+
+//Boolean reminders //////////////////////////////////////
+planASchema.virtual('emailBool').get(function () {
+    return this.reminders.includes('email')
+})
+
+planASchema.virtual('paperBool').get(function () {
+    return this.reminders.includes('paper')
+})
+
+planASchema.virtual('noneBool').get(function () {
+    return this.reminders.includes('none')
+})
 
 module.exports = mongoose.model('PlanA', planASchema);
