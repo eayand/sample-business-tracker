@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
 import * as plansAAPI from '../../utilities/plans-A-api'
+import * as usersAPI from '../../utilities/users-api'
 
 export default function PlanACard({ plan, updatePlansA, wsurl }) {
 
     const id = plan._id
+
+    const [availableExperts, setAvailableExperts] = useState([])
 
     const [form, setForm] = useState({
         name: plan.name,
@@ -11,6 +14,10 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
         amount: plan.amount,
         system: plan.system,
     })
+
+    useEffect(function () {
+        (async () => setAvailableExperts(await usersAPI.indexNotThisPlansExpert(wsurl, id)))()
+    }, [plan])
 
     const [benefitCategoriesForm, setBenefitCategoriesForm] = useState({
         commuter: plan.commuterBool,
@@ -86,6 +93,7 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
         await plansAAPI.deletePlanA(wsurl, id)
     }
 
+    const dropdown = availableExperts.map(e => <option value={e._id} key={e._id} className="w-full" >{e.name}</option> )
 
     return plan ? (
         <div className="border border-bluetext p-4 m-4 w-full sm:w-96">
@@ -94,14 +102,16 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
             {
                 edit ?
                     <>
-                        <form className="big-form">
+                        <form>
 
                             <label>Plan Name</label>
                             <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1" />
 
                             <label>Expert</label>
                             <select name="expert" value={form.expert} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
+                            { plan.expert ? <option value={plan.expert._id}>{plan.expert.name}</option> : null}
                                 <option value=""></option>
+                                {dropdown}
                             </select><br />
 
                             <label>Amount</label>
@@ -190,7 +200,7 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
                         <br />
                         <div className="flex-col full-width">
                             <label className="text-bluetext">Expert</label>
-                            <p className="mb-3 h-8">{plan.expert}</p>
+                            <p className="mb-3 h-8">{plan.expert ? plan.expert.name : ""}</p>
                             <label className="text-bluetext">Amount</label>
                             <p className="mb-3 h-8">{plan.fAmount}</p>
                             <label className="text-bluetext">System</label>

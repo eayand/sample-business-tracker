@@ -12,6 +12,7 @@ export default function PlanContainer({ customer, customerId, wsurl }) {
 
     const [form, setForm] = useState({
         customer: customerId,
+        workspace: customer.workspace,
         name: 'unnamed',
     })
 

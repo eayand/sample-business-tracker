@@ -40,3 +40,7 @@ export async function removeWorkspace(workspaceId, userId) {
 export async function indexNotThisCustomersAM(wsurl, id) {
     return sendRequest(`${BASE_URL}/${wsurl}/index-not-this-customers-am/${id}`, 'GET')
 }
+
+export async function indexNotThisPlansExpert(wsurl, id) {
+    return sendRequest(`${BASE_URL}/${wsurl}/index-not-this-plans-expert/${id}`, 'GET')
+}

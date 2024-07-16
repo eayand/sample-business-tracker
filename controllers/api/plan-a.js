@@ -32,22 +32,22 @@ async function createWithUser(customer) {
 }
 
 async function index(req, res) {
-    const plans = await PlanA.find({customer: req.params.customerId })
+    const plans = await PlanA.find({customer: req.params.customerId }).populate('expert')
     res.json(plans)
 }
 
 async function update(req, res) {
-    console.log('========req.body', req.body)
-    const plan = await PlanA.findById(req.params.id)
+    const planA = await PlanA.findById(req.params.id)
     try {
-        plan.name = req.body.name
-        plan.expert = req.body.expert
-        plan.amount = req.body.amount
-        plan.system = req.body.system
-        plan.benefitCategories = req.body.benefitCategories
-        plan.reminders = req.body.reminders
-        await plan.save()
-        res.json(plan)
+        for (const field in req.body) {
+            if (req.body[field] === '') {
+                req.body[field] = null
+            }
+            planA[field] = req.body[field]
+        }
+        await planA.save()
+        await planA.populate('expert')
+        res.json(planA)
     } catch {
         res.status(400).json('Could not update plan.')
     }

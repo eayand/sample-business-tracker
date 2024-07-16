@@ -34,7 +34,12 @@ const planASchema = new Schema({
         type: Schema.Types.ObjectId, 
         ref: 'Customer', 
         required: true,
-    }
+    },
+    workspace: {
+        type: Schema.Types.ObjectId,
+        ref: 'Workspace',
+        required: true,
+    },
 },
 {
     timestamps: true,

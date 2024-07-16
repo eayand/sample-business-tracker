@@ -102,26 +102,13 @@ async function update(req, res) {
             }
             customer[field] = req.body[field]
         }
-        console.log('Req Body AM: ', req.body.accountManager)
-        console.log('Customer AM: ', customer.accountManager)
         await customer.save()
         await customer.populate('accountManager')
-        // console.log(customer)
         res.json(customer)
     } catch {
         res.status(400).json('Could not update customer.')
     }
 }
-// console.log('========', customer[field], '++++', req.body[field])
-// if (req.body.accountManager === '') {
-//     customer.accountManager = null
-//     await customer.save()
-//     res.json(customer)
-// } else {
-//     await customer.save()
-//     await customer.populate('accountManager')
-//     res.json(customer)
-// }
 
 async function associateBroker(req, res) {
     const customer = await Customer.findById(req.params.id)

@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
 const Workspace = require('../../models/workspace')
 const Customer = require('../../models/customer')
+const PlanA = require('../../models/planA')
 const workspaces = require('../../controllers/api/workspaces')
 const brokers = require('../../controllers/api/brokers')
 const customers = require('../../controllers/api/customers')
@@ -17,6 +18,7 @@ module.exports = {
     index,
     indexNotInThisWorkspace,
     indexNotThisCustomersAM,
+    indexNotThisPlansExpert,
     indexAll,
     addWorkspace,
     removeWorkspace
@@ -106,6 +108,16 @@ async function indexNotThisCustomersAM(req, res) {
         res.json(users)
     } catch {
         res.status(400).json('Could not retrieve potential account managers.')
+    }
+}
+
+async function indexNotThisPlansExpert(req, res) {
+    try {
+        const planA = await PlanA.findById(req.params.id)
+        const users = await User.find({workspace: planA.workspace, _id: { $nin: planA.expert } }).sort('lastName')
+        res.json(users)
+    } catch {
+        res.status(400).json('Could not retrieve potential plan experts.')
     }
 }
 
