@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
 import * as plansBAPI from '../../utilities/plans-B-api'
+import * as usersAPI from '../../utilities/users-api'
 
 export default function PlanBCard({ plan, updatePlansB, wsurl }) {
 
     const id = plan._id
+
+    const [availableExperts, setAvailableExperts] = useState([])
 
     const [form, setForm] = useState({
         name: plan.name,
@@ -12,6 +15,10 @@ export default function PlanBCard({ plan, updatePlansB, wsurl }) {
         system: plan.system,
         autoRenew: plan.autoRenew,
     })
+
+    useEffect(function () {
+        (async () => setAvailableExperts(await usersAPI.indexNotThisPlanBsExpert(wsurl, id)))()
+    }, [plan])
 
     const [edit, setEdit] = useState(false)
     const [preDelete, setPreDelete] = useState(false)
@@ -43,20 +50,24 @@ export default function PlanBCard({ plan, updatePlansB, wsurl }) {
         await plansBAPI.deletePlanB(wsurl, id)
     }
 
+    const dropdown = availableExperts.map(e => <option value={e._id} key={e._id} className="w-full" >{e.name}</option>)
+
     return plan ? (
         <div className="border border-bluetext p-4 m-4 w-full sm:w-96">
 
             {
                 edit ?
                     <>
-                        <form className="big-form">
+                        <form>
 
                             <label>Plan Name</label>
-                            <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1"/>
+                            <input name="name" value={form.name} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1" />
 
                             <label>Expert</label>
                             <select name="expert" value={form.expert} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
+                                {plan.expert ? <option value={plan.expert._id}>{plan.expert.name}</option> : null}
                                 <option value=""></option>
+                                {dropdown}
                             </select><br />
 
                             <label>Amount</label>
@@ -114,7 +125,7 @@ export default function PlanBCard({ plan, updatePlansB, wsurl }) {
                         <br />
                         <div className="flex-col full-width">
                             <label className="text-bluetext">Expert</label>
-                            <p className="mb-3 h-8">{plan.expert}</p>
+                            <p className="mb-3 h-8">{plan.expert ? plan.expert.name : ""}</p>
                             <label className="text-bluetext">Amount</label>
                             <p className="mb-3 h-8">{plan.fAmount}</p>
                             <label className="text-bluetext">System</label>

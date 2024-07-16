@@ -41,6 +41,10 @@ export async function indexNotThisCustomersAM(wsurl, id) {
     return sendRequest(`${BASE_URL}/${wsurl}/index-not-this-customers-am/${id}`, 'GET')
 }
 
-export async function indexNotThisPlansExpert(wsurl, id) {
-    return sendRequest(`${BASE_URL}/${wsurl}/index-not-this-plans-expert/${id}`, 'GET')
+export async function indexNotThisPlanAsExpert(wsurl, id) {
+    return sendRequest(`${BASE_URL}/${wsurl}/index-not-this-plan-as-expert/${id}`, 'GET')
+}
+
+export async function indexNotThisPlanBsExpert(wsurl, id) {
+    return sendRequest(`${BASE_URL}/${wsurl}/index-not-this-plan-bs-expert/${id}`, 'GET')
 }

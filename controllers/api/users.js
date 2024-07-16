@@ -3,6 +3,7 @@ const User = require('../../models/user')
 const Workspace = require('../../models/workspace')
 const Customer = require('../../models/customer')
 const PlanA = require('../../models/planA')
+const PlanB = require('../../models/planB')
 const workspaces = require('../../controllers/api/workspaces')
 const brokers = require('../../controllers/api/brokers')
 const customers = require('../../controllers/api/customers')
@@ -18,7 +19,8 @@ module.exports = {
     index,
     indexNotInThisWorkspace,
     indexNotThisCustomersAM,
-    indexNotThisPlansExpert,
+    indexNotThisPlanAsExpert,
+    indexNotThisPlanBsExpert,
     indexAll,
     addWorkspace,
     removeWorkspace
@@ -111,10 +113,20 @@ async function indexNotThisCustomersAM(req, res) {
     }
 }
 
-async function indexNotThisPlansExpert(req, res) {
+async function indexNotThisPlanAsExpert(req, res) {
     try {
         const planA = await PlanA.findById(req.params.id)
         const users = await User.find({workspace: planA.workspace, _id: { $nin: planA.expert } }).sort('lastName')
+        res.json(users)
+    } catch {
+        res.status(400).json('Could not retrieve potential plan experts.')
+    }
+}
+
+async function indexNotThisPlanBsExpert(req, res) {
+    try {
+        const planB = await PlanB.findById(req.params.id)
+        const users = await User.find({workspace: planB.workspace, _id: { $nin: planB.expert } }).sort('lastName')
         res.json(users)
     } catch {
         res.status(400).json('Could not retrieve potential plan experts.')

@@ -11,7 +11,8 @@ router.get('/admin-page', usersCtrl.indexAll)
 router.get('/:workspace', usersCtrl.index)
 router.get('/index-not-in-this-workspace/:workspace', usersCtrl.indexNotInThisWorkspace)
 router.get('/:wsurl/index-not-this-customers-am/:id', ensureLoggedIn, usersCtrl.indexNotThisCustomersAM)
-router.get('/:wsurl/index-not-this-plans-expert/:id', ensureLoggedIn, usersCtrl.indexNotThisPlansExpert)
+router.get('/:wsurl/index-not-this-plan-as-expert/:id', ensureLoggedIn, usersCtrl.indexNotThisPlanAsExpert)
+router.get('/:wsurl/index-not-this-plan-bs-expert/:id', ensureLoggedIn, usersCtrl.indexNotThisPlanBsExpert)
 
 // POST /api/users
 router.post('/', usersCtrl.create)

@@ -16,7 +16,7 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
     })
 
     useEffect(function () {
-        (async () => setAvailableExperts(await usersAPI.indexNotThisPlansExpert(wsurl, id)))()
+        (async () => setAvailableExperts(await usersAPI.indexNotThisPlanAsExpert(wsurl, id)))()
     }, [plan])
 
     const [benefitCategoriesForm, setBenefitCategoriesForm] = useState({
@@ -93,11 +93,10 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
         await plansAAPI.deletePlanA(wsurl, id)
     }
 
-    const dropdown = availableExperts.map(e => <option value={e._id} key={e._id} className="w-full" >{e.name}</option> )
+    const dropdown = availableExperts.map(e => <option value={e._id} key={e._id} className="w-full" >{e.name}</option>)
 
     return plan ? (
         <div className="border border-bluetext p-4 m-4 w-full sm:w-96">
-            <p>{plan.commuterBool}</p>
 
             {
                 edit ?
@@ -109,7 +108,7 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
 
                             <label>Expert</label>
                             <select name="expert" value={form.expert} onChange={handleChange} className="mx-5 my-2 w-80 border border-theme px-2 py-1">
-                            { plan.expert ? <option value={plan.expert._id}>{plan.expert.name}</option> : null}
+                                {plan.expert ? <option value={plan.expert._id}>{plan.expert.name}</option> : null}
                                 <option value=""></option>
                                 {dropdown}
                             </select><br />
