@@ -7,11 +7,13 @@ export default function CustomerCardContainer({ broker, id, wsurl }) {
 
     const [customers, setCustomers] = useState([])
 
-    useEffect(function() {
-        (async () => setCustomers(await brokersAPI.getAssocCustomers(wsurl, id)))();
-    }, [])
+    useEffect(getCustomers, [])
+
+    function getCustomers() {
+        (async () => setCustomers(await brokersAPI.getAssocCustomers(wsurl, id)))()
+    }
     
-    const customerCards = customers.map((customer) => <CustomerCard customer={customer} key={customer._id} id={id} wsurl={wsurl} /> )
+    const customerCards = customers.map((customer) => <CustomerCard customer={customer} key={customer._id} id={id} wsurl={wsurl} getCustomers={getCustomers}/> )
 
     return (
 

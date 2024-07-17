@@ -32,7 +32,7 @@ async function createWithUser(customer) {
 }
 
 async function index(req, res) {
-    const plans = await PlanA.find({customer: req.params.customerId }).populate('expert')
+    const plans = await PlanA.find({customer: req.params.customerId }).populate('expert', 'firstName lastName')
     res.json(plans)
 }
 
@@ -46,7 +46,7 @@ async function update(req, res) {
             planA[field] = req.body[field]
         }
         await planA.save()
-        await planA.populate('expert')
+        await planA.populate('expert', 'firstName lastName')
         res.json(planA)
     } catch {
         res.status(400).json('Could not update plan.')

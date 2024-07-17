@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import * as customersAPI from '../../utilities/customers-api'
 
 export default function CustomerSelect({wsurl, broker, id, customers, setCustomers}) {
+
     const [availableCustomers, setAvailableCustomers] = useState([])
+
     const [form, setForm] = useState({
         customer: undefined,
     })
 
-
     useEffect(function() {
         (async () => setAvailableCustomers(await customersAPI.notAssocCustomers(wsurl, id)))();
-    }, [])
+    }, [customers])
 
     function handleChange(event) {
         const newFormData = {

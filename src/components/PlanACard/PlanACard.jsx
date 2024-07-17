@@ -81,7 +81,6 @@ export default function PlanACard({ plan, updatePlansA, wsurl }) {
                 remindersSelected.push(key)
             }
         }
-        console.log(benefitCategoriesSelected, remindersSelected)
         form.benefitCategories = benefitCategoriesSelected
         form.reminders = remindersSelected
         const updatedPlan = await plansAAPI.updatePlan(wsurl, id, form)

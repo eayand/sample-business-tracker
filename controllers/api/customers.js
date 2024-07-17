@@ -56,9 +56,8 @@ async function index(req, res) {
         const skip = (page - 1) * ITEMS_PER_PAGE
         const total = await Customer.find(query)
         const count = total.length
-        const customers = await Customer.find(query).sort('name').skip(skip).limit(ITEMS_PER_PAGE).populate('accountManager')
+        const customers = await Customer.find(query).sort('name').skip(skip).limit(ITEMS_PER_PAGE).populate('accountManager', 'firstName lastName')
         const pageCount = Math.ceil(count / ITEMS_PER_PAGE)
-        console.log('=======================CUSTOMERS', customers)
         res.json({
             pagination: {
                 count,
@@ -75,7 +74,7 @@ async function index(req, res) {
 
 async function show(req, res) {
     try {
-        const customer = await Customer.findById(req.params.id).populate('broker').populate('accountManager')
+        const customer = await Customer.findById(req.params.id).populate('broker').populate('accountManager', 'firstName lastName')
         res.json(customer)
     } catch {
         res.status(400).json('Could not retrieve customer.')
@@ -103,7 +102,7 @@ async function update(req, res) {
             customer[field] = req.body[field]
         }
         await customer.save()
-        await customer.populate('accountManager')
+        await customer.populate('accountManager', 'firstName lastName')
         res.json(customer)
     } catch {
         res.status(400).json('Could not update customer.')
@@ -153,7 +152,7 @@ async function removeFromBroker(req, res) {
     try {
         customer.broker.splice(brokerRef, 1)
         await customer.save()
-        res.json(customer)
+        res.json('Removed')
     } catch {
         res.status(400).json('Could not remove customer from broker.')
     }
