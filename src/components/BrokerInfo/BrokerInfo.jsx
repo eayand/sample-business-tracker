@@ -23,15 +23,20 @@ export default function BrokerInfo({ wsurl, broker, id, setBroker }) {
             ...form,
             [event.target.name]: event.target.value
         }
-        if (newFormData.phone.match(/^\d{10}$/)) {
+        if (newFormData.phone) {
+            validatePhone(newFormData.phone)
+        }
+        setForm(newFormData)
+    }
+
+    function validatePhone(newPhone) {
+        if (newPhone.match(/^\d{10}$/)) {
             setPhoneInvalid(false)
-        } else if (newFormData.phone === '') {
-            newFormData.phone = null
+        } else if (newPhone === '') {
             setPhoneInvalid(false)
         } else {
             setPhoneInvalid(true)
         }
-        setForm(newFormData)
     }
 
     async function handleUpdateBroker(event) {
