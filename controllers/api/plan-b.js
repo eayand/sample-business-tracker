@@ -18,13 +18,14 @@ async function create(req, res) {
     }
 }
 
-async function createWithUser(customer) {
+async function createWithUser(customer, workspace) {
     const data = {
         name: 'HFSA (example plan)',
         amount: 550,
         system: 'Legacy',
         autoRenew: true,
         customer: customer,
+        workspace: workspace,
     }
     const planB = await PlanB.create(data)
     return planB

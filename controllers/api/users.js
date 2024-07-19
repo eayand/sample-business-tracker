@@ -40,9 +40,9 @@ async function create(req, res) {
         customer.broker.push(broker)
         await customer.save()
 
-        const planA = await planAs.createWithUser(customer)
+        const planA = await planAs.createWithUser(customer, workspace)
 
-        const planB = await planBs.createWithUser(customer)
+        const planB = await planBs.createWithUser(customer, workspace)
 
         const token = createJWT(user)
         res.json(token)

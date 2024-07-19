@@ -18,7 +18,7 @@ async function create(req, res) {
     }
 }
 
-async function createWithUser(customer) {
+async function createWithUser(customer, workspace) {
     const data = {
         name: 'Kaiser HMO (example plan)',
         amount: 3000,
@@ -26,6 +26,7 @@ async function createWithUser(customer) {
         benefitCategories: ['medical'],
         reminders: ['email', 'paper'],
         customer: customer,
+        workspace: workspace,
     }
     const planA = await PlanA.create(data)
     return planA
