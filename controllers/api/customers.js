@@ -135,11 +135,13 @@ async function associateWithBroker(req, res) {
 }
 
 async function removeBroker(req, res) {
-    const customer = await Customer.findById(req.params.id).populate('broker')
-    const brokerRef = customer.broker.indexOf(req.body._id)
+    const customer = await Customer.findById(req.params.id)
+    const broker = await Broker.findById(req.body._id)
+    const brokerRef = customer.broker.indexOf(broker._id)
     try {
         customer.broker.splice(brokerRef, 1)
         await customer.save()
+        await customer.populate('broker')
         res.json(customer)
     } catch {
         res.status(400).json('Could not remove broker from customer.')
