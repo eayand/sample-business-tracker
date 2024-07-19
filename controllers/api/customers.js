@@ -110,7 +110,7 @@ async function update(req, res) {
 }
 
 async function associateBroker(req, res) {
-    const customer = await Customer.findById(req.params.id)
+    const customer = await Customer.findById(req.params.id).populate('accountManager', 'firstName lastName')
     const broker = await Broker.findById(req.body.broker)
     try {
         customer.broker.push(broker)
@@ -127,6 +127,7 @@ async function associateWithBroker(req, res) {
     const broker = await Broker.findById(req.params.id)
     try {
         customer.broker.push(broker)
+        await customer
         await customer.save()
         res.json(customer)
     } catch {
@@ -135,7 +136,7 @@ async function associateWithBroker(req, res) {
 }
 
 async function removeBroker(req, res) {
-    const customer = await Customer.findById(req.params.id)
+    const customer = await Customer.findById(req.params.id).populate('accountManager', 'firstName lastName')
     const broker = await Broker.findById(req.body._id)
     const brokerRef = customer.broker.indexOf(broker._id)
     try {
